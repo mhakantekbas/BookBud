@@ -1,8 +1,12 @@
 // To parse this JSON data, do
 //
-//     final bookModel = bookModelFromMap(jsonString);
+//     final bookModel = bookModelFromJson(jsonString);
 
 import 'dart:convert';
+
+BookModel bookModelFromJson(String str) => BookModel.fromJson(json.decode(str));
+
+String bookModelToJson(BookModel data) => json.encode(data.toJson());
 
 class BookModel {
   BookModel({
@@ -13,42 +17,40 @@ class BookModel {
     this.volumeInfo,
     this.saleInfo,
     this.accessInfo,
-    this.searchInfo,
   });
 
-  final String? kind;
-  final String? id;
-  final String? etag;
-  final String? selfLink;
-  final VolumeInfo? volumeInfo;
-  final SaleInfo? saleInfo;
-  final AccessInfo? accessInfo;
-  final SearchInfo? searchInfo;
+  String? kind;
+  String? id;
+  String? etag;
+  String? selfLink;
+  VolumeInfo? volumeInfo;
+  SaleInfo? saleInfo;
+  AccessInfo? accessInfo;
 
-  factory BookModel.fromJson(String str) => BookModel.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory BookModel.fromMap(Map<String, dynamic> json) => BookModel(
-        kind: json["kind"],
-        id: json["id"],
-        etag: json["etag"],
-        selfLink: json["selfLink"],
-        volumeInfo: VolumeInfo.fromMap(json["volumeInfo"]),
-        saleInfo: SaleInfo.fromMap(json["saleInfo"]),
-        accessInfo: AccessInfo.fromMap(json["accessInfo"]),
-        searchInfo: SearchInfo.fromMap(json["searchInfo"]),
+  factory BookModel.fromJson(Map<String, dynamic> json) => BookModel(
+        kind: json["kind"] == null ? null : json["kind"],
+        id: json["id"] == null ? null : json["id"],
+        etag: json["etag"] == null ? null : json["etag"],
+        selfLink: json["selfLink"] == null ? null : json["selfLink"],
+        volumeInfo: json["volumeInfo"] == null
+            ? null
+            : VolumeInfo.fromJson(json["volumeInfo"]),
+        saleInfo: json["saleInfo"] == null
+            ? null
+            : SaleInfo.fromJson(json["saleInfo"]),
+        accessInfo: json["accessInfo"] == null
+            ? null
+            : AccessInfo.fromJson(json["accessInfo"]),
       );
 
-  Map<String, dynamic> toMap() => {
-        "kind": kind,
-        "id": id,
-        "etag": etag,
-        "selfLink": selfLink,
-        "volumeInfo": volumeInfo?.toMap(),
-        "saleInfo": saleInfo?.toMap(),
-        "accessInfo": accessInfo?.toMap(),
-        "searchInfo": searchInfo?.toMap(),
+  Map<String, dynamic> toJson() => {
+        "kind": kind == null ? null : kind,
+        "id": id == null ? null : id,
+        "etag": etag == null ? null : etag,
+        "selfLink": selfLink == null ? null : selfLink,
+        "volumeInfo": volumeInfo == null ? null : volumeInfo!.toJson(),
+        "saleInfo": saleInfo == null ? null : saleInfo!.toJson(),
+        "accessInfo": accessInfo == null ? null : accessInfo!.toJson(),
       };
 }
 
@@ -66,46 +68,50 @@ class AccessInfo {
     this.quoteSharingAllowed,
   });
 
-  final String? country;
-  final String? viewability;
-  final bool? embeddable;
-  final bool? publicDomain;
-  final String? textToSpeechPermission;
-  final Epub? epub;
-  final Epub? pdf;
-  final String? webReaderLink;
-  final String? accessViewStatus;
-  final bool? quoteSharingAllowed;
+  String? country;
+  String? viewability;
+  bool? embeddable;
+  bool? publicDomain;
+  String? textToSpeechPermission;
+  Epub? epub;
+  Epub? pdf;
+  String? webReaderLink;
+  String? accessViewStatus;
+  bool? quoteSharingAllowed;
 
-  factory AccessInfo.fromJson(String str) =>
-      AccessInfo.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory AccessInfo.fromMap(Map<String, dynamic> json) => AccessInfo(
-        country: json["country"],
-        viewability: json["viewability"],
-        embeddable: json["embeddable"],
-        publicDomain: json["publicDomain"],
-        textToSpeechPermission: json["textToSpeechPermission"],
-        epub: Epub.fromMap(json["epub"]),
-        pdf: Epub.fromMap(json["pdf"]),
-        webReaderLink: json["webReaderLink"],
-        accessViewStatus: json["accessViewStatus"],
-        quoteSharingAllowed: json["quoteSharingAllowed"],
+  factory AccessInfo.fromJson(Map<String, dynamic> json) => AccessInfo(
+        country: json["country"] == null ? null : json["country"],
+        viewability: json["viewability"] == null ? null : json["viewability"],
+        embeddable: json["embeddable"] == null ? null : json["embeddable"],
+        publicDomain:
+            json["publicDomain"] == null ? null : json["publicDomain"],
+        textToSpeechPermission: json["textToSpeechPermission"] == null
+            ? null
+            : json["textToSpeechPermission"],
+        epub: json["epub"] == null ? null : Epub.fromJson(json["epub"]),
+        pdf: json["pdf"] == null ? null : Epub.fromJson(json["pdf"]),
+        webReaderLink:
+            json["webReaderLink"] == null ? null : json["webReaderLink"],
+        accessViewStatus:
+            json["accessViewStatus"] == null ? null : json["accessViewStatus"],
+        quoteSharingAllowed: json["quoteSharingAllowed"] == null
+            ? null
+            : json["quoteSharingAllowed"],
       );
 
-  Map<String, dynamic> toMap() => {
-        "country": country,
-        "viewability": viewability,
-        "embeddable": embeddable,
-        "publicDomain": publicDomain,
-        "textToSpeechPermission": textToSpeechPermission,
-        "epub": epub?.toMap(),
-        "pdf": pdf?.toMap(),
-        "webReaderLink": webReaderLink,
-        "accessViewStatus": accessViewStatus,
-        "quoteSharingAllowed": quoteSharingAllowed,
+  Map<String, dynamic> toJson() => {
+        "country": country == null ? null : country,
+        "viewability": viewability == null ? null : viewability,
+        "embeddable": embeddable == null ? null : embeddable,
+        "publicDomain": publicDomain == null ? null : publicDomain,
+        "textToSpeechPermission":
+            textToSpeechPermission == null ? null : textToSpeechPermission,
+        "epub": epub == null ? null : epub!.toJson(),
+        "pdf": pdf == null ? null : pdf!.toJson(),
+        "webReaderLink": webReaderLink == null ? null : webReaderLink,
+        "accessViewStatus": accessViewStatus == null ? null : accessViewStatus,
+        "quoteSharingAllowed":
+            quoteSharingAllowed == null ? null : quoteSharingAllowed,
       };
 }
 
@@ -114,18 +120,14 @@ class Epub {
     this.isAvailable,
   });
 
-  final bool? isAvailable;
+  bool? isAvailable;
 
-  factory Epub.fromJson(String str) => Epub.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory Epub.fromMap(Map<String, dynamic> json) => Epub(
-        isAvailable: json["isAvailable"],
+  factory Epub.fromJson(Map<String, dynamic> json) => Epub(
+        isAvailable: json["isAvailable"] == null ? null : json["isAvailable"],
       );
 
-  Map<String, dynamic> toMap() => {
-        "isAvailable": isAvailable,
+  Map<String, dynamic> toJson() => {
+        "isAvailable": isAvailable == null ? null : isAvailable,
       };
 }
 
@@ -136,52 +138,29 @@ class SaleInfo {
     this.isEbook,
   });
 
-  final String? country;
-  final String? saleability;
-  final bool? isEbook;
+  String? country;
+  String? saleability;
+  bool? isEbook;
 
-  factory SaleInfo.fromJson(String str) => SaleInfo.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory SaleInfo.fromMap(Map<String, dynamic> json) => SaleInfo(
-        country: json["country"],
-        saleability: json["saleability"],
-        isEbook: json["isEbook"],
+  factory SaleInfo.fromJson(Map<String, dynamic> json) => SaleInfo(
+        country: json["country"] == null ? null : json["country"],
+        saleability: json["saleability"] == null ? null : json["saleability"],
+        isEbook: json["isEbook"] == null ? null : json["isEbook"],
       );
 
-  Map<String, dynamic> toMap() => {
-        "country": country,
-        "saleability": saleability,
-        "isEbook": isEbook,
-      };
-}
-
-class SearchInfo {
-  SearchInfo({
-    this.textSnippet,
-  });
-
-  final String? textSnippet;
-
-  factory SearchInfo.fromJson(String str) =>
-      SearchInfo.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory SearchInfo.fromMap(Map<String, dynamic> json) => SearchInfo(
-        textSnippet: json["textSnippet"],
-      );
-
-  Map<String, dynamic> toMap() => {
-        "textSnippet": textSnippet,
+  Map<String, dynamic> toJson() => {
+        "country": country == null ? null : country,
+        "saleability": saleability == null ? null : saleability,
+        "isEbook": isEbook == null ? null : isEbook,
       };
 }
 
 class VolumeInfo {
   VolumeInfo({
     this.title,
+    this.subtitle,
     this.authors,
+    this.publisher,
     this.publishedDate,
     this.description,
     this.industryIdentifiers,
@@ -189,6 +168,8 @@ class VolumeInfo {
     this.pageCount,
     this.printType,
     this.categories,
+    this.averageRating,
+    this.ratingsCount,
     this.maturityRating,
     this.allowAnonLogging,
     this.contentVersion,
@@ -200,74 +181,108 @@ class VolumeInfo {
     this.canonicalVolumeLink,
   });
 
-  final String? title;
-  final List<String>? authors;
-  final String? publishedDate;
-  final String? description;
-  final List<IndustryIdentifier>? industryIdentifiers;
-  final ReadingModes? readingModes;
-  final int? pageCount;
-  final String? printType;
-  final List<String>? categories;
-  final String? maturityRating;
-  final bool? allowAnonLogging;
-  final String? contentVersion;
-  final PanelizationSummary? panelizationSummary;
-  final ImageLinks? imageLinks;
-  final String? language;
-  final String? previewLink;
-  final String? infoLink;
-  final String? canonicalVolumeLink;
+  String? title;
+  String? subtitle;
+  List<String>? authors;
+  String? publisher;
+  DateTime? publishedDate;
+  String? description;
+  List<IndustryIdentifier>? industryIdentifiers;
+  ReadingModes? readingModes;
+  int? pageCount;
+  String? printType;
+  List<String>? categories;
+  int? averageRating;
+  int? ratingsCount;
+  String? maturityRating;
+  bool? allowAnonLogging;
+  String? contentVersion;
+  PanelizationSummary? panelizationSummary;
+  ImageLinks? imageLinks;
+  String? language;
+  String? previewLink;
+  String? infoLink;
+  String? canonicalVolumeLink;
 
-  factory VolumeInfo.fromJson(String str) =>
-      VolumeInfo.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory VolumeInfo.fromMap(Map<String, dynamic> json) => VolumeInfo(
-        title: json["title"],
-        authors: List<String>.from(json["authors"].map((x) => x)),
-        publishedDate: json["publishedDate"],
-        description: json["description"],
-        industryIdentifiers: List<IndustryIdentifier>.from(
-            json["industryIdentifiers"]
-                .map((x) => IndustryIdentifier.fromMap(x))),
-        readingModes: ReadingModes.fromMap(json["readingModes"]),
-        pageCount: json["pageCount"],
-        printType: json["printType"],
-        categories: List<String>.from(json["categories"].map((x) => x)),
-        maturityRating: json["maturityRating"],
-        allowAnonLogging: json["allowAnonLogging"],
-        contentVersion: json["contentVersion"],
-        panelizationSummary:
-            PanelizationSummary.fromMap(json["panelizationSummary"]),
-        imageLinks: ImageLinks.fromMap(json["imageLinks"]),
-        language: json["language"],
-        previewLink: json["previewLink"],
-        infoLink: json["infoLink"],
-        canonicalVolumeLink: json["canonicalVolumeLink"],
+  factory VolumeInfo.fromJson(Map<String, dynamic> json) => VolumeInfo(
+        title: json["title"] == null ? null : json["title"],
+        subtitle: json["subtitle"] == null ? null : json["subtitle"],
+        authors: json["authors"] == null
+            ? null
+            : List<String>.from(json["authors"].map((x) => x)),
+        publisher: json["publisher"] == null ? null : json["publisher"],
+        publishedDate: json["publishedDate"] == null
+            ? null
+            : DateTime.parse(json["publishedDate"]),
+        description: json["description"] == null ? null : json["description"],
+        industryIdentifiers: json["industryIdentifiers"] == null
+            ? null
+            : List<IndustryIdentifier>.from(json["industryIdentifiers"]
+                .map((x) => IndustryIdentifier.fromJson(x))),
+        readingModes: json["readingModes"] == null
+            ? null
+            : ReadingModes.fromJson(json["readingModes"]),
+        pageCount: json["pageCount"] == null ? null : json["pageCount"],
+        printType: json["printType"] == null ? null : json["printType"],
+        categories: json["categories"] == null
+            ? null
+            : List<String>.from(json["categories"].map((x) => x)),
+        averageRating:
+            json["averageRating"] == null ? null : json["averageRating"],
+        ratingsCount:
+            json["ratingsCount"] == null ? null : json["ratingsCount"],
+        maturityRating:
+            json["maturityRating"] == null ? null : json["maturityRating"],
+        allowAnonLogging:
+            json["allowAnonLogging"] == null ? null : json["allowAnonLogging"],
+        contentVersion:
+            json["contentVersion"] == null ? null : json["contentVersion"],
+        panelizationSummary: json["panelizationSummary"] == null
+            ? null
+            : PanelizationSummary.fromJson(json["panelizationSummary"]),
+        imageLinks: json["imageLinks"] == null
+            ? null
+            : ImageLinks.fromJson(json["imageLinks"]),
+        language: json["language"] == null ? null : json["language"],
+        previewLink: json["previewLink"] == null ? null : json["previewLink"],
+        infoLink: json["infoLink"] == null ? null : json["infoLink"],
+        canonicalVolumeLink: json["canonicalVolumeLink"] == null
+            ? null
+            : json["canonicalVolumeLink"],
       );
 
-  Map<String, dynamic> toMap() => {
-        "title": title,
-        "authors": List<dynamic>.from(authors!.map((x) => x)),
-        "publishedDate": publishedDate,
-        "description": description,
-        "industryIdentifiers":
-            List<dynamic>.from(industryIdentifiers!.map((x) => x.toMap())),
-        "readingModes": readingModes!.toMap(),
-        "pageCount": pageCount,
-        "printType": printType,
-        "categories": List<dynamic>.from(categories!.map((x) => x)),
-        "maturityRating": maturityRating,
-        "allowAnonLogging": allowAnonLogging,
-        "contentVersion": contentVersion,
-        "panelizationSummary": panelizationSummary!.toMap(),
-        "imageLinks": imageLinks!.toMap(),
-        "language": language,
-        "previewLink": previewLink,
-        "infoLink": infoLink,
-        "canonicalVolumeLink": canonicalVolumeLink,
+  Map<String, dynamic> toJson() => {
+        "title": title == null ? null : title,
+        "subtitle": subtitle == null ? null : subtitle,
+        "authors":
+            authors == null ? null : List<dynamic>.from(authors!.map((x) => x)),
+        "publisher": publisher == null ? null : publisher,
+        "publishedDate": publishedDate == null
+            ? null
+            : "${publishedDate!.year.toString().padLeft(4, '0')}-${publishedDate!.month.toString().padLeft(2, '0')}-${publishedDate!.day.toString().padLeft(2, '0')}",
+        "description": description == null ? null : description,
+        "industryIdentifiers": industryIdentifiers == null
+            ? null
+            : List<dynamic>.from(industryIdentifiers!.map((x) => x.toJson())),
+        "readingModes": readingModes == null ? null : readingModes!.toJson(),
+        "pageCount": pageCount == null ? null : pageCount,
+        "printType": printType == null ? null : printType,
+        "categories": categories == null
+            ? null
+            : List<dynamic>.from(categories!.map((x) => x)),
+        "averageRating": averageRating == null ? null : averageRating,
+        "ratingsCount": ratingsCount == null ? null : ratingsCount,
+        "maturityRating": maturityRating == null ? null : maturityRating,
+        "allowAnonLogging": allowAnonLogging == null ? null : allowAnonLogging,
+        "contentVersion": contentVersion == null ? null : contentVersion,
+        "panelizationSummary":
+            panelizationSummary == null ? null : panelizationSummary!.toJson(),
+        "imageLinks": imageLinks == null ? null : imageLinks!.toJson(),
+        "language": language == null ? null : language,
+        "previewLink": previewLink == null ? null : previewLink,
+        "infoLink": infoLink == null ? null : infoLink,
+        "canonicalVolumeLink":
+            canonicalVolumeLink == null ? null : canonicalVolumeLink,
       };
 }
 
@@ -277,22 +292,18 @@ class ImageLinks {
     this.thumbnail,
   });
 
-  final String? smallThumbnail;
-  final String? thumbnail;
+  String? smallThumbnail;
+  String? thumbnail;
 
-  factory ImageLinks.fromJson(String str) =>
-      ImageLinks.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory ImageLinks.fromMap(Map<String, dynamic> json) => ImageLinks(
-        smallThumbnail: json["smallThumbnail"],
-        thumbnail: json["thumbnail"],
+  factory ImageLinks.fromJson(Map<String, dynamic> json) => ImageLinks(
+        smallThumbnail:
+            json["smallThumbnail"] == null ? null : json["smallThumbnail"],
+        thumbnail: json["thumbnail"] == null ? null : json["thumbnail"],
       );
 
-  Map<String, dynamic> toMap() => {
-        "smallThumbnail": smallThumbnail,
-        "thumbnail": thumbnail,
+  Map<String, dynamic> toJson() => {
+        "smallThumbnail": smallThumbnail == null ? null : smallThumbnail,
+        "thumbnail": thumbnail == null ? null : thumbnail,
       };
 }
 
@@ -302,23 +313,18 @@ class IndustryIdentifier {
     this.identifier,
   });
 
-  final String? type;
-  final String? identifier;
+  String? type;
+  String? identifier;
 
-  factory IndustryIdentifier.fromJson(String str) =>
-      IndustryIdentifier.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory IndustryIdentifier.fromMap(Map<String, dynamic> json) =>
+  factory IndustryIdentifier.fromJson(Map<String, dynamic> json) =>
       IndustryIdentifier(
-        type: json["type"],
-        identifier: json["identifier"],
+        type: json["type"] == null ? null : json["type"],
+        identifier: json["identifier"] == null ? null : json["identifier"],
       );
 
-  Map<String, dynamic> toMap() => {
-        "type": type,
-        "identifier": identifier,
+  Map<String, dynamic> toJson() => {
+        "type": type == null ? null : type,
+        "identifier": identifier == null ? null : identifier,
       };
 }
 
@@ -328,23 +334,24 @@ class PanelizationSummary {
     this.containsImageBubbles,
   });
 
-  final bool? containsEpubBubbles;
-  final bool? containsImageBubbles;
+  bool? containsEpubBubbles;
+  bool? containsImageBubbles;
 
-  factory PanelizationSummary.fromJson(String str) =>
-      PanelizationSummary.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory PanelizationSummary.fromMap(Map<String, dynamic> json) =>
+  factory PanelizationSummary.fromJson(Map<String, dynamic> json) =>
       PanelizationSummary(
-        containsEpubBubbles: json["containsEpubBubbles"],
-        containsImageBubbles: json["containsImageBubbles"],
+        containsEpubBubbles: json["containsEpubBubbles"] == null
+            ? null
+            : json["containsEpubBubbles"],
+        containsImageBubbles: json["containsImageBubbles"] == null
+            ? null
+            : json["containsImageBubbles"],
       );
 
-  Map<String, dynamic> toMap() => {
-        "containsEpubBubbles": containsEpubBubbles,
-        "containsImageBubbles": containsImageBubbles,
+  Map<String, dynamic> toJson() => {
+        "containsEpubBubbles":
+            containsEpubBubbles == null ? null : containsEpubBubbles,
+        "containsImageBubbles":
+            containsImageBubbles == null ? null : containsImageBubbles,
       };
 }
 
@@ -354,21 +361,16 @@ class ReadingModes {
     this.image,
   });
 
-  final bool? text;
-  final bool? image;
+  bool? text;
+  bool? image;
 
-  factory ReadingModes.fromJson(String str) =>
-      ReadingModes.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory ReadingModes.fromMap(Map<String, dynamic> json) => ReadingModes(
-        text: json["text"],
-        image: json["image"],
+  factory ReadingModes.fromJson(Map<String, dynamic> json) => ReadingModes(
+        text: json["text"] == null ? null : json["text"],
+        image: json["image"] == null ? null : json["image"],
       );
 
-  Map<String, dynamic> toMap() => {
-        "text": text,
-        "image": image,
+  Map<String, dynamic> toJson() => {
+        "text": text == null ? null : text,
+        "image": image == null ? null : image,
       };
 }

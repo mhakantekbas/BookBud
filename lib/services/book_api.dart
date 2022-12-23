@@ -7,11 +7,11 @@ class BookApi {
   static const String _url =
       'https://www.googleapis.com/books/v1/volumes?q=subject:thriller&download=epub&orderBy=newest&key=AIzaSyAqxw3nnCxwNQXRmXb-ZFi8FTNyhz6kwGA';
 
-  static Future<List<BookModel>> getPokemonData() async {
+  static Future<List<BookModel>> getBookData() async {
     List<BookModel> list = [];
 
     var result = await Dio().get(_url);
-    var bookList = jsonDecode(result.data)['items'];
+    var bookList = jsonDecode(result.data);
 
     if (bookList is List) {
       list = bookList.map((e) => BookModel.fromJson(e)).toList();

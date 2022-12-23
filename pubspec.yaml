@@ -38,6 +38,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   dio: ^4.0.6
   screen_utils: ^0.0.1
+  googleapis: ^9.2.0
+  settings_ui: ^2.0.2
 
 dev_dependencies:
   flutter_test:

@@ -17,7 +17,7 @@ class _BookListState extends State<BookList> {
     // ignore: todo
     // TODO: implement initState
     super.initState();
-    _bookListFuture = BookApi.getPokemonData();
+    _bookListFuture = BookApi.getBookData();
   }
 
   @override
@@ -31,7 +31,8 @@ class _BookListState extends State<BookList> {
               itemCount: myList.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3),
-              itemBuilder: (context, index) => Text(myList[index].toString()));
+              itemBuilder: (context, index) =>
+                  Text(myList[index].volumeInfo?.title ?? ''));
         } else if (snapshot.hasError) {
           return Center(
             child: Text("${snapshot.error}"),

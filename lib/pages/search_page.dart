@@ -4,6 +4,7 @@ import 'package:term_project/widgets/bookList.dart';
 import '../widgets/searchbox.dart';
 
 class SearchPage extends StatelessWidget {
+  static const routeName = '/search-page';
   const SearchPage({
     Key? key,
   }) : super(key: key);
@@ -18,7 +19,8 @@ class SearchPage extends StatelessWidget {
           child: Container(
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-                color: Colors.green, borderRadius: BorderRadius.circular(15)),
+                color: Color.fromRGBO(53, 83, 88, 1),
+                borderRadius: BorderRadius.circular(15)),
             child: Center(
               child: Stack(
                 children: const [
@@ -35,7 +37,7 @@ class SearchPage extends StatelessWidget {
                 left: 30,
                 right: 30,
               ),
-              child: BookList()),
+              child: Text('')),
         ),
       ],
     ));
