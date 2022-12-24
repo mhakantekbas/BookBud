@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "471141870423",
+    "project_id": "bookrec-abbbb",
+    "storage_bucket": "bookrec-abbbb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:471141870423:android:eb5db6a7e55df2e0826c12",
+        "android_client_info": {
+          "package_name": "com.example.term_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "471141870423-0eevghfmsgiiqhkh0jlisn4pc7dd0k8f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7KAEji13O9KDfCeXTLbNLgY_5qy9vcyo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "471141870423-0eevghfmsgiiqhkh0jlisn4pc7dd0k8f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

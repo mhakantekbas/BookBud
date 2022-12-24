@@ -5,13 +5,15 @@ import 'package:term_project/pages/MyListPage.dart';
 import 'package:term_project/pages/ProfilePage.dart';
 import 'package:term_project/pages/SignIn.dart';
 import 'dart:convert';
-
+import 'package:firebase_core/firebase_core.dart';
 import 'package:term_project/pages/login_page.dart';
 import 'package:term_project/pages/onBoarding.dart';
 import 'package:term_project/pages/search_page.dart';
 import 'package:term_project/pages/setting_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
