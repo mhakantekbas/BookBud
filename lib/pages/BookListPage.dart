@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:term_project/pages/MyListPage.dart';
 import 'package:term_project/pages/ProfilePage.dart';
@@ -19,6 +20,12 @@ class _BookListScreenState extends State<BookListScreen> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
+          actions: [
+            MaterialButton(
+              onPressed: (() => FirebaseAuth.instance.signOut()),
+              child: Icon(Icons.logout),
+            )
+          ],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15),

@@ -10,6 +10,7 @@ import 'package:term_project/pages/login_page.dart';
 import 'package:term_project/pages/onBoarding.dart';
 import 'package:term_project/pages/search_page.dart';
 import 'package:term_project/pages/setting_page.dart';
+import 'package:term_project/widgets/hasData.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
               .copyWith(primary: Color.fromRGBO(53, 83, 88, 1))),
       initialRoute: '/',
       routes: {
-        '/': (context) => LoginPage(),
+        '/': (context) => HasData(),
         BookListScreen.routeName: (context) => BookListScreen(),
         MyListPage.routeName: (context) => MyListPage(),
         OnBoarding.routeName: (context) => const OnBoarding(),
