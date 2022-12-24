@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:term_project/pages/SignIn.dart';
-import 'package:term_project/pages/onBoarding.dart';
-import 'package:term_project/pages/search_page.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({
-    Key? key,
-  }) : super(key: key);
+import 'onBoarding.dart';
+
+class SignInPage extends StatelessWidget {
+  static const routeName = '/signin-page';
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +28,34 @@ class LoginPage extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 30.0),
-                child: Text('Hello Again',
+                child: Text('Sign In',
                     style: GoogleFonts.bebasNeue(
                       textStyle: TextStyle(
                         color: Colors.white,
                         fontSize: 70,
                       ),
                     )),
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 5.0),
+                child: Text('Name',
+                    style: GoogleFonts.ubuntu(color: Colors.white)),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                width: 280,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white),
+                child: const TextField(
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Enter Name',
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
               ),
               Padding(
                 padding: EdgeInsets.only(bottom: 5.0),
@@ -55,7 +75,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
+              SizedBox(
                 height: 20,
               ),
               Padding(
@@ -88,7 +108,7 @@ class LoginPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).pushNamed(OnBoarding.routeName);
                     },
-                    child: Text('Log In',
+                    child: Text('Sign In',
                         style: GoogleFonts.ubuntu(
                           textStyle: TextStyle(
                               fontSize: 20,
@@ -101,16 +121,16 @@ class LoginPage extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    "Not a member?",
+                    "Already account?",
                     style:
                         GoogleFonts.ubuntu(color: Colors.white, fontSize: 15),
                   ),
                   InkWell(
                     onTap: (() {
-                      Navigator.of(context).pushNamed(SignInPage.routeName);
+                      Navigator.pop(context);
                     }),
                     child: Text(
-                      " SIGN IN",
+                      " LOG IN",
                       style: GoogleFonts.ubuntu(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,
@@ -122,7 +142,7 @@ class LoginPage extends StatelessWidget {
             ],
           ),
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }

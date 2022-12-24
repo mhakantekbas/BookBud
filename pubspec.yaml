@@ -40,6 +40,7 @@ dependencies:
   screen_utils: ^0.0.1
   googleapis: ^9.2.0
   settings_ui: ^2.0.2
+  google_fonts: ^3.0.1
 
 dev_dependencies:
   flutter_test:

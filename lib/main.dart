@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:term_project/pages/BookListPage.dart';
 import 'package:term_project/pages/MyListPage.dart';
 import 'package:term_project/pages/ProfilePage.dart';
+import 'package:term_project/pages/SignIn.dart';
 import 'dart:convert';
 
 import 'package:term_project/pages/login_page.dart';
@@ -33,7 +34,8 @@ class MyApp extends StatelessWidget {
         OnBoarding.routeName: (context) => const OnBoarding(),
         ProfilePage.routeName: (context) => ProfilePage(),
         SearchPage.routeName: (context) => const SearchPage(),
-        SettingsPage.routeName: (context) => SettingsPage()
+        SettingsPage.routeName: (context) => SettingsPage(),
+        SignInPage.routeName: (context) => SignInPage(),
       },
     );
   }
