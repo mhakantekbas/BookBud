@@ -4,9 +4,24 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'onBoarding.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   static const routeName = '/signin-page';
+
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  bool _obscureText = true;
+  String _password = "";
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
   final _emailController = TextEditingController();
+
   final _passwordController = TextEditingController();
 
   Future signUp() async {
@@ -26,12 +41,7 @@ class SignInPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       body: Container(
         height: MediaQuery.of(context).size.height,
-        margin: const EdgeInsets.fromLTRB(40, 100, 0, 0),
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(100),
-            ),
-            color: Color.fromRGBO(53, 83, 88, 1)),
+        decoration: const BoxDecoration(color: Color.fromRGBO(53, 83, 88, 1)),
         child: Padding(
           padding: const EdgeInsets.only(left: 70.0),
           child: Column(
@@ -40,18 +50,13 @@ class SignInPage extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 30.0),
-                child: Text('Sign Up Here',
+                child: Text('sign Up Here!',
                     style: GoogleFonts.bebasNeue(
                       textStyle: TextStyle(
                         color: Colors.white,
                         fontSize: 70,
                       ),
                     )),
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 5.0),
-                child: Text('E-mail',
-                    style: GoogleFonts.ubuntu(color: Colors.white)),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -62,18 +67,14 @@ class SignInPage extends StatelessWidget {
                 child: TextField(
                   controller: _emailController,
                   decoration: InputDecoration(
+                    icon: Icon(Icons.email_outlined),
                     border: InputBorder.none,
-                    hintText: 'Enter E-Mail',
+                    hintText: 'E-Mail',
                   ),
                 ),
               ),
-              SizedBox(
+              Container(
                 height: 20,
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 5.0),
-                child: Text('Password',
-                    style: GoogleFonts.ubuntu(color: Colors.white)),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -81,18 +82,33 @@ class SignInPage extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.white),
-                child: TextField(
+                child: TextFormField(
+                  validator: (value) =>
+                      value!.length < 6 ? "Password too short" : null,
+                  onSaved: (value) => _password = value.toString(),
+                  obscureText: _obscureText,
                   controller: _passwordController,
                   decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          _toggle();
+                        },
+                        icon: Icon(
+                          !_obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Colors.grey,
+                        )),
+                    icon: Icon(Icons.lock_outline),
                     border: InputBorder.none,
-                    hintText: 'Enter Password',
+                    hintText: 'Password',
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(40.0),
+                padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                 child: Container(
-                  width: 200,
+                  width: 280,
                   height: 40,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(7),
@@ -105,7 +121,7 @@ class SignInPage extends StatelessWidget {
                           .onError((error, stackTrace) =>
                               print('Error ${error.toString()}'));
                     },
-                    child: Text('Sign Up',
+                    child: Text('Sign up',
                         style: GoogleFonts.ubuntu(
                           textStyle: TextStyle(
                               fontSize: 20,
