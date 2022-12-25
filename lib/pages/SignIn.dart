@@ -101,7 +101,11 @@ class SignInPage extends StatelessWidget {
                       color: Color.fromARGB(255, 255, 205, 55)),
                   child: TextButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed(OnBoarding.routeName);
+                      signUp()
+                          .then((value) => Navigator.of(context)
+                              .pushNamed(OnBoarding.routeName))
+                          .onError((error, stackTrace) =>
+                              print('Error ${error.toString()}'));
                     },
                     child: Text('Sign Up',
                         style: GoogleFonts.ubuntu(
