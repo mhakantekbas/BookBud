@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -7,6 +8,19 @@ import 'onBoarding.dart';
 
 class SignInPage extends StatelessWidget {
   static const routeName = '/signin-page';
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  Future signUp() async {
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim());
+  }
+
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,34 +42,13 @@ class SignInPage extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 30.0),
-                child: Text('Sign In',
+                child: Text('Sign Up Here',
                     style: GoogleFonts.bebasNeue(
                       textStyle: TextStyle(
                         color: Colors.white,
                         fontSize: 70,
                       ),
                     )),
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 5.0),
-                child: Text('Name',
-                    style: GoogleFonts.ubuntu(color: Colors.white)),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                width: 280,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white),
-                child: const TextField(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Enter Name',
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
               ),
               Padding(
                 padding: EdgeInsets.only(bottom: 5.0),
@@ -68,7 +61,8 @@ class SignInPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.white),
                 width: 280,
-                child: const TextField(
+                child: TextField(
+                  controller: _emailController,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Enter E-Mail',
@@ -89,7 +83,8 @@ class SignInPage extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.white),
-                child: const TextField(
+                child: TextField(
+                  controller: _passwordController,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Enter Password',
@@ -108,7 +103,7 @@ class SignInPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).pushNamed(OnBoarding.routeName);
                     },
-                    child: Text('Sign In',
+                    child: Text('Sign Up',
                         style: GoogleFonts.ubuntu(
                           textStyle: TextStyle(
                               fontSize: 20,
