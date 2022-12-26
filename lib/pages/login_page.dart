@@ -33,6 +33,7 @@ class _LoginPageState extends State<LoginPage> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -42,25 +43,34 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(color: Color.fromRGBO(53, 83, 88, 1)),
+        padding: EdgeInsets.all(50),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 30.0),
-              child: Text('Hello Again',
-                  style: GoogleFonts.bebasNeue(
-                    textStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 70,
-                    ),
-                  )),
+            Row(
+              children: [
+                Image.asset(
+                  "assets/images/logo.png",
+                  height: 100,
+                  width: 100,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 30.0),
+                  child: Text('BOOKBUD',
+                      style: GoogleFonts.bebasNeue(
+                        textStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 70,
+                        ),
+                      )),
+                ),
+              ],
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20), color: Colors.white),
-              width: 280,
               child: TextField(
                 controller: _emailController,
                 decoration: InputDecoration(
@@ -75,7 +85,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              width: 280,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20), color: Colors.white),
               child: TextFormField(
@@ -99,22 +108,25 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
+            SizedBox(
+              height: 5,
+            ),
             Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-              ElevatedButton.icon(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          Color.fromARGB(255, 188, 75, 81))),
-                  onPressed: (() {}),
-                  icon: Icon(Icons.lock_reset),
-                  label: Text("Forgot Password?")),
-              SizedBox(
-                width: 80,
+              GestureDetector(
+                onTap: () {},
+                child: Text("Forgot Password?",
+                    style: GoogleFonts.ubuntu(
+                      textStyle: TextStyle(
+                        fontSize: 15,
+                        color: Colors.white,
+                      ),
+                    )),
               )
             ]),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
               child: Container(
-                width: 280,
+                width: double.infinity,
                 height: 40,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(7),
