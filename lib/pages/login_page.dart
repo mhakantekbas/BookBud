@@ -117,7 +117,68 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Container(
+                          height: 700,
+                          color: Color.fromARGB(255, 188, 75, 81),
+                          child: Center(
+                            child: Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Text(
+                                    'Enter the e-mail address where the password reset link will be sent:',
+                                    style: GoogleFonts.ubuntu(
+                                      textStyle: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            color: Colors.white),
+                                        child: TextField(
+                                          controller: _emailController,
+                                          decoration: InputDecoration(
+                                            icon: Icon(Icons.email_outlined),
+                                            border: InputBorder.none,
+                                            hintText: 'E-Mail',
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 50,
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      child: ElevatedButton.icon(
+                                          onPressed: () {},
+                                          icon: Icon(Icons.send_rounded),
+                                          label: Text("Send")),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
                   child: Text("Forgot Password?",
                       style: GoogleFonts.ubuntu(
                         textStyle: TextStyle(
@@ -199,7 +260,7 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.of(context).pushNamed(SignInPage.routeName);
                     }),
                     child: Text(
-                      " SIGN IN",
+                      " SIGN UP",
                       style: GoogleFonts.ubuntu(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:google_sign_in/google_sign_in.dart';
 import 'onBoarding.dart';
 
 class SignInPage extends StatefulWidget {
@@ -21,8 +21,10 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   final _emailController = TextEditingController();
-  final _formkey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
+  final _nameController = TextEditingController();
+
+  final _formkey = GlobalKey<FormState>();
 
   Future signUp() async {
     await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -74,6 +76,23 @@ class _SignInPageState extends State<SignInPage> {
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.white),
                 child: TextField(
+                  controller: _nameController,
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.person_add_alt),
+                    border: InputBorder.none,
+                    hintText: 'Name & Surname',
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white),
+                child: TextField(
                   controller: _emailController,
                   decoration: InputDecoration(
                     icon: Icon(Icons.email_outlined),
@@ -82,7 +101,7 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 ),
               ),
-              Container(
+              SizedBox(
                 height: 20,
               ),
               Form(
@@ -158,7 +177,9 @@ class _SignInPageState extends State<SignInPage> {
                             borderRadius: BorderRadius.circular(7),
                             color: Colors.white),
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            GoogleSignIn().signIn();
+                          },
                           child: Row(
                             children: [
                               Image.asset(
@@ -169,7 +190,7 @@ class _SignInPageState extends State<SignInPage> {
                               SizedBox(
                                 width: 5,
                               ),
-                              Text('Sign in',
+                              Text('Sign up',
                                   style: GoogleFonts.ubuntu(
                                     textStyle: TextStyle(
                                         fontSize: 20,
