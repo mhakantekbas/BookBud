@@ -226,7 +226,6 @@ class _LoginPageState extends State<LoginPage> {
                         child: TextButton(
                           onPressed: () async {
                             await FirebaseServices().signInWithGoogle();
-                            Navigator.of(context).pushNamed('/profile-page');
                           },
                           child: Row(
                             children: [

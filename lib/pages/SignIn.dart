@@ -179,8 +179,9 @@ class _SignInPageState extends State<SignInPage> {
                             borderRadius: BorderRadius.circular(7),
                             color: Colors.white),
                         child: TextButton(
-                          onPressed: () {
-                            GoogleSignIn().signIn();
+                          onPressed: () async {
+                            await FirebaseServices().signInWithGoogle();
+                            Navigator.of(context).pushNamed('/onBoarding-page');
                           },
                           child: Row(
                             children: [
