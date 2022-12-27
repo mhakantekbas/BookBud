@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:term_project/pages/setting_page.dart';
 
@@ -47,15 +48,22 @@ class ProfilePage extends StatelessWidget {
                   child: CircleAvatar(
                     radius: 80,
                     backgroundImage: NetworkImage(
-                        'https://media.licdn.com/dms/image/D4D03AQFsj34yERBeVw/profile-displayphoto-shrink_800_800/0/1667497662071?e=1677110400&v=beta&t=bB_zSuX3fsvdkURr1zUAKAlWZWEFLTAXK_Eb1PSpGVE'),
+                        "${FirebaseAuth.instance.currentUser!.photoURL}"),
                   ),
                 ),
                 SizedBox(
                   height: 8,
                 ),
                 Text(
-                  'Sekvan Durak',
+                  "${FirebaseAuth.instance.currentUser!.displayName}",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                Text(
+                  "${FirebaseAuth.instance.currentUser!.email}",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: Colors.grey),
                 ),
               ],
             ),

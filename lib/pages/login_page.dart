@@ -1,12 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:term_project/pages/ProfilePage.dart';
 import 'package:term_project/pages/SignIn.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../widgets/login_control.dart';
-import 'onBoarding.dart';
+import 'package:term_project/widgets/firebase_services.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({
@@ -26,7 +24,6 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  final controller = Get.put(LoginController());
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -227,14 +224,9 @@ class _LoginPageState extends State<LoginPage> {
                             borderRadius: BorderRadius.circular(7),
                             color: Colors.white),
                         child: TextButton(
-                          onPressed: () {
-                            GoogleSignIn().signIn();
-                            Obx() {
-                              if (controller.googleAccount.value == null) {
-                                return SignInPage();
-                              } else
-                                return OnBoarding();
-                            }
+                          onPressed: () async {
+                            await FirebaseServices().signInWithGoogle();
+                            Navigator.of(context).pushNamed('/profile-page');
                           },
                           child: Row(
                             children: [
@@ -282,7 +274,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   )
                 ],
-              )
+              ),
             ],
           ),
         ),
