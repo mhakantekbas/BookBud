@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:term_project/widgets/firebase_services.dart';
 
 import '../services/dummydata.dart';
 
 class MyListPage extends StatelessWidget {
   static const routeName = '/my-list-page';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +19,7 @@ class MyListPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height - 100,
+            height: MediaQuery.of(context).size.height - 200,
             child: ListView.builder(
               shrinkWrap: true,
               padding: EdgeInsets.all(20),
