@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:term_project/pages/login_page.dart';
+import '../pages/BaseWidget.dart';
 import '../pages/BookListPage.dart';
 
 class HasData extends StatelessWidget {
@@ -13,7 +14,7 @@ class HasData extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return BookListScreen();
+            return BottomBar();
           } else {
             return LoginPage();
           }

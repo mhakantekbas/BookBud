@@ -62,7 +62,7 @@ class ProfilePage extends StatelessWidget {
                   "${FirebaseAuth.instance.currentUser!.email}",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 15,
+                      fontSize: 12,
                       color: Colors.grey),
                 ),
               ],

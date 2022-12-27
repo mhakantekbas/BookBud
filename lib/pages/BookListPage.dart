@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:term_project/pages/MyListPage.dart';
 import 'package:term_project/pages/ProfilePage.dart';
 import 'package:term_project/pages/search_page.dart';
+import 'package:term_project/widgets/firebase_services.dart';
 
 import '../services/dummydata.dart';
 
@@ -14,6 +15,7 @@ class BookListScreen extends StatefulWidget {
 }
 
 class _BookListScreenState extends State<BookListScreen> {
+  FirebaseServices _firebaseServices = FirebaseServices();
   @override
   Widget build(BuildContext context) {
     int _currentindex = 0;
@@ -22,7 +24,10 @@ class _BookListScreenState extends State<BookListScreen> {
         appBar: AppBar(
           actions: [
             MaterialButton(
-              onPressed: (() => FirebaseAuth.instance.signOut()),
+              onPressed: (() {
+                FirebaseAuth.instance.signOut();
+                _firebaseServices.SignOut();
+              }),
               child: Icon(Icons.logout),
             )
           ],
@@ -116,62 +121,6 @@ class _BookListScreenState extends State<BookListScreen> {
             ),
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-            currentIndex: _currentindex,
-            onTap: (value) {
-              if (value == 0) {
-                _currentindex = value;
-              }
-              if (value == 1) {
-                _currentindex = value;
-              }
-              if (value == 2) {
-                _currentindex = value;
-              }
-
-              setState(() {
-                _currentindex = value;
-              });
-            },
-            type: BottomNavigationBarType.fixed,
-            items: [
-              BottomNavigationBarItem(
-                icon: IconButton(
-                  icon: Icon(Icons.search),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(SearchPage.routeName);
-                  },
-                ),
-                label: 'Search',
-              ),
-              BottomNavigationBarItem(
-                icon: IconButton(
-                  icon: Icon(Icons.home),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(BookListScreen.routeName);
-                  },
-                ),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: IconButton(
-                  icon: Icon(Icons.person),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(ProfilePage.routeName);
-                  },
-                ),
-                label: 'Profile',
-              ),
-              BottomNavigationBarItem(
-                icon: IconButton(
-                  icon: Icon(Icons.book),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(MyListPage.routeName);
-                  },
-                ),
-                label: 'My list',
-              ),
-            ]),
       ),
     );
   }
