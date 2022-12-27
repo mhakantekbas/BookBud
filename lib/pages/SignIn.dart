@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:term_project/widgets/login_control.dart';
 import 'onBoarding.dart';
 
 class SignInPage extends StatefulWidget {
@@ -23,6 +25,7 @@ class _SignInPageState extends State<SignInPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _nameController = TextEditingController();
+  final controller = Get.put(LoginController());
 
   final _formkey = GlobalKey<FormState>();
 
@@ -179,6 +182,12 @@ class _SignInPageState extends State<SignInPage> {
                         child: TextButton(
                           onPressed: () {
                             GoogleSignIn().signIn();
+                            Obx() {
+                              if (controller.googleAccount.value == null) {
+                                return SignInPage();
+                              } else
+                                return OnBoarding();
+                            }
                           },
                           child: Row(
                             children: [
