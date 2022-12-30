@@ -4,7 +4,6 @@ import 'package:term_project/widgets/bookList.dart';
 import '../widgets/searchbox.dart';
 
 class SearchPage extends StatelessWidget {
-  static const routeName = '/search-page';
   const SearchPage({
     Key? key,
   }) : super(key: key);

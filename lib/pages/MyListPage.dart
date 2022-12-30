@@ -5,8 +5,6 @@ import 'package:term_project/widgets/firebase_services.dart';
 import '../services/dummydata.dart';
 
 class MyListPage extends StatelessWidget {
-  static const routeName = '/my-list-page';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

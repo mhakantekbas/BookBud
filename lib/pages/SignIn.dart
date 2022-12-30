@@ -158,8 +158,14 @@ class _SignInPageState extends State<SignInPage> {
                             borderRadius: BorderRadius.circular(7),
                             color: Color.fromARGB(255, 255, 205, 55)),
                         child: TextButton(
-                          onPressed: () => signUp(),
-                          child: Text('Log in',
+                          onPressed: () async {
+                            await signUp();
+                            await FirebaseAuth.instance.currentUser!
+                                .updateDisplayName(_nameController.text);
+                            Navigator.of(context)
+                                .pushNamed(OnBoarding.routeName);
+                          },
+                          child: Text('Sign up',
                               style: GoogleFonts.ubuntu(
                                 textStyle: TextStyle(
                                     fontSize: 20,

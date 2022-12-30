@@ -1,127 +1,260 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:term_project/pages/MyListPage.dart';
 import 'package:term_project/pages/ProfilePage.dart';
+import 'package:term_project/pages/SignIn.dart';
+import 'package:term_project/pages/login_page.dart';
 import 'package:term_project/pages/search_page.dart';
 import 'package:term_project/widgets/firebase_services.dart';
+import 'package:term_project/widgets/hasData.dart';
 
 import '../services/dummydata.dart';
 
-class BookListScreen extends StatefulWidget {
-  static const routeName = '/book-list-screen';
-
-  @override
-  State<BookListScreen> createState() => _BookListScreenState();
-}
-
-class _BookListScreenState extends State<BookListScreen> {
-  FirebaseServices _firebaseServices = FirebaseServices();
+class BookListScreen extends StatelessWidget {
+  static const routeName = '/bookList-page';
   @override
   Widget build(BuildContext context) {
-    int _currentindex = 0;
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          actions: [
-            MaterialButton(
-              onPressed: (() {
-                FirebaseAuth.instance.signOut();
-                _firebaseServices.SignOut();
-              }),
-              child: Icon(Icons.logout),
-            )
-          ],
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15),
-                topRight: Radius.circular(15),
-                bottomLeft: Radius.circular(10),
-                bottomRight: Radius.circular(10)),
-          ),
-          leading: Icon(Icons.menu, size: 35),
-          title: Text("HOME"),
-          elevation: 0,
-          backgroundColor: Color.fromRGBO(53, 83, 88, 1),
+      title: "BOOKS",
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.grey),
+      home: BookPage(),
+    );
+  }
+}
+
+class BookPage extends StatefulWidget {
+  BookPage({super.key});
+
+  @override
+  State<BookPage> createState() => _BookPageState();
+}
+
+class _BookPageState extends State<BookPage> {
+  FirebaseServices _firebaseServices = FirebaseServices();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: Icon(
+          Icons.list,
+          color: Color.fromARGB(255, 53, 83, 88),
         ),
-        backgroundColor: Colors.grey.shade200,
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: ListView.separated(
-              itemBuilder: (context, index) => SingleChildScrollView(
-                padding: EdgeInsets.only(left: 15),
-                scrollDirection: Axis.horizontal,
-                child: Container(
-                  height: 150,
-                  width: MediaQuery.of(context).size.width,
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) => SizedBox(
-                      width: 20,
-                    ),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: DUMMY_BOOKS.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        width: 125,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                                height: 80,
-                                child: Container(
-                                  child: Image.network(
-                                    DUMMY_BOOKS[index].imageUrl,
-                                    fit: BoxFit.fill,
-                                  ),
-                                )),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              DUMMY_BOOKS[index].title,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            )
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-              separatorBuilder: (context, index) => Column(
+        centerTitle: true,
+        title: Text(
+          "Books",
+          style: GoogleFonts.bebasNeue(
+              fontSize: 40, color: Color.fromARGB(255, 53, 83, 88)),
+        ),
+        actions: [
+          InkWell(
+            onTap: () {
+              FirebaseAuth.instance.signOut();
+              _firebaseServices.SignOut();
+              Navigator.of(context).pushNamed(LoginPage.routeName);
+            },
+            child: Icon(Icons.logout),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(
+              Icons.search,
+              color: Color.fromARGB(255, 53, 83, 88),
+            ),
+          )
+        ],
+      ),
+      body: SingleChildScrollView(
+          child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(30),
+            child: Column(children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(height: 15),
-                  Container(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 3),
-                      child: Text(
-                        "Book Category",
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    height: MediaQuery.of(context).size.height * 0.025,
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(3)),
+                  Text(
+                    "Recommended Books",
+                    style: GoogleFonts.ubuntu(
+                        fontSize: 15, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
-                    height: 9,
+                  Text(
+                    "Show All",
+                    style: GoogleFonts.ubuntu(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue),
                   )
                 ],
               ),
-              itemCount: 5,
-            ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 200,
+                child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 200,
+                            childAspectRatio: 1,
+                            crossAxisSpacing: 1,
+                            mainAxisSpacing: 15),
+                    itemCount: 2,
+                    itemBuilder: (BuildContext ctx, index) {
+                      return Column(
+                        children: [
+                          Stack(
+                            alignment: Alignment.bottomCenter,
+                            children: [
+                              Container(
+                                width: 135,
+                                height: 107,
+                                decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 5,
+                                        blurRadius: 7,
+                                        offset: Offset(0, 3),
+                                      ),
+                                    ],
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: Colors.green.withOpacity(0.8)),
+                              ),
+                              Column(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.network(
+                                      "https://img.kitapyurdu.com/v1/getImage/fn:11582810/wh:true/wi:220",
+                                      width: 75,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "BookName",
+                            style: GoogleFonts.ubuntu(),
+                          ),
+                          Text(
+                            "Author",
+                            style: GoogleFonts.ubuntu(color: Colors.grey),
+                          )
+                        ],
+                      );
+                    }),
+              ),
+              Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border(bottom: BorderSide(color: Colors.blue))),
+                    child: Text(
+                      "Genres",
+                      style: GoogleFonts.ubuntu(
+                          fontSize: 15, fontWeight: FontWeight.bold),
+                    ),
+                    padding: EdgeInsets.all(8),
+                  ),
+                  Container(
+                    child: Text(
+                      "Bestsellers",
+                      style: GoogleFonts.ubuntu(
+                          fontSize: 15, fontWeight: FontWeight.bold),
+                    ),
+                    padding: EdgeInsets.all(8),
+                  ),
+                  Container(
+                    child: Text(
+                      "Newest",
+                      style: GoogleFonts.ubuntu(
+                          fontSize: 15, fontWeight: FontWeight.bold),
+                    ),
+                    padding: EdgeInsets.all(8),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 500,
+                child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 200,
+                            childAspectRatio: 1,
+                            crossAxisSpacing: 1,
+                            mainAxisSpacing: 15),
+                    itemCount: DUMMY_BOOKS.length,
+                    itemBuilder: (BuildContext ctx, index) {
+                      return Column(
+                        children: [
+                          Stack(
+                            alignment: Alignment.bottomCenter,
+                            children: [
+                              Container(
+                                width: 135,
+                                height: 107,
+                                decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 5,
+                                        blurRadius: 7,
+                                        offset: Offset(0, 3),
+                                      ),
+                                    ],
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: Colors.amber.withOpacity(0.8)),
+                              ),
+                              Column(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.network(
+                                      "https://img.kitapyurdu.com/v1/getImage/fn:11582810/wh:true/wi:220",
+                                      width: 75,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "BookName",
+                            style: GoogleFonts.ubuntu(),
+                          ),
+                          Text(
+                            "Author",
+                            style: GoogleFonts.ubuntu(color: Colors.grey),
+                          )
+                        ],
+                      );
+                    }),
+              ),
+            ]),
+            color: Colors.white,
           ),
-        ),
-      ),
+        ],
+      )),
     );
   }
 }

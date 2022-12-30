@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:term_project/pages/setting_page.dart';
 
 class ProfilePage extends StatelessWidget {
-  static const routeName = '/profile-page';
   ProfilePage({Key? key}) : super(key: key);
   final List<Segments> myList = [
     Segments(

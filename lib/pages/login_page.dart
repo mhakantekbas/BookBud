@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:term_project/widgets/firebase_services.dart';
 
 class LoginPage extends StatefulWidget {
+  static const routeName = '/logIn-page';
   LoginPage({
     Key? key,
   }) : super(key: key);

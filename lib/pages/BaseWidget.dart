@@ -7,6 +7,7 @@ import 'MyListPage.dart';
 import 'ProfilePage.dart';
 
 class BottomBar extends StatefulWidget {
+  static const routeName = '/baseWidget-page';
   const BottomBar({Key? key}) : super(key: key);
 
   @override

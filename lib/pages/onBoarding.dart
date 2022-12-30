@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:term_project/pages/BaseWidget.dart';
 import 'package:term_project/pages/BookListPage.dart';
 
 class OnBoarding extends StatefulWidget {
@@ -85,7 +86,7 @@ class _OnBoardingState extends State<OnBoarding> {
             onPressed: (() {
               _filters.length < 4
                   ? null
-                  : Navigator.of(context).pushNamed(BookListScreen.routeName);
+                  : Navigator.of(context).pushNamed(BottomBar.routeName);
             }),
             icon: Icon(Icons.done_outline),
             label: Text("LET'S START 4/${_filters.length}"))
