@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:term_project/model/book_model.dart';
 import 'package:term_project/pages/MyListPage.dart';
 import 'package:term_project/pages/ProfilePage.dart';
 import 'package:term_project/pages/SignIn.dart';
 import 'package:term_project/pages/login_page.dart';
 import 'package:term_project/pages/search_page.dart';
+import 'package:term_project/services/book_api.dart';
 import 'package:term_project/widgets/firebase_services.dart';
 import 'package:term_project/widgets/hasData.dart';
 
@@ -32,7 +34,15 @@ class BookPage extends StatefulWidget {
 }
 
 class _BookPageState extends State<BookPage> {
+  List<BookModel> books = [];
   FirebaseServices _firebaseServices = FirebaseServices();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchBooks();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +112,7 @@ class _BookPageState extends State<BookPage> {
                             childAspectRatio: 1,
                             crossAxisSpacing: 1,
                             mainAxisSpacing: 15),
-                    itemCount: 2,
+                    itemCount: books.length,
                     itemBuilder: (BuildContext ctx, index) {
                       return Column(
                         children: [
@@ -129,7 +139,7 @@ class _BookPageState extends State<BookPage> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(8),
                                     child: Image.network(
-                                      "https://img.kitapyurdu.com/v1/getImage/fn:11582810/wh:true/wi:220",
+                                      books[index].thumbnailUrl,
                                       width: 75,
                                     ),
                                   ),
@@ -144,11 +154,12 @@ class _BookPageState extends State<BookPage> {
                             height: 5,
                           ),
                           Text(
-                            "BookName",
+                            books[index].title,
                             style: GoogleFonts.ubuntu(),
+                            overflow: TextOverflow.ellipsis,
                           ),
                           Text(
-                            "Author",
+                            books[index].author,
                             style: GoogleFonts.ubuntu(color: Colors.grey),
                           )
                         ],
@@ -256,5 +267,10 @@ class _BookPageState extends State<BookPage> {
         ],
       )),
     );
+  }
+
+  void fetchBooks() async {
+    var response = await BookApi.fetchBooks();
+    books = response;
   }
 }
