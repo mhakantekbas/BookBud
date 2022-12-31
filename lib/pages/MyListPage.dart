@@ -10,7 +10,7 @@ class MyListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: const Icon(Icons.book_outlined),
-        title: Text('My List'),
+        title: const Text('My List'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -20,7 +20,7 @@ class MyListPage extends StatelessWidget {
             height: MediaQuery.of(context).size.height - 200,
             child: ListView.builder(
               shrinkWrap: true,
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               itemCount: DUMMY_BOOKS.length,
               itemBuilder: (bc, index) {
                 return GestureDetector(
@@ -38,7 +38,7 @@ class MyListPage extends StatelessWidget {
                         //SizedBox(width: 10,),
                         Container(
                           width: 250.0,
-                          margin: EdgeInsets.all(20),
+                          margin: const EdgeInsets.all(20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

@@ -12,7 +12,8 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: Icon(Icons.settings), title: Text("Settings")),
+      appBar: AppBar(
+          leading: const Icon(Icons.settings), title: const Text("Settings")),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -20,14 +21,14 @@ class _SettingsPageState extends State<SettingsPage> {
             Expanded(
               child: SettingsList(sections: [
                 SettingsSection(
-                  title: Text(
+                  title: const Text(
                     "Common",
                     style: TextStyle(color: Colors.black),
                   ),
                   tiles: [
                     SettingsTile.navigation(
                       trailing: Switch(
-                          activeColor: Color.fromARGB(255, 255, 205, 55),
+                          activeColor: const Color.fromARGB(255, 255, 205, 55),
                           value: isSwitched,
                           onChanged: ((value) {
                             setState(() {
@@ -35,26 +36,26 @@ class _SettingsPageState extends State<SettingsPage> {
                             });
                           })),
                       onPressed: (context) {},
-                      title: Text("Recommender System"),
-                      leading: Icon(Icons.recommend_rounded),
+                      title: const Text("Recommender System"),
+                      leading: const Icon(Icons.recommend_rounded),
                     ),
                     SettingsTile.navigation(
                       trailing: Switch(value: false, onChanged: ((value) {})),
                       onPressed: (context) {},
-                      title: Text("Comments"),
-                      leading: Icon(Icons.comment),
+                      title: const Text("Comments"),
+                      leading: const Icon(Icons.comment),
                     ),
                     SettingsTile.navigation(
                       trailing: Switch(value: false, onChanged: ((value) {})),
                       onPressed: (context) {},
-                      title: Text("Offer Updates"),
-                      leading: Icon(Icons.cloud_download),
+                      title: const Text("Offer Updates"),
+                      leading: const Icon(Icons.cloud_download),
                     ),
                     SettingsTile.navigation(
                       trailing: Switch(value: false, onChanged: ((value) {})),
                       onPressed: (context) {},
-                      title: Text("Notifications"),
-                      leading: Icon(Icons.notifications),
+                      title: const Text("Notifications"),
+                      leading: const Icon(Icons.notifications),
                     )
                   ],
                 )

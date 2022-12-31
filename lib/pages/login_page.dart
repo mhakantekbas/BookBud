@@ -9,7 +9,7 @@ import 'package:email_validator/email_validator.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = '/logIn-page';
-  LoginPage({
+  const LoginPage({
     Key? key,
   }) : super(key: key);
 
@@ -35,6 +35,7 @@ class _LoginPageState extends State<LoginPage> {
         password: _passwordController.text.trim());
   }
 
+  @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
@@ -48,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
       showDialog(
           context: this.context,
           builder: (context) {
-            return AlertDialog(
+            return const AlertDialog(
               content: Text(
                   "Password reset link sent! Check your spam email folder please!"),
             );
@@ -72,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Container(
           height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(color: Color.fromRGBO(53, 83, 88, 1)),
-          padding: EdgeInsets.all(50),
+          padding: const EdgeInsets.all(50),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -85,10 +86,10 @@ class _LoginPageState extends State<LoginPage> {
                     width: 100,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 30.0),
+                    padding: const EdgeInsets.symmetric(vertical: 30.0),
                     child: Text('BOOKBUD',
                         style: GoogleFonts.bebasNeue(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                             color: Colors.white,
                             fontSize: 70,
                           ),
@@ -108,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                         ? null
                         : "Please enter a valid email",
                     controller: _emailController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       icon: Icon(Icons.email_outlined),
                       border: InputBorder.none,
                       hintText: 'E-Mail',
@@ -145,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                                     : Icons.visibility_off,
                                 color: Colors.grey,
                               )),
-                          icon: Icon(Icons.lock_outline),
+                          icon: const Icon(Icons.lock_outline),
                           border: InputBorder.none,
                           hintText: 'Password',
                         ),
@@ -154,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -165,7 +166,7 @@ class _LoginPageState extends State<LoginPage> {
                       builder: (BuildContext context) {
                         return Container(
                           height: 700,
-                          color: Color.fromARGB(255, 188, 75, 81),
+                          color: const Color.fromARGB(255, 188, 75, 81),
                           child: Center(
                             child: Column(
                               children: <Widget>[
@@ -174,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
                                   child: Text(
                                     'Enter the e-mail address where the password reset link will be sent:',
                                     style: GoogleFonts.ubuntu(
-                                      textStyle: TextStyle(
+                                      textStyle: const TextStyle(
                                         fontSize: 20,
                                         color: Colors.white,
                                       ),
@@ -193,7 +194,7 @@ class _LoginPageState extends State<LoginPage> {
                                             color: Colors.white),
                                         child: TextField(
                                           controller: _emailController,
-                                          decoration: InputDecoration(
+                                          decoration: const InputDecoration(
                                             icon: Icon(Icons.email_outlined),
                                             border: InputBorder.none,
                                             hintText: 'E-Mail',
@@ -211,8 +212,8 @@ class _LoginPageState extends State<LoginPage> {
                                           onPressed: () {
                                             passwordReset();
                                           },
-                                          icon: Icon(Icons.send_rounded),
-                                          label: Text("Send")),
+                                          icon: const Icon(Icons.send_rounded),
+                                          label: const Text("Send")),
                                     )
                                   ],
                                 ),
@@ -225,7 +226,7 @@ class _LoginPageState extends State<LoginPage> {
                   },
                   child: Text("Forgot Password?",
                       style: GoogleFonts.ubuntu(
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                           fontSize: 15,
                           color: Colors.white,
                         ),
@@ -242,12 +243,12 @@ class _LoginPageState extends State<LoginPage> {
                         height: 40,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(7),
-                            color: Color.fromARGB(255, 255, 205, 55)),
+                            color: const Color.fromARGB(255, 255, 205, 55)),
                         child: TextButton(
                           onPressed: () => signIn(),
                           child: Text('Log in',
                               style: GoogleFonts.ubuntu(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                     fontSize: 20,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
@@ -255,7 +256,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Expanded(
@@ -275,12 +276,12 @@ class _LoginPageState extends State<LoginPage> {
                                 height: 30,
                                 width: 30,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Text('Sign in',
                                   style: GoogleFonts.ubuntu(
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                         fontSize: 20,
                                         color: Color.fromARGB(255, 188, 75, 81),
                                         fontWeight: FontWeight.bold),

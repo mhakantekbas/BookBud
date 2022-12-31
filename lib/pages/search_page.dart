@@ -17,7 +17,7 @@ class SearchPage extends StatelessWidget {
           child: Container(
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-                color: Color.fromRGBO(53, 83, 88, 1),
+                color: const Color.fromRGBO(53, 83, 88, 1),
                 borderRadius: BorderRadius.circular(15)),
             child: Center(
               child: Stack(
@@ -35,7 +35,7 @@ class SearchPage extends StatelessWidget {
                 left: 30,
                 right: 30,
               ),
-              child: Text('')),
+              child: const Text('')),
         ),
       ],
     ));
