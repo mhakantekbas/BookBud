@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -94,12 +95,18 @@ class _SignInPageState extends State<SignInPage> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.white),
-                child: TextField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    icon: Icon(Icons.email_outlined),
-                    border: InputBorder.none,
-                    hintText: 'E-Mail',
+                child: Form(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  child: TextFormField(
+                    validator: (value) => EmailValidator.validate(value!)
+                        ? null
+                        : "Please enter a valid email",
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      icon: Icon(Icons.email_outlined),
+                      border: InputBorder.none,
+                      hintText: 'E-Mail',
+                    ),
                   ),
                 ),
               ),
@@ -107,7 +114,7 @@ class _SignInPageState extends State<SignInPage> {
                 height: 20,
               ),
               Form(
-                autovalidateMode: AutovalidateMode.always,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Stack(
                   children: [
                     Container(

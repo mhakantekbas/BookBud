@@ -5,6 +5,7 @@ import 'package:term_project/pages/ProfilePage.dart';
 import 'package:term_project/pages/SignIn.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:term_project/widgets/firebase_services.dart';
+import 'package:email_validator/email_validator.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = '/logIn-page';
@@ -38,6 +39,30 @@ class _LoginPageState extends State<LoginPage> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  Future passwordReset() async {
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: _emailController.text.trim());
+      showDialog(
+          context: this.context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text(
+                  "Password reset link sent! Check your spam email folder please!"),
+            );
+          });
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      showDialog(
+          context: this.context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text(e.message.toString()),
+            );
+          });
+    }
   }
 
   @override
@@ -76,44 +101,57 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.white),
-                child: TextField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    icon: Icon(Icons.email_outlined),
-                    border: InputBorder.none,
-                    hintText: 'E-Mail',
+                child: Form(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  child: TextFormField(
+                    validator: (value) => EmailValidator.validate(value!)
+                        ? null
+                        : "Please enter a valid email",
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      icon: Icon(Icons.email_outlined),
+                      border: InputBorder.none,
+                      hintText: 'E-Mail',
+                    ),
                   ),
                 ),
               ),
               Container(
                 height: 20,
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white),
-                child: TextFormField(
-                  validator: (value) =>
-                      value!.length < 6 ? "Password too short" : null,
-                  onSaved: (value) => _password = value.toString(),
-                  obscureText: _obscureText,
-                  controller: _passwordController,
-                  decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                        onPressed: () {
-                          _toggle();
-                        },
-                        icon: Icon(
-                          !_obscureText
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                          color: Colors.grey,
-                        )),
-                    icon: Icon(Icons.lock_outline),
-                    border: InputBorder.none,
-                    hintText: 'Password',
-                  ),
+              Form(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: Stack(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white),
+                      child: TextFormField(
+                        validator: (value) =>
+                            value!.length < 6 ? "Password too short" : null,
+                        onSaved: (value) => _password = value.toString(),
+                        obscureText: _obscureText,
+                        controller: _passwordController,
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                _toggle();
+                              },
+                              icon: Icon(
+                                !_obscureText
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color: Colors.grey,
+                              )),
+                          icon: Icon(Icons.lock_outline),
+                          border: InputBorder.none,
+                          hintText: 'Password',
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(
@@ -137,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
                                     'Enter the e-mail address where the password reset link will be sent:',
                                     style: GoogleFonts.ubuntu(
                                       textStyle: TextStyle(
-                                        fontSize: 15,
+                                        fontSize: 20,
                                         color: Colors.white,
                                       ),
                                     ),
@@ -170,7 +208,9 @@ class _LoginPageState extends State<LoginPage> {
                                           borderRadius:
                                               BorderRadius.circular(20)),
                                       child: ElevatedButton.icon(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            passwordReset();
+                                          },
                                           icon: Icon(Icons.send_rounded),
                                           label: Text("Send")),
                                     )
