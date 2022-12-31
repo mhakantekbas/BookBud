@@ -30,9 +30,20 @@ class _SignInPageState extends State<SignInPage> {
   final _formkey = GlobalKey<FormState>();
 
   Future signUp() async {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim());
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim());
+    } catch (e) {
+      print(e);
+      showDialog(
+          context: this.context,
+          builder: (context) {
+            return AlertDialog(
+              content: Text(e.toString()),
+            );
+          });
+    }
   }
 
   void dispose() {
@@ -169,6 +180,8 @@ class _SignInPageState extends State<SignInPage> {
                             await signUp();
                             await FirebaseAuth.instance.currentUser!
                                 .updateDisplayName(_nameController.text);
+                            await FirebaseAuth.instance.currentUser!.updatePhotoURL(
+                                "https://cdn-icons-png.flaticon.com/512/1246/1246351.png?w=740&t=st=1672479330~exp=1672479930~hmac=908ef0484340b86d3210550a1215c7752d1c289e66f1b68a29e2961c6260b982");
                             Navigator.of(context)
                                 .pushNamed(OnBoarding.routeName);
                           },

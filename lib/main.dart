@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
         SignInPage.routeName: (context) => SignInPage(),
         OnBoarding.routeName: (context) => OnBoarding(),
         BottomBar.routeName: (context) => BottomBar(),
+        LoginPage.routeName: (context) => LoginPage(),
       },
     );
   }
