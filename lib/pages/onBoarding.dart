@@ -22,26 +22,26 @@ class _OnBoardingState extends State<OnBoarding> {
         body: Container(
             child: Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Color.fromARGB(255, 53, 83, 88),
+            color: const Color.fromARGB(255, 53, 83, 88),
           ),
-          padding: EdgeInsets.all(10),
-          margin: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           child: Container(
-            padding: EdgeInsets.all(10),
-            child: Text(
+            padding: const EdgeInsets.all(10),
+            child: const Text(
               "Pick 3 Genres to Get Started!",
               style: TextStyle(fontSize: 30, color: Colors.white),
             ),
           ),
         ),
         Container(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           height: 400,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -51,11 +51,11 @@ class _OnBoardingState extends State<OnBoarding> {
                 spacing: 5.0,
                 children: ExerciseFilter.values.map((ExerciseFilter exercise) {
                   return FilterChip(
-                    selectedColor: Color.fromARGB(255, 255, 205, 55),
-                    backgroundColor: Color.fromARGB(255, 53, 83, 88),
+                    selectedColor: const Color.fromARGB(255, 255, 205, 55),
+                    backgroundColor: const Color.fromARGB(255, 53, 83, 88),
                     label: Text(
                       exercise.name,
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                     selected: _filters.contains(exercise.name),
                     onSelected: (bool value) {
@@ -82,13 +82,13 @@ class _OnBoardingState extends State<OnBoarding> {
                 backgroundColor: MaterialStatePropertyAll<Color>(
                     _filters.length < 4
                         ? Colors.grey
-                        : Color.fromARGB(255, 255, 205, 55))),
+                        : const Color.fromARGB(255, 255, 205, 55))),
             onPressed: (() {
               _filters.length < 4
                   ? null
                   : Navigator.of(context).pushNamed(BottomBar.routeName);
             }),
-            icon: Icon(Icons.done_outline),
+            icon: const Icon(Icons.done_outline),
             label: Text("LET'S START 4/${_filters.length}"))
       ],
     )));

@@ -1,9 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:term_project/widgets/firebase_services.dart';
 import 'onBoarding.dart';
 
@@ -46,6 +44,7 @@ class _SignInPageState extends State<SignInPage> {
     }
   }
 
+  @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
@@ -59,7 +58,7 @@ class _SignInPageState extends State<SignInPage> {
         child: Container(
           height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(color: Color.fromRGBO(53, 83, 88, 1)),
-          padding: EdgeInsets.all(50),
+          padding: const EdgeInsets.all(50),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -67,16 +66,16 @@ class _SignInPageState extends State<SignInPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.person,
                     size: 70,
                     color: Colors.white,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 30.0),
+                    padding: const EdgeInsets.symmetric(vertical: 30.0),
                     child: Text('Sign Up',
                         style: GoogleFonts.bebasNeue(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                             color: Colors.white,
                             fontSize: 70,
                           ),
@@ -91,14 +90,14 @@ class _SignInPageState extends State<SignInPage> {
                     color: Colors.white),
                 child: TextField(
                   controller: _nameController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     icon: Icon(Icons.person_add_alt),
                     border: InputBorder.none,
                     hintText: 'Name & Surname',
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Container(
@@ -113,7 +112,7 @@ class _SignInPageState extends State<SignInPage> {
                         ? null
                         : "Please enter a valid email",
                     controller: _emailController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       icon: Icon(Icons.email_outlined),
                       border: InputBorder.none,
                       hintText: 'E-Mail',
@@ -121,7 +120,7 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Form(
@@ -141,7 +140,7 @@ class _SignInPageState extends State<SignInPage> {
                         obscureText: _obscureText,
                         controller: _passwordController,
                         decoration: InputDecoration(
-                          errorStyle: TextStyle(color: Colors.red),
+                          errorStyle: const TextStyle(color: Colors.red),
                           suffixIcon: IconButton(
                               onPressed: () {
                                 _toggle();
@@ -152,7 +151,7 @@ class _SignInPageState extends State<SignInPage> {
                                     : Icons.visibility_off,
                                 color: Colors.grey,
                               )),
-                          icon: Icon(Icons.lock_outline),
+                          icon: const Icon(Icons.lock_outline),
                           border: InputBorder.none,
                           hintText: 'Password',
                         ),
@@ -161,7 +160,7 @@ class _SignInPageState extends State<SignInPage> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Padding(
@@ -174,7 +173,7 @@ class _SignInPageState extends State<SignInPage> {
                         height: 40,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(7),
-                            color: Color.fromARGB(255, 255, 205, 55)),
+                            color: const Color.fromARGB(255, 255, 205, 55)),
                         child: TextButton(
                           onPressed: () async {
                             await signUp();
@@ -187,7 +186,7 @@ class _SignInPageState extends State<SignInPage> {
                           },
                           child: Text('Sign up',
                               style: GoogleFonts.ubuntu(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                     fontSize: 20,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
@@ -195,7 +194,7 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Expanded(
@@ -216,12 +215,12 @@ class _SignInPageState extends State<SignInPage> {
                                 height: 30,
                                 width: 30,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Text('Sign up',
                                   style: GoogleFonts.ubuntu(
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                         fontSize: 20,
                                         color: Color.fromARGB(255, 188, 75, 81),
                                         fontWeight: FontWeight.bold),

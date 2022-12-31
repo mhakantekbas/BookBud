@@ -1,14 +1,10 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:term_project/pages/BaseWidget.dart';
 import 'package:term_project/pages/BookListPage.dart';
-import 'package:term_project/pages/MyListPage.dart';
-import 'package:term_project/pages/ProfilePage.dart';
-import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:term_project/pages/login_page.dart';
 import 'package:term_project/pages/onBoarding.dart';
-import 'package:term_project/pages/search_page.dart';
 import 'package:term_project/pages/setting_page.dart';
 import 'package:term_project/widgets/hasData.dart';
 import 'pages/SignIn.dart';
@@ -29,15 +25,14 @@ class MyApp extends StatelessWidget {
       title: 'Book List',
       theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch()
-              .copyWith(primary: Color.fromRGBO(53, 83, 88, 1))),
-      home: HasData(),
+              .copyWith(primary: const Color.fromRGBO(53, 83, 88, 1))),
+      home: const HasData(),
       routes: {
         BookListScreen.routeName: (context) => BookListScreen(),
         SettingsPage.routeName: (context) => SettingsPage(),
         SignInPage.routeName: (context) => SignInPage(),
-        OnBoarding.routeName: (context) => OnBoarding(),
-        BottomBar.routeName: (context) => BottomBar(),
-        LoginPage.routeName: (context) => LoginPage(),
+        OnBoarding.routeName: (context) => const OnBoarding(),
+        BottomBar.routeName: (context) => const BottomBar(),
       },
     );
   }

@@ -6,35 +6,36 @@ class ProfilePage extends StatelessWidget {
   ProfilePage({Key? key}) : super(key: key);
   final List<Segments> myList = [
     Segments(
-        icon: Icon(
+        icon: const Icon(
           Icons.list,
           color: Colors.yellow,
         ),
         title: 'My List'),
     Segments(
-        icon: Icon(Icons.reviews_sharp, color: Colors.yellow),
+        icon: const Icon(Icons.reviews_sharp, color: Colors.yellow),
         title: 'Reviews'),
     Segments(
-        icon: Icon(Icons.favorite_border_outlined, color: Colors.yellow),
+        icon: const Icon(Icons.favorite_border_outlined, color: Colors.yellow),
         title: 'Liked Books'),
     Segments(
-        icon: Icon(Icons.settings, color: Colors.yellow), title: 'Settings'),
+        icon: const Icon(Icons.settings, color: Colors.yellow),
+        title: 'Settings'),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(
+        leading: const Icon(
           Icons.person_sharp,
           color: Colors.yellow,
         ),
-        title: Text('Profile'),
-        backgroundColor: Color.fromRGBO(53, 83, 88, 1),
+        title: const Text('Profile'),
+        backgroundColor: const Color.fromRGBO(53, 83, 88, 1),
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Container(
@@ -51,16 +52,17 @@ class ProfilePage extends StatelessWidget {
                         "${FirebaseAuth.instance.currentUser!.photoURL}"),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Text(
                   "${FirebaseAuth.instance.currentUser!.displayName}",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 Text(
                   "${FirebaseAuth.instance.currentUser!.email}",
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 12,
                       color: Colors.grey),
@@ -78,7 +80,7 @@ class ProfilePage extends StatelessWidget {
                       onTap: () => Navigator.of(context)
                           .pushNamed(SettingsPage.routeName),
                       child: Card(
-                        color: Color.fromRGBO(53, 83, 88, 1),
+                        color: const Color.fromRGBO(53, 83, 88, 1),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(25)),
                         elevation: 5,
@@ -86,7 +88,7 @@ class ProfilePage extends StatelessWidget {
                           leading: myList[index].icon,
                           title: Text(
                             myList[index].title,
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                           ),
                         ),
                       ),

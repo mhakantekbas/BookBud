@@ -18,7 +18,7 @@ class _BottomBarState extends State<BottomBar> {
   int _index = 0;
   final List<Widget> screens = [
     BookListScreen(),
-    SearchPage(),
+    const SearchPage(),
     ProfilePage(),
     MyListPage(),
   ];
@@ -34,10 +34,10 @@ class _BottomBarState extends State<BottomBar> {
             _index = value;
           });
         },
-        animationDuration: Duration(milliseconds: 350),
-        color: Color.fromRGBO(53, 83, 88, 1),
+        animationDuration: const Duration(milliseconds: 350),
+        color: const Color.fromRGBO(53, 83, 88, 1),
         backgroundColor: Colors.white,
-        items: [
+        items: const [
           Icon(
             Icons.home,
             size: 30,
