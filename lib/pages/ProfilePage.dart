@@ -47,6 +47,7 @@ class ProfilePage extends StatelessWidget {
                   height: 150,
                   child: CircleAvatar(
                     radius: 80,
+                    backgroundColor: Colors.grey,
                     backgroundImage: NetworkImage(
                         "${FirebaseAuth.instance.currentUser!.photoURL}"),
                   ),
