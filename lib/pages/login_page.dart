@@ -165,6 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                       context: context,
                       builder: (BuildContext context) {
                         return Container(
+                          padding: const EdgeInsets.all(20),
                           height: 700,
                           color: const Color.fromARGB(255, 188, 75, 81),
                           child: Center(
@@ -183,6 +184,8 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                                 Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Expanded(
                                       child: Container(

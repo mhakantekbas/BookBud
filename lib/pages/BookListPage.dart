@@ -64,7 +64,11 @@ class _BookPageState extends State<BookPage> {
             onTap: () {
               FirebaseAuth.instance.signOut();
               _firebaseServices.SignOut();
-              Navigator.of(context).pushNamed(LoginPage.routeName);
+              Nav() {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()));
+                setState(() {});
+              }
             },
             child: Icon(Icons.logout),
           ),

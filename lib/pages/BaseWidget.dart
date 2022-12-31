@@ -26,6 +26,7 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: screens[_index],
       bottomNavigationBar: CurvedNavigationBar(
         index: _index,
