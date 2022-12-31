@@ -35,7 +35,7 @@ class BookPage extends StatefulWidget {
 
 class _BookPageState extends State<BookPage> {
   List<BookModel> books = [];
-  final FirebaseServices _firebaseServices = FirebaseServices();
+  FirebaseServices _firebaseServices = FirebaseServices();
 
   @override
   void initState() {
@@ -49,7 +49,7 @@ class _BookPageState extends State<BookPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: const Icon(
+        leading: Icon(
           Icons.list,
           color: Color.fromARGB(255, 53, 83, 88),
         ),
@@ -57,7 +57,7 @@ class _BookPageState extends State<BookPage> {
         title: Text(
           "Books",
           style: GoogleFonts.bebasNeue(
-              fontSize: 40, color: const Color.fromARGB(255, 53, 83, 88)),
+              fontSize: 40, color: Color.fromARGB(255, 53, 83, 88)),
         ),
         actions: [
           InkWell(
@@ -66,10 +66,10 @@ class _BookPageState extends State<BookPage> {
               _firebaseServices.SignOut();
               Navigator.of(context).pushNamed(LoginPage.routeName);
             },
-            child: const Icon(Icons.logout),
+            child: Icon(Icons.logout),
           ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: Icon(
               Icons.search,
               color: Color.fromARGB(255, 53, 83, 88),
@@ -81,8 +81,7 @@ class _BookPageState extends State<BookPage> {
           child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.all(30),
-            color: Colors.white,
+            padding: EdgeInsets.all(30),
             child: Column(children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -101,10 +100,10 @@ class _BookPageState extends State<BookPage> {
                   )
                 ],
               ),
-              const SizedBox(
+              SizedBox(
                 height: 10,
               ),
-              SizedBox(
+              Container(
                 height: 200,
                 child: GridView.builder(
                     gridDelegate:
@@ -129,7 +128,7 @@ class _BookPageState extends State<BookPage> {
                                         color: Colors.grey.withOpacity(0.5),
                                         spreadRadius: 5,
                                         blurRadius: 7,
-                                        offset: const Offset(0, 3),
+                                        offset: Offset(0, 3),
                                       ),
                                     ],
                                     borderRadius: BorderRadius.circular(5),
@@ -144,14 +143,14 @@ class _BookPageState extends State<BookPage> {
                                       width: 75,
                                     ),
                                   ),
-                                  const SizedBox(
+                                  SizedBox(
                                     height: 10,
                                   ),
                                 ],
                               ),
                             ],
                           ),
-                          const SizedBox(
+                          SizedBox(
                             height: 5,
                           ),
                           Text(
@@ -170,37 +169,37 @@ class _BookPageState extends State<BookPage> {
               Row(
                 children: [
                   Container(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                         border: Border(bottom: BorderSide(color: Colors.blue))),
-                    padding: const EdgeInsets.all(8),
                     child: Text(
                       "Genres",
                       style: GoogleFonts.ubuntu(
                           fontSize: 15, fontWeight: FontWeight.bold),
                     ),
+                    padding: EdgeInsets.all(8),
                   ),
                   Container(
-                    padding: const EdgeInsets.all(8),
                     child: Text(
                       "Bestsellers",
                       style: GoogleFonts.ubuntu(
                           fontSize: 15, fontWeight: FontWeight.bold),
                     ),
+                    padding: EdgeInsets.all(8),
                   ),
                   Container(
-                    padding: const EdgeInsets.all(8),
                     child: Text(
                       "Newest",
                       style: GoogleFonts.ubuntu(
                           fontSize: 15, fontWeight: FontWeight.bold),
                     ),
+                    padding: EdgeInsets.all(8),
                   ),
                 ],
               ),
-              const SizedBox(
+              SizedBox(
                 height: 10,
               ),
-              SizedBox(
+              Container(
                 height: 500,
                 child: GridView.builder(
                     gridDelegate:
@@ -225,7 +224,7 @@ class _BookPageState extends State<BookPage> {
                                         color: Colors.grey.withOpacity(0.5),
                                         spreadRadius: 5,
                                         blurRadius: 7,
-                                        offset: const Offset(0, 3),
+                                        offset: Offset(0, 3),
                                       ),
                                     ],
                                     borderRadius: BorderRadius.circular(5),
@@ -240,14 +239,14 @@ class _BookPageState extends State<BookPage> {
                                       width: 75,
                                     ),
                                   ),
-                                  const SizedBox(
+                                  SizedBox(
                                     height: 10,
                                   ),
                                 ],
                               ),
                             ],
                           ),
-                          const SizedBox(
+                          SizedBox(
                             height: 5,
                           ),
                           Text(
@@ -263,6 +262,7 @@ class _BookPageState extends State<BookPage> {
                     }),
               ),
             ]),
+            color: Colors.white,
           ),
         ],
       )),
