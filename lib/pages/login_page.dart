@@ -102,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                         style: GoogleFonts.bebasNeue(
                           textStyle: const TextStyle(
                             color: Colors.white,
-                            fontSize: 70,
+                            fontSize: 65,
                           ),
                         )),
                   ),

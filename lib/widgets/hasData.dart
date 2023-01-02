@@ -5,6 +5,7 @@ import '../pages/BaseWidget.dart';
 import '../pages/BookListPage.dart';
 
 class HasData extends StatelessWidget {
+  static const routeName = '/hasdata-page';
   const HasData({super.key});
 
   @override
@@ -14,9 +15,9 @@ class HasData extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return BottomBar();
+            return const BottomBar();
           } else {
-            return LoginPage();
+            return const LoginPage();
           }
         },
       ),

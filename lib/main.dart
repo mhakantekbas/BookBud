@@ -26,13 +26,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch()
               .copyWith(primary: const Color.fromRGBO(53, 83, 88, 1))),
-      home: const HasData(),
       routes: {
+        '/': (context) => const HasData(),
         BookListScreen.routeName: (context) => BookListScreen(),
         SettingsPage.routeName: (context) => SettingsPage(),
         SignInPage.routeName: (context) => SignInPage(),
         OnBoarding.routeName: (context) => const OnBoarding(),
-        BottomBar.routeName: (context) => const BottomBar(),
+        BottomBar.routeName: (context) => const BottomBar()
       },
       onUnknownRoute: (settings) => MaterialPageRoute(
         builder: (context) => const HasData(),
