@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:term_project/model/book_model.dart';
+import 'package:term_project/pages/BookDetailPage.dart';
 import 'package:term_project/pages/MyListPage.dart';
 import 'package:term_project/pages/ProfilePage.dart';
 import 'package:term_project/pages/SignIn.dart';
@@ -152,39 +153,49 @@ class _BookPageState extends State<BookPage> {
                     itemBuilder: (BuildContext ctx, index) {
                       return Column(
                         children: [
-                          Stack(
-                            alignment: Alignment.bottomCenter,
-                            children: [
-                              Container(
-                                width: 135,
-                                height: 107,
-                                decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.5),
-                                        spreadRadius: 5,
-                                        blurRadius: 7,
-                                        offset: const Offset(0, 3),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                  builder: (context) => new BookDetailPage(),
+                                ),
+                              );
+                            },
+                            child: Stack(
+                              alignment: Alignment.bottomCenter,
+                              children: [
+                                Container(
+                                  width: 135,
+                                  height: 107,
+                                  decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 5,
+                                          blurRadius: 7,
+                                          offset: const Offset(0, 3),
+                                        ),
+                                      ],
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: Colors.amber.withOpacity(0.8)),
+                                ),
+                                Column(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: Image.network(
+                                        "https://img.kitapyurdu.com/v1/getImage/fn:11582810/wh:true/wi:220",
+                                        width: 75,
                                       ),
-                                    ],
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: Colors.amber.withOpacity(0.8)),
-                              ),
-                              Column(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image.network(
-                                      "https://img.kitapyurdu.com/v1/getImage/fn:11582810/wh:true/wi:220",
-                                      width: 75,
                                     ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                ],
-                              ),
-                            ],
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                           const SizedBox(
                             height: 5,
