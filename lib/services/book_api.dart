@@ -22,7 +22,7 @@ class BookApi {
     return books;
   }
 
-  static Future<List<BookModel>> getDataByQuery(String q) async {
+  static Future<List<BookModel>> getDataByQuery({String q = "flutter"}) async {
     List<BookModel> books = [];
     var url = 'https://www.googleapis.com/books/v1/volumes?q=$q';
     final uri = Uri.parse(url);

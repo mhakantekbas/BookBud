@@ -1,36 +1,37 @@
-import 'package:google_fonts/google_fonts.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import 'package:term_project/services/book_api.dart';
 
 import '../model/book_model.dart';
 import '../services/dummydata.dart';
 
 class BookDetailPage extends StatefulWidget {
+  BookModel book;
   static const routeName = '/bookDetail-page';
 
-  const BookDetailPage({super.key});
+  BookDetailPage({
+    Key? key,
+    required this.book,
+  }) : super(key: key);
 
   @override
   State<BookDetailPage> createState() => _BookDetailPageState();
 }
 
 class _BookDetailPageState extends State<BookDetailPage> {
-  late Future<List<BookModel>> bookListFuture;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    bookListFuture = BookApi.fetchBooks();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            pinned: true,
+            centerTitle: true,
+            leading: IconButton(
+                icon: Icon(Icons.arrow_back_ios),
+                onPressed: () => Navigator.pop(context)),
+            pinned: false,
             elevation: 5,
             expandedHeight: 200,
             stretchTriggerOffset: 100,
@@ -40,36 +41,36 @@ class _BookDetailPageState extends State<BookDetailPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        DUMMY_BOOKS[0].title,
+                        widget.book.title!,
                         style: GoogleFonts.ubuntu(fontSize: 25),
                       ),
                       Text(
-                        DUMMY_BOOKS[0].category,
+                        widget.book.author!,
                         style: GoogleFonts.ubuntu(
                             color: Colors.white, fontSize: 20),
                       ),
                     ]),
                 background: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Image.network(
-                    DUMMY_BOOKS[0].imageUrl,
+                    widget.book.thumbnailUrl!,
                     alignment: Alignment.centerRight,
                   ),
                 ),
-                titlePadding: EdgeInsets.all(10)),
-            backgroundColor: Colors.pink.withOpacity(0.6),
+                titlePadding: const EdgeInsets.all(10)),
+            backgroundColor: Colors.pink,
           ),
           SliverList(
               delegate: SliverChildBuilderDelegate(
             childCount: 1,
             (context, index) {
               return Column(children: [
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Container(
                   alignment: Alignment.topLeft,
-                  padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
+                  padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -100,34 +101,34 @@ class _BookDetailPageState extends State<BookDetailPage> {
                       ]),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
+                  padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
                   child: Row(
                     children: [
                       Container(
                         decoration: const BoxDecoration(
                             border:
                                 Border(bottom: BorderSide(color: Colors.pink))),
+                        padding: const EdgeInsets.all(8),
                         child: Text(
                           "Description",
                           style: GoogleFonts.ubuntu(
                               fontSize: 15, fontWeight: FontWeight.bold),
                         ),
-                        padding: const EdgeInsets.all(8),
                       ),
                       Container(
+                        padding: const EdgeInsets.all(8),
                         child: Text(
                           "Reviews",
                           style: GoogleFonts.ubuntu(
                               fontSize: 15, fontWeight: FontWeight.bold),
                         ),
-                        padding: const EdgeInsets.all(8),
                       ),
-                      Spacer(),
-                      Icon(
+                      const Spacer(),
+                      const Icon(
                         Icons.favorite_border_outlined,
                         size: 30,
                       ),
-                      Icon(
+                      const Icon(
                         Icons.bookmark_outline_outlined,
                         size: 30,
                       )
@@ -135,8 +136,8 @@ class _BookDetailPageState extends State<BookDetailPage> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.all(20),
-                  padding: EdgeInsets.all(20),
+                  margin: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: Colors.pink.withOpacity(0.6),
                     borderRadius: BorderRadius.circular(10),
@@ -145,11 +146,11 @@ class _BookDetailPageState extends State<BookDetailPage> {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 5,
                         blurRadius: 7,
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
-                  child: Text(DUMMY_BOOKS[0].description,
+                  child: Text(widget.book.description!,
                       style: GoogleFonts.ubuntu()),
                 )
               ]);

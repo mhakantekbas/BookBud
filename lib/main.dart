@@ -34,7 +34,6 @@ class MyApp extends StatelessWidget {
         SignInPage.routeName: (context) => SignInPage(),
         OnBoarding.routeName: (context) => const OnBoarding(),
         BottomBar.routeName: (context) => const BottomBar(),
-        BookDetailPage.routeName: (context) => BookDetailPage()
       },
       onUnknownRoute: (settings) => MaterialPageRoute(
         builder: (context) => const HasData(),
