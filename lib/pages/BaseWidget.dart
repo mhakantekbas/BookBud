@@ -17,7 +17,7 @@ class BottomBar extends StatefulWidget {
 class _BottomBarState extends State<BottomBar> {
   int _index = 0;
   final List<Widget> screens = [
-    BookListScreen(),
+    BookPage(),
     const SearchPage(),
     ProfilePage(),
     MyListPage(),

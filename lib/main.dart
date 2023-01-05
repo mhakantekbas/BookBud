@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
               .copyWith(primary: const Color.fromRGBO(53, 83, 88, 1))),
       routes: {
         '/': (context) => const HasData(),
-        BookListScreen.routeName: (context) => BookListScreen(),
+        BookPage.routeName: (context) => BookPage(),
         SettingsPage.routeName: (context) => SettingsPage(),
         SignInPage.routeName: (context) => SignInPage(),
         OnBoarding.routeName: (context) => const OnBoarding(),

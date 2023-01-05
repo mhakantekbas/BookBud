@@ -10,36 +10,35 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
         body: Column(
-          children: [
-            Expanded(
-              flex: 1,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    color: const Color.fromRGBO(53, 83, 88, 1),
-                    borderRadius: BorderRadius.circular(15)),
-                child: Center(
-                  child: Stack(
-                    children: const [
-                      SearchBox(),
-                    ],
-                  ),
-                ),
+      children: [
+        Expanded(
+          flex: 1,
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                color: const Color.fromRGBO(53, 83, 88, 1),
+                borderRadius: BorderRadius.circular(15)),
+            child: Center(
+              child: Stack(
+                children: const [
+                  SearchBox(),
+                ],
               ),
             ),
-            Expanded(
-              flex: 4,
-              child: Container(
-                  padding: const EdgeInsets.only(
-                    left: 30,
-                    right: 30,
-                  ),
-                  child: const Text('')),
-            ),
-          ],
-        ));
+          ),
+        ),
+        Expanded(
+          flex: 4,
+          child: Container(
+              padding: const EdgeInsets.only(
+                left: 30,
+                right: 30,
+              ),
+              child: const Text('')),
+        ),
+      ],
+    ));
   }
 }
 

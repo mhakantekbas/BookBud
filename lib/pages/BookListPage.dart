@@ -11,23 +11,12 @@ import 'package:term_project/pages/search_page.dart';
 import 'package:term_project/services/book_api.dart';
 import 'package:term_project/widgets/firebase_services.dart';
 import 'package:term_project/widgets/hasData.dart';
+import 'package:term_project/widgets/search.dart';
 
 import '../services/dummydata.dart';
 
-class BookListScreen extends StatelessWidget {
-  static const routeName = '/bookList-page';
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "BOOKS",
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.grey),
-      home: BookPage(),
-    );
-  }
-}
-
 class BookPage extends StatefulWidget {
+  static const routeName = '/bookList-page';
   BookPage({super.key});
 
   @override
@@ -42,7 +31,7 @@ class _BookPageState extends State<BookPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    bookListFuture = BookApi.fetchBooks();
+    bookListFuture = BookApi.getBookData();
   }
 
   @override
@@ -56,7 +45,7 @@ class _BookPageState extends State<BookPage> {
         ),
         centerTitle: true,
         title: Text(
-          "Books",
+          "BOOKBUD",
           style: GoogleFonts.bebasNeue(
               fontSize: 40, color: const Color.fromARGB(255, 53, 83, 88)),
         ),
@@ -67,13 +56,21 @@ class _BookPageState extends State<BookPage> {
               _firebaseServices.SignOut();
               Navigator.popUntil(context, ModalRoute.withName('/'));
             },
-            child: const Icon(Icons.logout),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Icon(
-              Icons.search,
+            child: const Icon(
+              Icons.logout,
               color: Color.fromARGB(255, 53, 83, 88),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: IconButton(
+              icon: Icon(
+                Icons.search,
+                color: Color.fromARGB(255, 53, 83, 88),
+              ),
+              onPressed: () {
+                showSearch(context: context, delegate: SearchBook());
+              },
             ),
           )
         ],
