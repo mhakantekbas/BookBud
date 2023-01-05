@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:term_project/pages/BaseWidget.dart';
+import 'package:term_project/pages/BookDetailPage.dart';
 import 'package:term_project/pages/BookListPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:term_project/pages/onBoarding.dart';
@@ -32,7 +33,8 @@ class MyApp extends StatelessWidget {
         SettingsPage.routeName: (context) => SettingsPage(),
         SignInPage.routeName: (context) => SignInPage(),
         OnBoarding.routeName: (context) => const OnBoarding(),
-        BottomBar.routeName: (context) => const BottomBar()
+        BottomBar.routeName: (context) => const BottomBar(),
+        BookDetailPage.routeName: (context) => BookDetailPage()
       },
       onUnknownRoute: (settings) => MaterialPageRoute(
         builder: (context) => const HasData(),

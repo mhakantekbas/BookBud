@@ -15,7 +15,7 @@ class BookModel {
       title: json['volumeInfo']['title'],
       author: json['volumeInfo']['authors'][0],
       description: json['volumeInfo']['description'],
-      thumbnailUrl: json['volumeInfo']['imageLinks']['smallThumbnail'],
+      thumbnailUrl: json['volumeInfo']['imageLinks']['thumbnail'],
     );
   }
 }
