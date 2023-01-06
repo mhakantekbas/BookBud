@@ -1,62 +1,40 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:term_project/widgets/firebase_services.dart';
+import 'package:provider/provider.dart';
 
+import '../Provider/FavoriteProvider.dart';
 import '../services/dummydata.dart';
+import 'BookDetailPage.dart';
 
 class MyListPage extends StatelessWidget {
+  const MyListPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<FavoriteProvider>(context);
+    final books = provider.favbook;
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.book_outlined),
-        title: const Text('My List'),
+        title: Text('Favorites'),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height - 200,
-            child: ListView.builder(
-              shrinkWrap: true,
-              padding: const EdgeInsets.all(20),
-              itemCount: DUMMY_BOOKS.length,
-              itemBuilder: (bc, index) {
-                return GestureDetector(
-                  onTap: () {},
-                  child: Card(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        /* Image.network(
-                          bookList[index].imageUrl,
-                          width: 20,
-                          height: 30,
-                        ),*/
-                        //SizedBox(width: 10,),
-                        Container(
-                          width: 250.0,
-                          margin: const EdgeInsets.all(20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(DUMMY_BOOKS[index].title),
-                              Text(
-                                DUMMY_BOOKS[index].year.toString(),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
+      body: ListView.builder(
+        itemCount: books.length,
+        itemBuilder: (context, index) {
+          final book = books[index];
+          return ListTile(
+            title: Text(book.title.toString()),
+            trailing: IconButton(
+              onPressed: () {
+                provider.toggleFavorite(book);
               },
+              icon: provider.isExist(book)
+                  ? const Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                    )
+                  : const Icon(Icons.favorite_border_outlined),
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }

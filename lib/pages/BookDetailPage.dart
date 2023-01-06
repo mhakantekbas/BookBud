@@ -1,9 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:provider/provider.dart';
 import 'package:term_project/services/book_api.dart';
 
+import '../Provider/FavoriteProvider.dart';
 import '../model/book_model.dart';
 import '../services/dummydata.dart';
 
@@ -21,8 +22,18 @@ class BookDetailPage extends StatefulWidget {
 }
 
 class _BookDetailPageState extends State<BookDetailPage> {
+  late Future<List<BookModel>> bookListFuture;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    bookListFuture = BookApi.getBookData();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<FavoriteProvider>(context);
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -124,9 +135,16 @@ class _BookDetailPageState extends State<BookDetailPage> {
                         ),
                       ),
                       const Spacer(),
-                      const Icon(
-                        Icons.favorite_border_outlined,
-                        size: 30,
+                      IconButton(
+                        icon: provider.isExist(widget.book)
+                            ? const Icon(
+                                Icons.favorite,
+                                color: Colors.red,
+                              )
+                            : const Icon(Icons.favorite_border_outlined),
+                        onPressed: () {
+                          provider.toggleFavorite(widget.book);
+                        },
                       ),
                       const Icon(
                         Icons.bookmark_outline_outlined,
