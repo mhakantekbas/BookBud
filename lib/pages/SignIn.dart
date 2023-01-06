@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:term_project/widgets/firebase_services.dart';
+import '../services/notification_service.dart';
 import 'onBoarding.dart';
 
 class SignInPage extends StatefulWidget {
@@ -207,6 +208,7 @@ class _SignInPageState extends State<SignInPage> {
                           onPressed: () async {
                             await FirebaseServices().signInWithGoogle();
                             Navigator.of(context).pushNamed('/onBoarding-page');
+
                           },
                           child: Row(
                             children: [
