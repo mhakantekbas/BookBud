@@ -8,6 +8,7 @@ import 'package:term_project/pages/BookListPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:term_project/pages/onBoarding.dart';
 import 'package:term_project/pages/setting_page.dart';
+import 'package:term_project/services/notification_service.dart';
 import 'package:term_project/widgets/hasData.dart';
 import 'Provider/FavoriteProvider.dart';
 import 'Provider/TodoProvider.dart';
@@ -15,6 +16,7 @@ import 'pages/SignIn.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  NotificationService().initializeNotification();
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
@@ -39,7 +41,7 @@ class MyApp extends StatelessWidget {
                 .copyWith(primary: const Color.fromRGBO(53, 83, 88, 1))),
         routes: {
           '/': (context) => const HasData(),
-          BookPage.routeName: (context) => BookPage(),
+          BookListScreen.routeName: (context) => BookPage(),
           SettingsPage.routeName: (context) => SettingsPage(),
           SignInPage.routeName: (context) => SignInPage(),
           OnBoarding.routeName: (context) => const OnBoarding(),

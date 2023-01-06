@@ -6,7 +6,7 @@ import 'package:term_project/model/book_model.dart';
 class BookApi {
   static Future<List<BookModel>> getBookData() async {
     List<BookModel> books = [];
-    const url = 'https://www.googleapis.com/books/v1/volumes?q=flutter';
+    const url = 'https://www.googleapis.com/books/v1/volumes?q=car';
     final uri = Uri.parse(url);
     final response = await http.get(uri);
     final body = response.body;
