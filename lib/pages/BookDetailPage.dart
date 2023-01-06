@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:term_project/services/book_api.dart';
-
 import '../Provider/FavoriteProvider.dart';
 import '../model/book_model.dart';
-import '../services/dummydata.dart';
 
 class BookDetailPage extends StatefulWidget {
   BookModel book;
@@ -35,147 +33,161 @@ class _BookDetailPageState extends State<BookDetailPage> {
     final provider = Provider.of<FavoriteProvider>(context);
 
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            centerTitle: true,
-            leading: IconButton(
-                icon: Icon(Icons.arrow_back_ios),
-                onPressed: () => Navigator.pop(context)),
-            pinned: false,
-            elevation: 5,
-            expandedHeight: 200,
-            stretchTriggerOffset: 100,
-            flexibleSpace: FlexibleSpaceBar(
-                title: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
+      backgroundColor: Colors.grey,
+      body: SingleChildScrollView(
+          child: Column(children: [
+        Container(
+          decoration: BoxDecoration(),
+          height: MediaQuery.of(context).size.width / 1.3,
+          padding: EdgeInsets.fromLTRB(10, 40, 20, 10),
+          alignment: Alignment.topCenter,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 10,
+                      offset: Offset(0, 5),
+                    ),
+                  ],
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Image.network(
+                    widget.book.thumbnailUrl.toString(),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width / 2,
+                padding: EdgeInsets.fromLTRB(20, 40, 10, 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.book.title.toString(),
+                      style:
+                          GoogleFonts.ubuntu(fontSize: 25, color: Colors.white),
+                    ),
+                    Text(
+                      widget.book.author.toString(),
+                      style:
+                          GoogleFonts.ubuntu(color: Colors.black, fontSize: 20),
+                    ),
+                    Row(
+                      children: [
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            elevation: 10,
+                          ),
+                          label: Text("Favorite"),
+                          icon: provider.isExist(widget.book)
+                              ? const Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                )
+                              : const Icon(Icons.favorite_border_outlined),
+                          onPressed: () {
+                            provider.toggleFavorite(widget.book);
+                          },
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30), color: Colors.white),
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.topLeft,
+                padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
+                child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.book.title!,
-                        style: GoogleFonts.ubuntu(fontSize: 25),
+                        "Categories: ",
+                        style: GoogleFonts.ubuntu(fontSize: 20),
                       ),
                       Text(
-                        widget.book.author!,
-                        style: GoogleFonts.ubuntu(
-                            color: Colors.white, fontSize: 20),
+                        "Published Date: ",
+                        style: GoogleFonts.ubuntu(fontSize: 20),
+                      ),
+                      Text(
+                        "ISBN-13: ",
+                        style: GoogleFonts.ubuntu(fontSize: 20),
+                      ),
+                      Text(
+                        "Language: ",
+                        style: GoogleFonts.ubuntu(fontSize: 20),
+                      ),
+                      Text(
+                        "Pages: ",
+                        style: GoogleFonts.ubuntu(fontSize: 20),
+                      ),
+                      Text(
+                        "Publisher: ",
+                        style: GoogleFonts.ubuntu(fontSize: 20),
                       ),
                     ]),
-                background: Container(
-                  padding: const EdgeInsets.all(20),
-                  child: Image.network(
-                    widget.book.thumbnailUrl!,
-                    alignment: Alignment.centerRight,
-                  ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
+                child: Row(
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                          border:
+                              Border(bottom: BorderSide(color: Colors.grey))),
+                      child: Text(
+                        "Description",
+                        style: GoogleFonts.ubuntu(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
+                      padding: const EdgeInsets.all(8),
+                    ),
+                    Container(
+                      child: Text(
+                        "Reviews",
+                        style: GoogleFonts.ubuntu(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
+                      padding: const EdgeInsets.all(8),
+                    ),
+                  ],
                 ),
-                titlePadding: const EdgeInsets.all(10)),
-            backgroundColor: Colors.pink,
+              ),
+              Container(
+                margin: EdgeInsets.all(20),
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.6),
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Text(widget.book.description.toString()),
+              ),
+            ],
           ),
-          SliverList(
-              delegate: SliverChildBuilderDelegate(
-            childCount: 1,
-            (context, index) {
-              return Column(children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  alignment: Alignment.topLeft,
-                  padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Categories: ",
-                          style: GoogleFonts.ubuntu(fontSize: 20),
-                        ),
-                        Text(
-                          "Published Date: ",
-                          style: GoogleFonts.ubuntu(fontSize: 20),
-                        ),
-                        Text(
-                          "ISBN-13: ",
-                          style: GoogleFonts.ubuntu(fontSize: 20),
-                        ),
-                        Text(
-                          "Language: ",
-                          style: GoogleFonts.ubuntu(fontSize: 20),
-                        ),
-                        Text(
-                          "Pages: ",
-                          style: GoogleFonts.ubuntu(fontSize: 20),
-                        ),
-                        Text(
-                          "Publisher: ",
-                          style: GoogleFonts.ubuntu(fontSize: 20),
-                        ),
-                      ]),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
-                  child: Row(
-                    children: [
-                      Container(
-                        decoration: const BoxDecoration(
-                            border:
-                                Border(bottom: BorderSide(color: Colors.pink))),
-                        padding: const EdgeInsets.all(8),
-                        child: Text(
-                          "Description",
-                          style: GoogleFonts.ubuntu(
-                              fontSize: 15, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        child: Text(
-                          "Reviews",
-                          style: GoogleFonts.ubuntu(
-                              fontSize: 15, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      const Spacer(),
-                      IconButton(
-                        icon: provider.isExist(widget.book)
-                            ? const Icon(
-                                Icons.favorite,
-                                color: Colors.red,
-                              )
-                            : const Icon(Icons.favorite_border_outlined),
-                        onPressed: () {
-                          provider.toggleFavorite(widget.book);
-                        },
-                      ),
-                      const Icon(
-                        Icons.bookmark_outline_outlined,
-                        size: 30,
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(20),
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Colors.pink.withOpacity(0.6),
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Text(widget.book.description!,
-                      style: GoogleFonts.ubuntu()),
-                )
-              ]);
-            },
-          ))
-        ],
-      ),
+        )
+      ])),
     );
   }
 }
