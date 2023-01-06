@@ -31,7 +31,6 @@ class BookListScreen extends StatelessWidget {
 }
 
 class BookPage extends StatefulWidget {
-
   BookPage({super.key});
 
   @override
@@ -39,10 +38,8 @@ class BookPage extends StatefulWidget {
 }
 
 class _BookPageState extends State<BookPage> {
-
   FirebaseServices _firebaseServices = FirebaseServices();
   late Future<List<BookModel>> bookListFuture;
-
 
   @override
   void initState() {
@@ -63,7 +60,7 @@ class _BookPageState extends State<BookPage> {
         ),
         centerTitle: true,
         title: Text(
-          "Books",
+          "BookBud",
           style: GoogleFonts.bebasNeue(
               fontSize: 40, color: const Color.fromARGB(255, 53, 83, 88)),
         ),
@@ -149,83 +146,91 @@ class _BookPageState extends State<BookPage> {
               Container(
                 height: 820,
                 child: FutureBuilder<List<BookModel>>(
-                  builder:(context, snapshot) {
-                    if(snapshot.hasData!){
-                   List<BookModel>  books =snapshot.data!;
-                   return GridView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                       gridDelegate:
-                       const SliverGridDelegateWithMaxCrossAxisExtent(
-                           maxCrossAxisExtent: 200,
-                           childAspectRatio: 1,
-                           crossAxisSpacing: 1,
-                           mainAxisSpacing: 15),
-                       itemCount: books.length,
-                       itemBuilder: (BuildContext ctx, index) {
-                         return Column(
-                           children: [
-                             GestureDetector(
-                               onTap: () {
-                                 provider.BookSelector(books[index]);
-                                 Navigator.push(
-                                   context,
-                                   new MaterialPageRoute(
-                                     builder: (context) => new BookDetailPage(book:provider.book),
-                                   ),
-                                 );
-                               },
-                               child: Stack(
-                                 alignment: Alignment.bottomCenter,
-                                 children: [
-                                   Container(
-                                     width: 135,
-                                     height: 107,
-                                     decoration: BoxDecoration(
-                                         boxShadow: [
-                                           BoxShadow(
-                                             color: Colors.grey.withOpacity(0.5),
-                                             spreadRadius: 5,
-                                             blurRadius: 7,
-                                             offset: const Offset(0, 3),
-                                           ),
-                                         ],
-                                         borderRadius: BorderRadius.circular(5),
-                                         color: Colors.amber.withOpacity(0.8)),
-                                   ),
-                                   Column(
-                                     children: [
-                                       ClipRRect(
-                                         borderRadius: BorderRadius.circular(8),
-                                         child: Image.network(
-                                           books[index].thumbnailUrl!,
-                                           width: 75,
-                                         ),
-                                       ),
-                                       const SizedBox(
-                                         height: 10,
-                                       ),
-                                     ],
-                                   ),
-                                 ],
-                               ),
-
-                             ),
-                             const SizedBox(
-                               height: 5,
-                             ),
-                             Text(
-                               "BookName",
-                               style: GoogleFonts.ubuntu(),
-                             ),
-                             Text(
-                               "Author",
-                               style: GoogleFonts.ubuntu(color: Colors.grey),
-                             )
-                           ],
-                         );
-                       });
-                    }else{
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData!) {
+                      List<BookModel> books = snapshot.data!;
+                      return GridView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          gridDelegate:
+                              const SliverGridDelegateWithMaxCrossAxisExtent(
+                                  maxCrossAxisExtent: 200,
+                                  childAspectRatio: 1,
+                                  crossAxisSpacing: 1,
+                                  mainAxisSpacing: 15),
+                          itemCount: books.length,
+                          itemBuilder: (BuildContext ctx, index) {
+                            return Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    provider.BookSelector(books[index]);
+                                    Navigator.push(
+                                      context,
+                                      new MaterialPageRoute(
+                                        builder: (context) =>
+                                            new BookDetailPage(
+                                                book: provider.book),
+                                      ),
+                                    );
+                                  },
+                                  child: Stack(
+                                    alignment: Alignment.bottomCenter,
+                                    children: [
+                                      Container(
+                                        width: 135,
+                                        height: 107,
+                                        decoration: BoxDecoration(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey
+                                                    .withOpacity(0.5),
+                                                spreadRadius: 5,
+                                                blurRadius: 7,
+                                                offset: const Offset(0, 3),
+                                              ),
+                                            ],
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            color:
+                                                Colors.amber.withOpacity(0.8)),
+                                      ),
+                                      Column(
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            child: Image.network(
+                                              books[index].thumbnailUrl!,
+                                              width: 75,
+                                              height: 120,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  books[index].title!,
+                                  style: GoogleFonts.ubuntu(),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Text(
+                                  books[index].author!,
+                                  style: GoogleFonts.ubuntu(color: Colors.grey),
+                                )
+                              ],
+                            );
+                          });
+                    } else {
                       return Center(
                         child: SizedBox(
                           height: 40,

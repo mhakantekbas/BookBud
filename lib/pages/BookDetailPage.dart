@@ -35,7 +35,14 @@ class _BookDetailPageState extends State<BookDetailPage> {
     return Scaffold(
       backgroundColor: Colors.grey,
       body: SingleChildScrollView(
-          child: Column(children: [
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Container(
+              padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
+              child: Icon(Icons.arrow_back_ios_new_outlined)),
+        ),
         Container(
           decoration: BoxDecoration(),
           height: MediaQuery.of(context).size.width / 1.3,
@@ -116,27 +123,29 @@ class _BookDetailPageState extends State<BookDetailPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Categories: ",
+                        "Categories: " + widget.book.categories.toString(),
                         style: GoogleFonts.ubuntu(fontSize: 20),
                       ),
                       Text(
-                        "Published Date: ",
+                        "Published Date: " + widget.book.publishdate.toString(),
                         style: GoogleFonts.ubuntu(fontSize: 20),
                       ),
                       Text(
-                        "ISBN-13: ",
+                        widget.book.isbntype.toString() +
+                            ": " +
+                            widget.book.isbn13.toString(),
                         style: GoogleFonts.ubuntu(fontSize: 20),
                       ),
                       Text(
-                        "Language: ",
+                        "Language: " + widget.book.language.toString(),
                         style: GoogleFonts.ubuntu(fontSize: 20),
                       ),
                       Text(
-                        "Pages: ",
+                        "Pages: " + widget.book.page.toString(),
                         style: GoogleFonts.ubuntu(fontSize: 20),
                       ),
                       Text(
-                        "Publisher: ",
+                        "Publisher: " + widget.book.publisher.toString(),
                         style: GoogleFonts.ubuntu(fontSize: 20),
                       ),
                     ]),
