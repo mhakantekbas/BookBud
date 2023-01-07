@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:term_project/Provider/TodoProvider.dart';
 import 'package:term_project/services/book_api.dart';
-import 'package:term_project/widgets/BookFutureBuilderWidget.dart';
+import 'package:term_project/widgets/BookGridViewWidget.dart';
 
 import '../model/book_model.dart';
 
@@ -36,9 +38,11 @@ class SearchBook extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
+    TodoProvider todoProvider = Provider.of<TodoProvider>(context);
     return Container(
         padding: EdgeInsets.all(30),
-        child: BookFutureBuilder(
+        child: BookGridViewWidget(
+          provider: todoProvider,
           bookListFuture: BookApi.getDataByQuery(q: query),
         ));
   }

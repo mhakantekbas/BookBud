@@ -8,7 +8,11 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool isSwitched = false;
+  bool isSwitchedRecommender = false;
+  bool isSwitchedUpdate = false;
+  bool isSwitchedNotification = false;
+  bool isdarkTheme = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,10 +33,10 @@ class _SettingsPageState extends State<SettingsPage> {
                     SettingsTile.navigation(
                       trailing: Switch(
                           activeColor: const Color.fromARGB(255, 255, 205, 55),
-                          value: isSwitched,
+                          value: isSwitchedRecommender,
                           onChanged: ((value) {
                             setState(() {
-                              isSwitched = value;
+                              isSwitchedRecommender = value;
                             });
                           })),
                       onPressed: (context) {},
@@ -40,21 +44,42 @@ class _SettingsPageState extends State<SettingsPage> {
                       leading: const Icon(Icons.recommend_rounded),
                     ),
                     SettingsTile.navigation(
-                      trailing: Switch(value: false, onChanged: ((value) {})),
-                      onPressed: (context) {},
-                      title: const Text("Comments"),
-                      leading: const Icon(Icons.comment),
-                    ),
-                    SettingsTile.navigation(
-                      trailing: Switch(value: false, onChanged: ((value) {})),
+                      trailing: Switch(
+                          activeColor: const Color.fromARGB(255, 255, 205, 55),
+                          value: isSwitchedUpdate,
+                          onChanged: ((value) {
+                            setState(() {
+                              isSwitchedUpdate = value;
+                            });
+                          })),
                       onPressed: (context) {},
                       title: const Text("Offer Updates"),
                       leading: const Icon(Icons.cloud_download),
                     ),
                     SettingsTile.navigation(
-                      trailing: Switch(value: false, onChanged: ((value) {})),
+                      trailing: Switch(
+                          activeColor: const Color.fromARGB(255, 255, 205, 55),
+                          value: isSwitchedNotification,
+                          onChanged: ((value) {
+                            setState(() {
+                              isSwitchedNotification = value;
+                            });
+                          })),
                       onPressed: (context) {},
                       title: const Text("Notifications"),
+                      leading: const Icon(Icons.notifications),
+                    ),
+                    SettingsTile.navigation(
+                      trailing: Switch(
+                          activeColor: const Color.fromARGB(255, 255, 205, 55),
+                          value: isdarkTheme,
+                          onChanged: ((value) {
+                            setState(() {
+                              isdarkTheme = value;
+                            });
+                          })),
+                      onPressed: (context) {},
+                      title: const Text("Dark Theme"),
                       leading: const Icon(Icons.notifications),
                     )
                   ],

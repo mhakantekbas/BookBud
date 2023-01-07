@@ -118,6 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Form(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: TextFormField(
+                    keyboardType: TextInputType.emailAddress,
                     validator: (value) => EmailValidator.validate(value!)
                         ? null
                         : "Please enter a valid email",
@@ -261,10 +262,13 @@ class _LoginPageState extends State<LoginPage> {
                             borderRadius: BorderRadius.circular(7),
                             color: const Color.fromARGB(255, 255, 205, 55)),
                         child: TextButton(
-                          onPressed: (){
+                          onPressed: () {
                             signIn();
-                            NotificationService().showNotification( 0, "Hey have you read this book","Hey have you read");
-                          } ,
+                            NotificationService().showNotification(
+                                0,
+                                "Hey have you read this book",
+                                "Hey have you read");
+                          },
                           child: Text('Log in',
                               style: GoogleFonts.ubuntu(
                                 textStyle: const TextStyle(
@@ -287,7 +291,10 @@ class _LoginPageState extends State<LoginPage> {
                         child: TextButton(
                           onPressed: () async {
                             await FirebaseServices().signInWithGoogle();
-                            NotificationService().showNotification( 0, "Hey have you read this book","Hey have you read");
+                            NotificationService().showNotification(
+                                0,
+                                "Hey have you read this book",
+                                "Hey have you read");
                           },
                           child: Row(
                             children: [
