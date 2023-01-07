@@ -4,18 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:term_project/model/book_model.dart';
 import 'package:term_project/pages/BookDetailPage.dart';
-import 'package:term_project/pages/MyListPage.dart';
-import 'package:term_project/pages/ProfilePage.dart';
-import 'package:term_project/pages/SignIn.dart';
-import 'package:term_project/pages/login_page.dart';
-import 'package:term_project/pages/search_page.dart';
+
 import 'package:term_project/services/book_api.dart';
 import 'package:term_project/widgets/firebase_services.dart';
-import 'package:term_project/widgets/hasData.dart';
+
 import 'package:provider/provider.dart';
-import '../Provider/FavoriteProvider.dart';
+
 import '../Provider/TodoProvider.dart';
-import '../services/dummydata.dart';
+import '../widgets/BookGridViewWidget.dart';
+import '../widgets/search.dart';
 
 class BookListScreen extends StatelessWidget {
   static const routeName = '/bookList-page';
@@ -71,13 +68,21 @@ class _BookPageState extends State<BookPage> {
               _firebaseServices.SignOut();
               Navigator.popUntil(context, ModalRoute.withName('/'));
             },
-            child: const Icon(Icons.logout),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Icon(
-              Icons.search,
+            child: const Icon(
+              Icons.logout,
               color: Color.fromARGB(255, 53, 83, 88),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: IconButton(
+              icon: Icon(
+                Icons.search,
+                color: Color.fromARGB(255, 53, 83, 88),
+              ),
+              onPressed: () {
+                showSearch(context: context, delegate: SearchBook());
+              },
             ),
           )
         ],
@@ -109,7 +114,13 @@ class _BookPageState extends State<BookPage> {
               const SizedBox(
                 height: 10,
               ),
-              RecommendedBooks(bookListFuture: bookListFuture),
+              SizedBox(
+                height: 200,
+                child: BookGridViewWidget(
+                  bookListFuture: bookListFuture,
+                  provider: provider,
+                ),
+              ),
               Row(
                 children: [
                   Container(
@@ -144,103 +155,8 @@ class _BookPageState extends State<BookPage> {
                 height: 10,
               ),
               Container(
-                child: FutureBuilder<List<BookModel>>(
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      List<BookModel> books = snapshot.data!;
-                      return GridView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          gridDelegate:
-                              const SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: 200,
-                                  childAspectRatio: 1,
-                                  crossAxisSpacing: 1,
-                                  mainAxisSpacing: 15),
-                          itemCount: books.length,
-                          itemBuilder: (BuildContext ctx, index) {
-                            return Column(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    provider.BookSelector(books[index]);
-                                    Navigator.push(
-                                      context,
-                                      new MaterialPageRoute(
-                                        builder: (context) =>
-                                            new BookDetailPage(
-                                                book: provider.book),
-                                      ),
-                                    );
-                                  },
-                                  child: Stack(
-                                    alignment: Alignment.bottomCenter,
-                                    children: [
-                                      Container(
-                                        width: 135,
-                                        height: 107,
-                                        decoration: BoxDecoration(
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.grey
-                                                    .withOpacity(0.5),
-                                                spreadRadius: 5,
-                                                blurRadius: 7,
-                                                offset: const Offset(0, 3),
-                                              ),
-                                            ],
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            color:
-                                                Colors.amber.withOpacity(0.8)),
-                                      ),
-                                      Column(
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            child: Image.network(
-                                              books[index].thumbnailUrl!,
-                                              width: 75,
-                                              height: 120,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  books[index].title!,
-                                  style: GoogleFonts.ubuntu(),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Text(
-                                  books[index].author!,
-                                  style: GoogleFonts.ubuntu(color: Colors.grey),
-                                )
-                              ],
-                            );
-                          });
-                    } else {
-                      return Center(
-                        child: SizedBox(
-                          height: 40,
-                          width: 40,
-                          child: CircularProgressIndicator(),
-                        ),
-                      );
-                    }
-                  },
-                  future: bookListFuture,
-                ),
+                child: BookGridViewWidget(
+                    provider: provider, bookListFuture: bookListFuture),
               ),
             ]),
             color: Colors.white,
@@ -248,113 +164,5 @@ class _BookPageState extends State<BookPage> {
         ],
       )),
     );
-  }
-}
-
-class RecommendedBooks extends StatelessWidget {
-  const RecommendedBooks({
-    Key? key,
-    required this.bookListFuture,
-  }) : super(key: key);
-
-  final Future<List<BookModel>> bookListFuture;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-        height: 200,
-        child: FutureBuilder<List<BookModel>>(
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<BookModel> books = snapshot.data!;
-              return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200,
-                    childAspectRatio: 1,
-                    crossAxisSpacing: 1,
-                    mainAxisSpacing: 15),
-                itemCount: books.length,
-                itemBuilder: (BuildContext ctx, index) {
-                  return Column(
-                    children: [
-                      Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          Container(
-                            width: 135,
-                            height: 107,
-                            decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 5,
-                                    blurRadius: 7,
-                                    offset: const Offset(0, 3),
-                                  ),
-                                ],
-                                borderRadius: BorderRadius.circular(5),
-                                color: Color.fromARGB(255, 53, 83, 88)
-                                    .withOpacity(0.8)),
-                          ),
-                          Column(
-                            children: [
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: CachedNetworkImage(
-                                    imageUrl: books[index].thumbnailUrl!,
-                                    width: 75,
-                                    height: 120,
-                                    fit: BoxFit.cover,
-                                    placeholder: (context, url) =>
-                                        const CircularProgressIndicator(),
-                                    errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 15,
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        books[index].title!,
-                        style: GoogleFonts.ubuntu(),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Text(
-                        books[index].author!,
-                        style: GoogleFonts.ubuntu(color: Colors.grey),
-                      )
-                    ],
-                  );
-                },
-              );
-            } else {
-              const Center(
-                child: SizedBox(
-                  height: 40,
-                  width: 40,
-                  child: CircularProgressIndicator(),
-                ),
-              );
-            }
-            return const Center(
-              child: SizedBox(
-                height: 40,
-                width: 40,
-                child: CircularProgressIndicator(),
-              ),
-            );
-          },
-          future: bookListFuture,
-        ));
   }
 }
