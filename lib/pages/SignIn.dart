@@ -109,6 +109,7 @@ class _SignInPageState extends State<SignInPage> {
                 child: Form(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: TextFormField(
+                    keyboardType: TextInputType.emailAddress,
                     validator: (value) => EmailValidator.validate(value!)
                         ? null
                         : "Please enter a valid email",
@@ -208,7 +209,6 @@ class _SignInPageState extends State<SignInPage> {
                           onPressed: () async {
                             await FirebaseServices().signInWithGoogle();
                             Navigator.of(context).pushNamed('/onBoarding-page');
-
                           },
                           child: Row(
                             children: [
