@@ -15,7 +15,7 @@ class MyListPage extends StatelessWidget {
     final book = provider.favbook;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Favorites'),
+        title: const Text('Favorites'),
       ),
       body: Consumer<FavoriteProvider>(builder: (context, state, widget) {
         var books = state.favbook;
