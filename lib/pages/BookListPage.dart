@@ -144,10 +144,9 @@ class _BookPageState extends State<BookPage> {
                 height: 10,
               ),
               Container(
-                height: 820,
                 child: FutureBuilder<List<BookModel>>(
                   builder: (context, snapshot) {
-                    if (snapshot.hasData!) {
+                    if (snapshot.hasData) {
                       List<BookModel> books = snapshot.data!;
                       return GridView.builder(
                           physics: NeverScrollableScrollPhysics(),

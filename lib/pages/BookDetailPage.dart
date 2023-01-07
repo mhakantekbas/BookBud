@@ -122,31 +122,100 @@ class _BookDetailPageState extends State<BookDetailPage> {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Categories: " + widget.book.categories.toString(),
-                        style: GoogleFonts.ubuntu(fontSize: 20),
+                      Row(
+                        children: [
+                          Padding(
+                            padding:
+                                widget.book.categories.toString().length < 30
+                                    ? EdgeInsets.only(bottom: 0)
+                                    : EdgeInsets.only(bottom: 20),
+                            child: Text(
+                              overflow: TextOverflow.visible,
+                              "Categories: ",
+                              style: GoogleFonts.ubuntu(
+                                  fontSize: 20, color: Colors.blue),
+                            ),
+                          ),
+                          Flexible(
+                            child: Text(
+                              widget.book.categories.toString(),
+                              style: GoogleFonts.ubuntu(fontSize: 20),
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        "Published Date: " + widget.book.publishdate.toString(),
-                        style: GoogleFonts.ubuntu(fontSize: 20),
+                      Row(
+                        children: [
+                          Text(
+                            "Language: ",
+                            style: GoogleFonts.ubuntu(
+                                fontSize: 20, color: Colors.blue),
+                          ),
+                          Text(
+                            widget.book.language.toString(),
+                            style: GoogleFonts.ubuntu(fontSize: 20),
+                          ),
+                        ],
                       ),
-                      Text(
-                        widget.book.isbntype.toString() +
-                            ": " +
-                            widget.book.isbn13.toString(),
-                        style: GoogleFonts.ubuntu(fontSize: 20),
+                      Row(
+                        children: [
+                          Text(
+                            "Pages: ",
+                            style: GoogleFonts.ubuntu(
+                                fontSize: 20, color: Colors.blue),
+                          ),
+                          Text(
+                            widget.book.page.toString(),
+                            style: GoogleFonts.ubuntu(fontSize: 20),
+                          ),
+                        ],
                       ),
-                      Text(
-                        "Language: " + widget.book.language.toString(),
-                        style: GoogleFonts.ubuntu(fontSize: 20),
+                      Row(
+                        children: [
+                          Padding(
+                            padding:
+                                widget.book.publisher.toString().length < 30
+                                    ? EdgeInsets.only(bottom: 0)
+                                    : EdgeInsets.only(bottom: 20),
+                            child: Text(
+                              "Publisher: ",
+                              style: GoogleFonts.ubuntu(
+                                  fontSize: 20, color: Colors.blue),
+                            ),
+                          ),
+                          Flexible(
+                            child: Text(
+                              widget.book.publisher.toString(),
+                              style: GoogleFonts.ubuntu(fontSize: 20),
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        "Pages: " + widget.book.page.toString(),
-                        style: GoogleFonts.ubuntu(fontSize: 20),
+                      Row(
+                        children: [
+                          Text(
+                            "Publish Date: ",
+                            style: GoogleFonts.ubuntu(
+                                fontSize: 20, color: Colors.blue),
+                          ),
+                          Text(
+                            widget.book.publishdate.toString(),
+                            style: GoogleFonts.ubuntu(fontSize: 20),
+                          ),
+                        ],
                       ),
-                      Text(
-                        "Publisher: " + widget.book.publisher.toString(),
-                        style: GoogleFonts.ubuntu(fontSize: 20),
+                      Row(
+                        children: [
+                          Text(
+                            widget.book.isbntype.toString() + ": ",
+                            style: GoogleFonts.ubuntu(
+                                fontSize: 20, color: Colors.blue),
+                          ),
+                          Text(
+                            widget.book.isbn.toString(),
+                            style: GoogleFonts.ubuntu(fontSize: 20),
+                          ),
+                        ],
                       ),
                     ]),
               ),

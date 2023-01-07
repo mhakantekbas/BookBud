@@ -6,7 +6,7 @@ class BookModel {
   final String? categories;
   final String? publishdate;
   final String? publisher;
-  final String? isbn13;
+  final String? isbn;
   final String? isbntype;
   final int? page;
   final String? language;
@@ -19,7 +19,7 @@ class BookModel {
       this.categories,
       this.publishdate,
       this.publisher,
-      this.isbn13,
+      this.isbn,
       this.page,
       this.language,
       this.isbntype});
@@ -47,7 +47,7 @@ class BookModel {
       publisher: json['volumeInfo']['publisher'] != null
           ? json['volumeInfo']['publisher']!
           : 'No Data...',
-      isbn13: json['volumeInfo']['industryIdentifiers'] != null
+      isbn: json['volumeInfo']['industryIdentifiers'] != null
           ? json['volumeInfo']['industryIdentifiers'][0]["identifier"]!
           : 'No Data...',
       isbntype: json['volumeInfo']['industryIdentifiers'] != null
