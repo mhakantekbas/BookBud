@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:term_project/constants/constants.dart';
 import 'package:term_project/pages/BaseWidget.dart';
 import 'package:term_project/pages/BookDetailPage.dart';
 import 'package:term_project/pages/BookListPage.dart';
@@ -38,10 +39,10 @@ class MyApp extends StatelessWidget {
         title: 'Book List',
         theme: ThemeData(
             colorScheme: ColorScheme.fromSwatch()
-                .copyWith(primary: const Color.fromRGBO(53, 83, 88, 1))),
+                .copyWith(primary: Constants.secondaryPrimaryColor)),
         routes: {
           '/': (context) => const HasData(),
-          BookListScreen.routeName: (context) => BookPage(),
+          BookPage.routeName: (context) => BookPage(),
           SettingsPage.routeName: (context) => SettingsPage(),
           SignInPage.routeName: (context) => SignInPage(),
           OnBoarding.routeName: (context) => const OnBoarding(),

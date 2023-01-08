@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:term_project/constants/constants.dart';
 import 'package:term_project/pages/search_page.dart';
 
 import 'BookListPage.dart';
@@ -36,7 +37,7 @@ class _BottomBarState extends State<BottomBar> {
           });
         },
         animationDuration: const Duration(milliseconds: 350),
-        color: const Color.fromRGBO(53, 83, 88, 1),
+        color: Constants.primaryColor,
         backgroundColor: Colors.white,
         items: const [
           Icon(

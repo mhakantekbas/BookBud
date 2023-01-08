@@ -35,7 +35,7 @@ class _OnBoardingState extends State<OnBoarding> {
           child: Container(
             padding: const EdgeInsets.all(10),
             child: const Text(
-              "Pick 3 Genres to Get Started!",
+              "Pick 4 Genres to Get Started!",
               style: TextStyle(fontSize: 30, color: Colors.white),
             ),
           ),

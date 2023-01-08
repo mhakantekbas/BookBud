@@ -37,12 +37,12 @@ class _BookDetailPageState extends State<BookDetailPage> {
       body: SingleChildScrollView(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        GestureDetector(
-          onTap: () => Navigator.pop(context),
-          child: Container(
-              padding: EdgeInsets.fromLTRB(20, 40, 0, 0),
-              child: Icon(Icons.arrow_back_ios_new_outlined)),
-        ),
+        Container(
+            padding: EdgeInsets.fromLTRB(20, 40, 0, 0),
+            child: IconButton(
+              icon: Icon(Icons.arrow_back_ios),
+              onPressed: () => Navigator.pop(context),
+            )),
         Container(
           decoration: BoxDecoration(),
           height: MediaQuery.of(context).size.width / 1.3,
