@@ -40,7 +40,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
         GestureDetector(
           onTap: () => Navigator.pop(context),
           child: Container(
-              padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
+              padding: EdgeInsets.fromLTRB(20, 40, 0, 0),
               child: Icon(Icons.arrow_back_ios_new_outlined)),
         ),
         Container(
