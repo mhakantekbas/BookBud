@@ -9,6 +9,22 @@ class Genres extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> genres = [
+      "Inspirational",
+      "Horror",
+      "Mystery",
+      "Crime",
+      "Paranormal",
+      "Fantasy",
+      "Thrillers",
+      "Historical",
+      "Romance",
+      "Western",
+      "Science",
+      "Science_Fiction",
+      "Dystopian",
+      "Poetry",
+    ];
     return Container(
         padding: EdgeInsets.all(10),
         child: GridView.builder(
@@ -24,7 +40,7 @@ class Genres extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Color.fromARGB(255, 255, 205, 55),
                       borderRadius: BorderRadius.circular(20)),
-                  child: Center(child: Text("")));
+                  child: Center(child: Text(genres[index])));
             }));
   }
 }
