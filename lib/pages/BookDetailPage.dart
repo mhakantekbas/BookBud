@@ -33,7 +33,10 @@ class _BookDetailPageState extends State<BookDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    String userid = FirebaseAuth.instance.currentUser!.uid;
     final provider = Provider.of<FavoriteProvider>(context);
+    DatabaseReference reference =
+        FirebaseDatabase.instance.ref().child(userid).child('likedbooks/');
 
     return Scaffold(
       backgroundColor: Colors.grey,
@@ -103,12 +106,19 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                 )
                               : const Icon(Icons.favorite_border_outlined),
                           onPressed: () {
+                            var books = <String, dynamic>{
+                              "title": widget.book.title,
+                              "author": widget.book.author,
+                              "url": widget.book.thumbnailUrl,
+                            };
                             if (!provider.isExist(widget.book)) {
+                              widget.book.taskid = reference.push().key!;
+                              reference.child(widget.book.taskid!).set(books);
                               provider.addList(widget.book);
                             } else {
+                              reference.child(widget.book.taskid!).remove();
                               provider.removeList(widget.book);
                             }
-                            print(FirebaseAuth.instance.currentUser!.email);
                           },
                         ),
                       ],
