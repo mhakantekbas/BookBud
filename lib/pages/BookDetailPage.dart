@@ -103,7 +103,11 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                 )
                               : const Icon(Icons.favorite_border_outlined),
                           onPressed: () {
-                            provider.toggleFavorite(widget.book);
+                            if (!provider.isExist(widget.book)) {
+                              provider.addList(widget.book);
+                            } else {
+                              provider.removeList(widget.book);
+                            }
                           },
                         ),
                       ],

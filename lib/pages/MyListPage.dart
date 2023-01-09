@@ -49,7 +49,11 @@ class MyListPage extends StatelessWidget {
                         subtitle: Text(book.author.toString()),
                         trailing: IconButton(
                           onPressed: () {
-                            provider.toggleFavorite(book);
+                            if (!provider.isExist(book)) {
+                              provider.addList(book);
+                            } else {
+                              provider.removeList(book);
+                            }
                           },
                           icon: Icon(Icons.close),
                         ),

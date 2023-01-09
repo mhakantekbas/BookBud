@@ -10,6 +10,7 @@ class BookModel {
   final String? isbntype;
   final int? page;
   final String? language;
+  String? taskid;
 
   BookModel(
       {this.title,
@@ -22,7 +23,8 @@ class BookModel {
       this.isbn,
       this.page,
       this.language,
-      this.isbntype});
+      this.isbntype,
+      this.taskid});
 
   factory BookModel.fromMap(Map<String, dynamic> json) {
     return BookModel(
