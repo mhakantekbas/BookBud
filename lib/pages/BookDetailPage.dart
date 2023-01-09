@@ -108,6 +108,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                             } else {
                               provider.removeList(widget.book);
                             }
+                            print(FirebaseAuth.instance.currentUser!.email);
                           },
                         ),
                       ],

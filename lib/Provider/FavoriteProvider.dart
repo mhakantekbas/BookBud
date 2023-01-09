@@ -5,12 +5,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:term_project/model/book_model.dart';
 
 class FavoriteProvider extends ChangeNotifier {
+  String userid = FirebaseAuth.instance.currentUser!.email!;
   List<BookModel> _favbook = [];
   List<BookModel> get favbook => _favbook;
-  DatabaseReference reference = FirebaseDatabase.instance
-      .ref()
-      .child(FirebaseAuth.instance.currentUser!.uid)
-      .child('likedbooks/');
+  late DatabaseReference reference =
+      FirebaseDatabase.instance.ref().child(userid).child('likedbooks/');
 
   bool isExist(BookModel book) {
     final isExist = _favbook.contains(book);
