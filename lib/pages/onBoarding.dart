@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:term_project/pages/BaseWidget.dart';
 import 'package:term_project/pages/BookListPage.dart';
 
@@ -19,91 +20,88 @@ class _OnBoardingState extends State<OnBoarding> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: const Color.fromARGB(255, 53, 83, 88),
         body: Container(
             child: Column(
-      children: [
-        const SizedBox(
-          height: 20,
-        ),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: const Color.fromARGB(255, 53, 83, 88),
-          ),
-          padding: const EdgeInsets.all(10),
-          margin: const EdgeInsets.all(10),
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            child: const Text(
-              "Pick 4 Genres to Get Started!",
-              style: TextStyle(fontSize: 30, color: Colors.white),
+          children: [
+            const SizedBox(
+              height: 80,
             ),
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.all(20),
-          height: 400,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const SizedBox(height: 5.0),
-              Wrap(
-                spacing: 5.0,
-                children: ExerciseFilter.values.map((ExerciseFilter exercise) {
-                  return FilterChip(
-                    selectedColor: const Color.fromARGB(255, 255, 205, 55),
-                    backgroundColor: const Color.fromARGB(255, 53, 83, 88),
-                    label: Text(
-                      exercise.name,
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                    selected: _filters.contains(exercise.name),
-                    onSelected: (bool value) {
-                      setState(() {
-                        if (value) {
-                          if (!_filters.contains(exercise.name)) {
-                            _filters.add(exercise.name);
-                          }
-                        } else {
-                          _filters.removeWhere((String name) {
-                            return name == exercise.name;
+            Container(
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: Text("Pick 4 Genres to Get Started!",
+                  style:
+                      GoogleFonts.bebasNeue(fontSize: 40, color: Colors.white)),
+            ),
+            Container(
+              padding: const EdgeInsets.all(20),
+              height: 400,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const SizedBox(height: 5.0),
+                  Wrap(
+                    spacing: 5.0,
+                    children: Genres.values.map((Genres genre) {
+                      return FilterChip(
+                        selectedColor: const Color.fromARGB(255, 255, 205, 55),
+                        backgroundColor: Color.fromARGB(146, 53, 83, 88),
+                        label: Text(genre.name,
+                            style: GoogleFonts.ubuntu(color: Colors.white)),
+                        selected: _filters.contains(genre.name),
+                        onSelected: (bool value) {
+                          setState(() {
+                            if (value) {
+                              if (!_filters.contains(genre.name)) {
+                                _filters.add(genre.name);
+                              }
+                            } else {
+                              _filters.removeWhere((String name) {
+                                return name == genre.name;
+                              });
+                            }
                           });
-                        }
-                      });
-                    },
-                  );
-                }).toList(),
+                        },
+                      );
+                    }).toList(),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
-        ElevatedButton.icon(
-            style: ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll<Color>(
-                    _filters.length < 4
-                        ? Colors.grey
-                        : const Color.fromARGB(255, 255, 205, 55))),
-            onPressed: (() {
-              _filters.length < 4
-                  ? null
-                  : Navigator.of(context).pushNamed(BottomBar.routeName);
-            }),
-            icon: const Icon(Icons.done_outline),
-            label: Text("LET'S START 4/${_filters.length}"))
-      ],
-    )));
+            ),
+            ElevatedButton.icon(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll<Color>(
+                        _filters.length < 4
+                            ? Colors.grey
+                            : const Color.fromARGB(255, 255, 205, 55))),
+                onPressed: (() {
+                  _filters.length < 4
+                      ? null
+                      : Navigator.of(context).pushNamed(BottomBar.routeName);
+                }),
+                icon: const Icon(Icons.done_outline),
+                label: Text(
+                  "LET'S START ${_filters.length}/4",
+                  style: GoogleFonts.ubuntu(fontSize: 20),
+                ))
+          ],
+        )));
   }
 }
 
-enum ExerciseFilter {
-  Fantasy,
-  Philosophy,
-  Psychology,
+enum Genres {
+  Inspirational,
   Horror,
-  Dystopian,
-  Biography,
-  Science_Fiction,
-  Non_Fiction,
   Mystery,
-  Thriller,
+  Crime,
+  Paranormal,
+  Fantasy,
+  Thrillers,
+  Historical,
+  Romance,
+  Western,
+  Science,
+  Science_Fiction,
+  Dystopian,
+  Poetry,
 }
