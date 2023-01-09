@@ -28,7 +28,7 @@ class BookGridViewWidget extends StatelessWidget {
               shrinkWrap: true,
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 200,
-                  childAspectRatio: 1,
+                  childAspectRatio: 1 / 1.2,
                   crossAxisSpacing: 1,
                   mainAxisSpacing: 15),
               itemCount: books.length,

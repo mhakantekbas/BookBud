@@ -13,16 +13,23 @@ import 'package:provider/provider.dart';
 import '../Provider/TodoProvider.dart';
 import '../widgets/BookGridViewWidget.dart';
 import '../widgets/search.dart';
+import '../Provider/ThemeProvider.dart';
 
 class BookListScreen extends StatelessWidget {
   static const routeName = '/bookList-page';
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "BOOKS",
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.grey),
-      home: BookPage(),
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    return ChangeNotifierProvider(
+      create: (context) => ThemeProvider(),
+      builder: (context, child) {
+        return MaterialApp(
+          title: "BOOKS",
+          debugShowCheckedModeBanner: false,
+          theme: themeProvider.theme,
+          home: BookPage(),
+        );
+      },
     );
   }
 }
@@ -78,7 +85,7 @@ class _BookPageState extends State<BookPage> {
             child: IconButton(
               icon: Icon(
                 Icons.search,
-                color: Color.fromARGB(255, 53, 83, 88),
+                color: Color.fromARGB(255, 66, 102, 108),
               ),
               onPressed: () {
                 showSearch(context: context, delegate: SearchBook());
@@ -88,81 +95,83 @@ class _BookPageState extends State<BookPage> {
         ],
       ),
       body: SingleChildScrollView(
-          child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(30),
-            // ignore: sort_child_properties_last
-            child: Column(children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Recommended Books",
-                    style: GoogleFonts.ubuntu(
-                        fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "Show All",
-                    style: GoogleFonts.ubuntu(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              SizedBox(
-                height: 200,
-                child: BookGridViewWidget(
-                  bookListFuture: bookListFuture,
-                  provider: provider,
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(30),
+              // ignore: sort_child_properties_last
+              child: Column(children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Recommended Books",
+                      style: GoogleFonts.ubuntu(
+                          fontSize: 15, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      "Show All",
+                      style: GoogleFonts.ubuntu(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue),
+                    )
+                  ],
                 ),
-              ),
-              Row(
-                children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                        border: Border(bottom: BorderSide(color: Colors.blue))),
-                    child: Text(
-                      "Genres",
-                      style: GoogleFonts.ubuntu(
-                          fontSize: 15, fontWeight: FontWeight.bold),
-                    ),
-                    padding: const EdgeInsets.all(8),
+                const SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  height: 200,
+                  child: BookGridViewWidget(
+                    bookListFuture: bookListFuture,
+                    provider: provider,
                   ),
-                  Container(
-                    child: Text(
-                      "Bestsellers",
-                      style: GoogleFonts.ubuntu(
-                          fontSize: 15, fontWeight: FontWeight.bold),
+                ),
+                Row(
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                          border:
+                              Border(bottom: BorderSide(color: Colors.blue))),
+                      child: Text(
+                        "Genres",
+                        style: GoogleFonts.ubuntu(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
+                      padding: const EdgeInsets.all(8),
                     ),
-                    padding: const EdgeInsets.all(8),
-                  ),
-                  Container(
-                    child: Text(
-                      "Newest",
-                      style: GoogleFonts.ubuntu(
-                          fontSize: 15, fontWeight: FontWeight.bold),
+                    Container(
+                      child: Text(
+                        "Bestsellers",
+                        style: GoogleFonts.ubuntu(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
+                      padding: const EdgeInsets.all(8),
                     ),
-                    padding: const EdgeInsets.all(8),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Container(
-                child: BookGridViewWidget(
-                    provider: provider, bookListFuture: bookListFuture),
-              ),
-            ]),
-            color: Colors.white,
-          ),
-        ],
-      )),
+                    Container(
+                      child: Text(
+                        "Newest",
+                        style: GoogleFonts.ubuntu(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
+                      padding: const EdgeInsets.all(8),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  child: BookGridViewWidget(
+                      provider: provider, bookListFuture: bookListFuture),
+                ),
+              ]),
+              //color: Colors.white,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
