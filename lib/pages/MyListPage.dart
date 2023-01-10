@@ -14,10 +14,10 @@ import 'BookDetailPage.dart';
 class MyListPage extends StatelessWidget {
   MyListPage({Key? key}) : super(key: key);
 
-  String userid = FirebaseAuth.instance.currentUser!.uid;
-
   late DatabaseReference reference =
       FirebaseDatabase.instance.ref().child(userid).child('likedbooks/');
+
+  String userid = FirebaseAuth.instance.currentUser!.uid;
 
   final _database = FirebaseDatabase.instance.ref();
 
@@ -36,25 +36,30 @@ class MyListPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             StreamBuilder(
-              stream: BookStreamPublisher().getOrderStream(),
+              stream: _database
+                  .child(userid)
+                  .child("likedbooks")
+                  .orderByKey()
+                  .onValue,
               builder: (context, snapshot) {
                 final tilesList = <ListTile>[];
                 if (snapshot.hasData) {
-                  final myBooks = snapshot.data as List<BookModel>;
-                  tilesList.addAll(myBooks.map((nextBook) {
-                    return ListTile(
-                      leading: Image.network(nextBook.thumbnailUrl!),
-                      title: Text(nextBook.title!),
-                      subtitle: Text(nextBook.author!),
+                  final myBooks = Map<String, dynamic>.from(
+                      snapshot.data!.snapshot.value as Map<dynamic, dynamic>);
+                  myBooks.forEach((key, value) {
+                    final nextbook =
+                        BookModel.fromRTDB(Map<String, dynamic>.from(value));
+                    final bookTile = ListTile(
+                      leading: Image.network(nextbook.thumbnailUrl!),
+                      title: Text(nextbook.title!),
+                      subtitle: Text(nextbook.author!),
                     );
-                  }));
+                    tilesList.add(bookTile);
+                  });
                 } else {
-                  return Center(child: CircularProgressIndicator());
+                  return CircularProgressIndicator();
                 }
-                return Expanded(
-                    child: ListView(
-                  children: tilesList,
-                ));
+                return Expanded(child: ListView(children: tilesList));
               },
             ),
           ],
