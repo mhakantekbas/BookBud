@@ -1,101 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import '../pages/onBoarding.dart';
 import '../model/book_model.dart';
 import '../pages/BookDetailPage.dart';
 
 class Genres extends StatelessWidget {
   Genres({super.key});
-  late Future<List<BookModel>> bookListFuture;
-
-  get provider => null;
 
   @override
   Widget build(BuildContext context) {
+    List<String> genres = [
+      "Inspirational",
+      "Horror",
+      "Mystery",
+      "Crime",
+      "Paranormal",
+      "Fantasy",
+      "Thrillers",
+      "Historical",
+      "Romance",
+      "Western",
+      "Science",
+      "Science_Fiction",
+      "Dystopian",
+      "Poetry",
+    ];
     return Container(
-      child: FutureBuilder<List<BookModel>>(
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            List<BookModel> books = snapshot.data!;
-            return GridView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200,
-                    childAspectRatio: 1,
-                    crossAxisSpacing: 1,
-                    mainAxisSpacing: 15),
-                itemCount: books.length,
-                itemBuilder: (BuildContext ctx, index) {
-                  return Column(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          provider.BookSelector(books[index]);
-                          Navigator.push(
-                            context,
-                            new MaterialPageRoute(
-                              builder: (context) =>
-                                  new BookDetailPage(book: provider.book),
-                            ),
-                          );
-                        },
-                        child: Stack(
-                          alignment: Alignment.bottomCenter,
-                          children: [
-                            Container(
-                              width: 135,
-                              height: 107,
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: const Offset(0, 3),
-                                    ),
-                                  ],
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: Colors.amber.withOpacity(0.8)),
-                            ),
-                            Column(
-                              children: [
-                                Text(""),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        books[index].title!,
-                        style: GoogleFonts.ubuntu(),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Text(
-                        books[index].author!,
-                        style: GoogleFonts.ubuntu(color: Colors.grey),
-                      )
-                    ],
-                  );
-                });
-          } else {
-            return Center(
-              child: SizedBox(
-                height: 40,
-                width: 40,
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-        },
-        future: bookListFuture,
-      ),
-    );
+        padding: EdgeInsets.all(10),
+        child: GridView.builder(
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200,
+                childAspectRatio: 3 / 2,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20),
+            itemCount: 10,
+            itemBuilder: (BuildContext ctx, index) {
+              return Container(
+                  decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 255, 205, 55),
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Center(child: Text(genres[index])));
+            }));
   }
 }

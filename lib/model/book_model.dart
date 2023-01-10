@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class BookModel {
   final String? title;
   final String? author;
@@ -10,6 +12,7 @@ class BookModel {
   final String? isbntype;
   final int? page;
   final String? language;
+  String? taskid;
 
   BookModel(
       {this.title,
@@ -22,7 +25,8 @@ class BookModel {
       this.isbn,
       this.page,
       this.language,
-      this.isbntype});
+      this.isbntype,
+      this.taskid});
 
   factory BookModel.fromMap(Map<String, dynamic> json) {
     return BookModel(
@@ -60,5 +64,12 @@ class BookModel {
           ? json['volumeInfo']['language']!
           : 'No Data...',
     );
+  }
+  factory BookModel.fromRTDB(Map<String, dynamic> data) {
+    return BookModel(
+        title: data["title"] ?? "No Data...",
+        author: data["author"] ?? "No Data...",
+        thumbnailUrl: data["url"] ??
+            "https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png'");
   }
 }

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "471141870423",
+    "firebase_url": "https://bookrec-abbbb-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "bookrec-abbbb",
     "storage_bucket": "bookrec-abbbb.appspot.com"
   },
@@ -19,6 +20,30 @@
           "android_info": {
             "package_name": "com.example.term_project",
             "certificate_hash": "e929fbcd23bda21fb282638aa755d210d89e083a"
+          }
+        },
+        {
+          "client_id": "471141870423-dkgr3n4f1cglungui21j485fbv654ad2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.term_project",
+            "certificate_hash": "1ee7e1158913110dccfbbfba23125790013b6b62"
+          }
+        },
+        {
+          "client_id": "471141870423-krjo0n7cm6719jpsficb7k2619cnga88.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.term_project",
+            "certificate_hash": "53d4f450b37df42a187e9e8bdd3e00a484f9916d"
+          }
+        },
+        {
+          "client_id": "471141870423-l6p7ls6gbvs6fb00hegda6kg221crqts.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.term_project",
+            "certificate_hash": "758d1d6d43d5e745ca4356342f8f11a69037e87f"
           }
         }
       ],

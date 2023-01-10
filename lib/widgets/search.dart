@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:term_project/Provider/TodoProvider.dart';
 import 'package:term_project/services/book_api.dart';
 import 'package:term_project/widgets/BookGridViewWidget.dart';
+import 'package:term_project/widgets/GridViewGenres.dart';
 
 import '../model/book_model.dart';
 
@@ -50,7 +51,7 @@ class SearchBook extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     return Center(
-      child: Text('Search Book'),
+      child: SingleChildScrollView(child: Genres()),
     );
   }
 }

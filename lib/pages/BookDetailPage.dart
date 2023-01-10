@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -23,14 +25,18 @@ class _BookDetailPageState extends State<BookDetailPage> {
   late Future<List<BookModel>> bookListFuture;
   @override
   void initState() {
-    // TODO: implement initState
+    // TODO: implement InitState
+
     super.initState();
     bookListFuture = BookApi.getBookData();
   }
 
   @override
   Widget build(BuildContext context) {
+    String userid = FirebaseAuth.instance.currentUser!.uid;
     final provider = Provider.of<FavoriteProvider>(context);
+    DatabaseReference reference =
+        FirebaseDatabase.instance.ref().child(userid).child('likedbooks/');
 
     return Scaffold(
       backgroundColor: Colors.grey,
@@ -100,7 +106,32 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                 )
                               : const Icon(Icons.favorite_border_outlined),
                           onPressed: () {
-                            provider.toggleFavorite(widget.book);
+                            var books = <String, dynamic>{
+                              "title": widget.book.title,
+                              "author": widget.book.author,
+                              "url": widget.book.thumbnailUrl,
+                            };
+                            if (!provider.isExist(widget.book)) {
+                              widget.book.taskid = reference.push().key!;
+                              reference
+                                  .child(widget.book.taskid!)
+                                  .set(books)
+                                  .then((_) => print("Book has been written!"))
+                                  .catchError(
+                                    (error) => print("You got an error $error"),
+                                  );
+                              provider.addList(widget.book);
+                            } else {
+                              reference
+                                  .child(widget.book.taskid!)
+                                  .remove()
+                                  .then((_) => print("Book has been deleted!"))
+                                  .catchError(
+                                    (error) => print("You got an error $error"),
+                                  );
+                              ;
+                              provider.removeList(widget.book);
+                            }
                           },
                         ),
                       ],
