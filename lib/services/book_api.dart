@@ -40,4 +40,22 @@ class BookApi {
     }
     return books;
   }
+
+  static Future<List<BookModel>> getDataBygenre({String q = "computer"}) async {
+    List<BookModel> books = [];
+    var url = 'https://www.googleapis.com/books/v1/volumes?q=subject:$q';
+    final uri = Uri.parse(url);
+    final response = await http.get(uri);
+    final body = response.body;
+    final json = jsonDecode(body);
+    final results = json['items'] as List<dynamic>;
+    print('api started');
+
+    if (books is List) {
+      books = results.map((e) => BookModel.fromMap(e)).toList();
+    } else {
+      return [];
+    }
+    return books;
+  }
 }
