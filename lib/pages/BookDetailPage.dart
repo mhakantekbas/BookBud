@@ -113,10 +113,23 @@ class _BookDetailPageState extends State<BookDetailPage> {
                             };
                             if (!provider.isExist(widget.book)) {
                               widget.book.taskid = reference.push().key!;
-                              reference.child(widget.book.taskid!).set(books);
+                              reference
+                                  .child(widget.book.taskid!)
+                                  .set(books)
+                                  .then((_) => print("Book has been written!"))
+                                  .catchError(
+                                    (error) => print("You got an error $error"),
+                                  );
                               provider.addList(widget.book);
                             } else {
-                              reference.child(widget.book.taskid!).remove();
+                              reference
+                                  .child(widget.book.taskid!)
+                                  .remove()
+                                  .then((_) => print("Book has been deleted!"))
+                                  .catchError(
+                                    (error) => print("You got an error $error"),
+                                  );
+                              ;
                               provider.removeList(widget.book);
                             }
                           },
