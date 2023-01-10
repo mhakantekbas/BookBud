@@ -5,7 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
-import 'package:term_project/model/BookStreamPublisher.dart';
+
 import 'package:term_project/model/book_model.dart';
 
 import '../Provider/FavoriteProvider.dart';
@@ -27,7 +27,11 @@ class MyListPage extends StatelessWidget {
     final book = provider.favbook;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Favorites'),
+        centerTitle: true,
+        title: Text(
+          'Favorites',
+        ),
+        leading: Icon(Icons.favorite),
       ),
       body: Consumer<FavoriteProvider>(builder: (context, state, widget) {
         var books = state.favbook;
@@ -42,35 +46,44 @@ class MyListPage extends StatelessWidget {
                   .orderByKey()
                   .onValue,
               builder: (context, snapshot) {
-                final tilesList = <ListTile>[];
+                final tilesList = <Card>[];
                 if (snapshot.hasData) {
-                  final myBooks = Map<String, dynamic>.from(
-                      snapshot.data!.snapshot.value as Map<dynamic, dynamic>);
-                  myBooks.forEach((key, value) {
-                    final nextbook =
-                        BookModel.fromRTDB(Map<String, dynamic>.from(value));
-                    final bookTile = ListTile(
-                      leading: Image.network(nextbook.thumbnailUrl!),
-                      title: Text(nextbook.title!),
-                      subtitle: Text(nextbook.author!),
-                      trailing: GestureDetector(
-                        child: Icon(Icons.cancel),
-                        onTap: () {
-                          print(key);
-                          reference
-                              .child(key)
-                              .remove()
-                              .then((_) => print("Book has been deleted!"))
-                              .catchError(
-                                (error) => print("You got an error $error"),
-                              );
-                        },
-                      ),
+                  try {
+                    final myBooks = Map<String, dynamic>.from(
+                        snapshot.data!.snapshot.value as Map<dynamic, dynamic>);
+                    myBooks.forEach((key, value) {
+                      final nextbook =
+                          BookModel.fromRTDB(Map<String, dynamic>.from(value));
+                      final bookTile = Card(
+                        child: ListTile(
+                          leading: Image.network(nextbook.thumbnailUrl!),
+                          title: Text(nextbook.title!),
+                          subtitle: Text(nextbook.author!),
+                          trailing: GestureDetector(
+                            child: Icon(Icons.cancel),
+                            onTap: () {
+                              print(key);
+                              reference
+                                  .child(key)
+                                  .remove()
+                                  .then((_) => print("Book has been deleted!"))
+                                  .catchError(
+                                    (error) => print("You got an error $error"),
+                                  );
+                            },
+                          ),
+                        ),
+                      );
+
+                      tilesList.add(bookTile);
+                    });
+                  } catch (e) {
+                    return Center(
+                      child: Text('Add some books'),
                     );
-                    tilesList.add(bookTile);
-                  });
+                  }
                 } else {
-                  return CircularProgressIndicator();
+                  return Center(child: CircularProgressIndicator());
                 }
                 return Expanded(child: ListView(children: tilesList));
               },

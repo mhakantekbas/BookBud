@@ -51,7 +51,9 @@ class SearchBook extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     return Center(
-      child: SingleChildScrollView(child: Genres()),
+      child: Image.network(
+          'https://cdn-icons-png.flaticon.com/512/3402/3402366.png',
+          cacheHeight: 150),
     );
   }
 }
