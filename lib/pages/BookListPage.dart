@@ -165,9 +165,14 @@ class _BookPageState extends State<BookPage> {
                                   items[index],
                                   style: GoogleFonts.laila(
                                       fontWeight: FontWeight.w500,
-                                      color: current == index
-                                          ? Colors.black
-                                          : Colors.grey),
+                                      color: Theme.of(context).brightness !=
+                                              Brightness.dark
+                                          ? current == index
+                                              ? Colors.black
+                                              : Colors.grey
+                                          : current == index
+                                              ? Colors.black
+                                              : Colors.white70),
                                 ),
                               ),
                             ),
@@ -193,7 +198,7 @@ class _BookPageState extends State<BookPage> {
                   provider: provider,
                   bookListFuture: BookApi.getDataBygenre(q: items[current])),
             ]),
-            color: Colors.white,
+            //color: Colors.white,
           ),
         ],
       )),

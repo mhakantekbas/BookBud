@@ -2,8 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:term_project/constants/constants.dart';
-
 import '../Provider/TodoProvider.dart';
 import '../model/book_model.dart';
 import '../pages/BookDetailPage.dart';
@@ -88,10 +86,13 @@ class BookGridViewWidget extends StatelessWidget {
                     const SizedBox(
                       height: 5,
                     ),
-                    Text(books[index].title!,
-                        style: Constants.kTextStyleHeading),
+                    Text(
+                      books[index].title!,
+                      style: GoogleFonts.ubuntu(),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                     Text(books[index].author!,
-                        style: Constants.kTextStyleSubheading)
+                        style: GoogleFonts.ubuntu(color: Colors.grey)),
                   ],
                 );
               });

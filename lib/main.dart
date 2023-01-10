@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
             theme: provider.theme,
             routes: {
               '/': (context) => const HasData(),
-              BookListScreen.routeName: (context) => BookPage(),
+              BookPage.routeName: (context) => BookPage(),
               SettingsPage.routeName: (context) => SettingsPage(),
               SignInPage.routeName: (context) => SignInPage(),
               OnBoarding.routeName: (context) => const OnBoarding(),

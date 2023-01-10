@@ -5,7 +5,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
-import 'package:term_project/model/BookStreamPublisher.dart';
 import 'package:term_project/model/book_model.dart';
 
 import '../Provider/FavoriteProvider.dart';
@@ -28,6 +27,7 @@ class MyListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Favorites'),
+        backgroundColor: const Color.fromRGBO(53, 83, 88, 1),
       ),
       body: Consumer<FavoriteProvider>(builder: (context, state, widget) {
         var books = state.favbook;
@@ -36,7 +36,6 @@ class MyListPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             StreamBuilder(
-              stream: BookStreamPublisher().getOrderStream(),
               builder: (context, snapshot) {
                 final tilesList = <ListTile>[];
                 if (snapshot.hasData) {

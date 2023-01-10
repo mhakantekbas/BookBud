@@ -39,7 +39,9 @@ class _BookDetailPageState extends State<BookDetailPage> {
         FirebaseDatabase.instance.ref().child(userid).child('likedbooks/');
 
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+          ? Color.fromARGB(255, 30, 30, 30)
+          : Colors.grey,
       body: SingleChildScrollView(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -84,6 +86,8 @@ class _BookDetailPageState extends State<BookDetailPage> {
                   children: [
                     Text(
                       widget.book.title.toString(),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
                       style:
                           GoogleFonts.ubuntu(fontSize: 25, color: Colors.white),
                     ),
@@ -96,8 +100,8 @@ class _BookDetailPageState extends State<BookDetailPage> {
                       children: [
                         ElevatedButton.icon(
                           style: ElevatedButton.styleFrom(
-                            elevation: 10,
-                          ),
+                              elevation: 20,
+                              backgroundColor: Color.fromARGB(255, 53, 83, 88)),
                           label: Text("Favorite"),
                           icon: provider.isExist(widget.book)
                               ? const Icon(
@@ -144,7 +148,11 @@ class _BookDetailPageState extends State<BookDetailPage> {
         ),
         Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30), color: Colors.white),
+            borderRadius: BorderRadius.circular(30),
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Color.fromARGB(255, 208, 204, 208)
+                : Colors.white,
+          ),
           child: Column(
             children: [
               Container(
@@ -161,7 +169,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                     ? EdgeInsets.only(bottom: 0)
                                     : EdgeInsets.only(bottom: 20),
                             child: Text(
-                              overflow: TextOverflow.visible,
+                              overflow: TextOverflow.ellipsis,
                               "Categories: ",
                               style: GoogleFonts.ubuntu(
                                   fontSize: 20, color: Colors.blue),
@@ -197,7 +205,9 @@ class _BookDetailPageState extends State<BookDetailPage> {
                           ),
                           Text(
                             widget.book.page.toString(),
-                            style: GoogleFonts.ubuntu(fontSize: 20),
+                            style: GoogleFonts.ubuntu(
+                              fontSize: 20,
+                            ),
                           ),
                         ],
                       ),
