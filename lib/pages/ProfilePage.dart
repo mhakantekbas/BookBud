@@ -6,17 +6,8 @@ class ProfilePage extends StatelessWidget {
   ProfilePage({Key? key}) : super(key: key);
   final List<Segments> myList = [
     Segments(
-        icon: const Icon(
-          Icons.list,
-          color: Colors.yellow,
-        ),
-        title: 'My List'),
-    Segments(
-        icon: const Icon(Icons.reviews_sharp, color: Colors.yellow),
-        title: 'Reviews'),
-    Segments(
         icon: const Icon(Icons.favorite_border_outlined, color: Colors.yellow),
-        title: 'Liked Books'),
+        title: 'Favorites'),
     Segments(
         icon: const Icon(Icons.settings, color: Colors.yellow),
         title: 'Settings'),

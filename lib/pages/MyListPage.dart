@@ -32,6 +32,7 @@ class MyListPage extends StatelessWidget {
           'Favorites',
         ),
         leading: Icon(Icons.favorite),
+        backgroundColor: const Color.fromRGBO(53, 83, 88, 1),
       ),
       body: Consumer<FavoriteProvider>(builder: (context, state, widget) {
         var books = state.favbook;

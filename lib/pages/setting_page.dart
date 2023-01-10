@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
+import '../Provider/ThemeProvider.dart';
+import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {
   static const routeName = '/settings-page';
@@ -15,9 +17,13 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
-          leading: const Icon(Icons.settings), title: const Text("Settings")),
+        leading: const Icon(Icons.settings),
+        title: const Text("Settings"),
+        backgroundColor: const Color.fromRGBO(53, 83, 88, 1),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,10 +83,11 @@ class _SettingsPageState extends State<SettingsPage> {
                             setState(() {
                               isdarkTheme = value;
                             });
+                            themeProvider.toggleTheme();
                           })),
                       onPressed: (context) {},
                       title: const Text("Dark Theme"),
-                      leading: const Icon(Icons.notifications),
+                      leading: const Icon(Icons.dark_mode),
                     )
                   ],
                 )

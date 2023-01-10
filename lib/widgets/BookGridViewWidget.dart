@@ -2,18 +2,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../Provider/TodoProvider.dart';
 import '../model/book_model.dart';
 import '../pages/BookDetailPage.dart';
 
 class BookGridViewWidget extends StatelessWidget {
-  const BookGridViewWidget({
-    Key? key,
-    required this.provider,
-    required this.bookListFuture,
-  }) : super(key: key);
-
+  const BookGridViewWidget(
+      {Key? key,
+      required this.provider,
+      required this.bookListFuture,
+      this.controller})
+      : super(key: key);
+  final ScrollController? controller;
   final TodoProvider? provider;
   final Future<List<BookModel>> bookListFuture;
 
@@ -24,12 +24,11 @@ class BookGridViewWidget extends StatelessWidget {
         if (snapshot.hasData) {
           List<BookModel> books = snapshot.data!;
           return GridView.builder(
-              physics: const NeverScrollableScrollPhysics(),
+              controller: controller,
               shrinkWrap: true,
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 200,
-                  childAspectRatio: 1,
-                  crossAxisSpacing: 1,
+                  childAspectRatio: 1 / 1.2,
                   mainAxisSpacing: 15),
               itemCount: books.length,
               itemBuilder: (BuildContext ctx, index) {
@@ -92,10 +91,8 @@ class BookGridViewWidget extends StatelessWidget {
                       style: GoogleFonts.ubuntu(),
                       overflow: TextOverflow.ellipsis,
                     ),
-                    Text(
-                      books[index].author!,
-                      style: GoogleFonts.ubuntu(color: Colors.grey),
-                    )
+                    Text(books[index].author!,
+                        style: GoogleFonts.ubuntu(color: Colors.grey)),
                   ],
                 );
               });
