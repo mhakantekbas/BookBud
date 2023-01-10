@@ -53,6 +53,19 @@ class MyListPage extends StatelessWidget {
                       leading: Image.network(nextbook.thumbnailUrl!),
                       title: Text(nextbook.title!),
                       subtitle: Text(nextbook.author!),
+                      trailing: GestureDetector(
+                        child: Icon(Icons.cancel),
+                        onTap: () {
+                          print(key);
+                          reference
+                              .child(key)
+                              .remove()
+                              .then((_) => print("Book has been deleted!"))
+                              .catchError(
+                                (error) => print("You got an error $error"),
+                              );
+                        },
+                      ),
                     );
                     tilesList.add(bookTile);
                   });
