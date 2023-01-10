@@ -11,6 +11,7 @@ import 'package:term_project/pages/setting_page.dart';
 import 'package:term_project/services/notification_service.dart';
 import 'package:term_project/widgets/hasData.dart';
 import 'Provider/FavoriteProvider.dart';
+import 'Provider/ThemeProvider.dart';
 import 'Provider/TodoProvider.dart';
 import 'pages/SignIn.dart';
 
@@ -33,23 +34,27 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(create: (context) => FavoriteProvider()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Book List',
-        theme: ThemeData(
-            colorScheme: ColorScheme.fromSwatch()
-                .copyWith(primary: const Color.fromRGBO(53, 83, 88, 1))),
-        routes: {
-          '/': (context) => const HasData(),
-          BookListScreen.routeName: (context) => BookPage(),
-          SettingsPage.routeName: (context) => SettingsPage(),
-          SignInPage.routeName: (context) => SignInPage(),
-          OnBoarding.routeName: (context) => const OnBoarding(),
-          BottomBar.routeName: (context) => const BottomBar(),
+      child: ChangeNotifierProvider(
+        create: (context) => ThemeProvider(),
+        builder: (context, child) {
+          final provider = Provider.of<ThemeProvider>(context);
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Book List',
+            theme: provider.theme,
+            routes: {
+              '/': (context) => const HasData(),
+              BookListScreen.routeName: (context) => BookPage(),
+              SettingsPage.routeName: (context) => SettingsPage(),
+              SignInPage.routeName: (context) => SignInPage(),
+              OnBoarding.routeName: (context) => const OnBoarding(),
+              BottomBar.routeName: (context) => const BottomBar(),
+            },
+            onUnknownRoute: (settings) => MaterialPageRoute(
+              builder: (context) => const HasData(),
+            ),
+          );
         },
-        onUnknownRoute: (settings) => MaterialPageRoute(
-          builder: (context) => const HasData(),
-        ),
       ),
     );
   }
