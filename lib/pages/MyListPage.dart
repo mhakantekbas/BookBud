@@ -56,22 +56,36 @@ class MyListPage extends StatelessWidget {
                       final nextbook =
                           BookModel.fromRTDB(Map<String, dynamic>.from(value));
                       final bookTile = Card(
-                        child: ListTile(
-                          leading: Image.network(nextbook.thumbnailUrl!),
-                          title: Text(nextbook.title!),
-                          subtitle: Text(nextbook.author!),
-                          trailing: GestureDetector(
-                            child: Icon(Icons.cancel),
-                            onTap: () {
-                              print(key);
-                              reference
-                                  .child(key)
-                                  .remove()
-                                  .then((_) => print("Book has been deleted!"))
-                                  .catchError(
-                                    (error) => print("You got an error $error"),
-                                  );
-                            },
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BookDetailPage(
+                                  book: nextbook,
+                                ),
+                              ),
+                            );
+                          },
+                          child: ListTile(
+                            leading: Image.network(nextbook.thumbnailUrl!),
+                            title: Text(nextbook.title!),
+                            subtitle: Text(nextbook.author!),
+                            trailing: GestureDetector(
+                              child: Icon(Icons.cancel),
+                              onTap: () {
+                                print(key);
+                                reference
+                                    .child(key)
+                                    .remove()
+                                    .then(
+                                        (_) => print("Book has been deleted!"))
+                                    .catchError(
+                                      (error) =>
+                                          print("You got an error $error"),
+                                    );
+                              },
+                            ),
                           ),
                         ),
                       );

@@ -28,6 +28,25 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
+  showLoaderDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: new Row(
+        children: [
+          CircularProgressIndicator(),
+          Container(
+              margin: EdgeInsets.only(left: 7), child: Text("Loading...")),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -46,6 +65,7 @@ class _LoginPageState extends State<LoginPage> {
             );
           });
     }
+    Navigator.of(context).pop();
   }
 
   @override
@@ -263,6 +283,7 @@ class _LoginPageState extends State<LoginPage> {
                             color: const Color.fromARGB(255, 255, 205, 55)),
                         child: TextButton(
                           onPressed: () {
+                            //  showLoaderDialog(context);
                             signIn();
                             NotificationService().showNotification(
                                 0,

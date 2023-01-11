@@ -114,6 +114,14 @@ class _BookDetailPageState extends State<BookDetailPage> {
                               "title": widget.book.title,
                               "author": widget.book.author,
                               "url": widget.book.thumbnailUrl,
+                              "description": widget.book.description,
+                              "categories": widget.book.categories,
+                              "publishdate": widget.book.publishdate,
+                              "page": widget.book.page,
+                              "publisher": widget.book.publisher,
+                              "language": widget.book.language,
+                              "isbntype": widget.book.isbntype,
+                              "isbn": widget.book.isbn,
                             };
                             if (!provider.isExist(widget.book)) {
                               widget.book.taskid = reference.push().key!;

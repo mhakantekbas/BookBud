@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 import '../Provider/ThemeProvider.dart';
@@ -10,14 +12,24 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool isSwitchedRecommender = false;
-  bool isSwitchedUpdate = false;
-  bool isSwitchedNotification = false;
-  bool isdarkTheme = false;
-
+  static String userid = FirebaseAuth.instance.currentUser!.uid;
+  static DatabaseReference referance =
+      FirebaseDatabase.instance.ref().child(userid).child("settings");
+  static bool isSwitchedRecommender = false;
+  static bool isSwitchedUpdate = false;
+  static bool isSwitchedNotification = false;
+  static bool isdarkTheme = false;
+  var settings = <String, dynamic>{
+    "recommender": isSwitchedRecommender,
+    "update": isSwitchedUpdate,
+    "notification": isSwitchedNotification,
+    "darkTheme": isdarkTheme,
+  };
+  //String taskid = referance.push().key!;
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    referance.set(settings);
     return Scaffold(
       appBar: AppBar(
         leading: const Icon(Icons.settings),
