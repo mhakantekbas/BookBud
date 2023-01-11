@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:term_project/Provider/ThemeProvider.dart';
 import 'package:term_project/pages/search_page.dart';
+import 'package:term_project/pages/setting_page.dart';
 
 import 'BookListPage.dart';
 import 'MyListPage.dart';
@@ -21,6 +22,7 @@ class _BottomBarState extends State<BottomBar> {
     MyListPage(),
     BookPage(),
     ProfilePage(),
+    SettingsPage(),
   ];
 
   @override
@@ -53,6 +55,11 @@ class _BottomBarState extends State<BottomBar> {
           ),
           Icon(
             Icons.person,
+            size: 30,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.settings,
             size: 30,
             color: Colors.white,
           ),

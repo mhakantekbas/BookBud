@@ -12,6 +12,7 @@ import '../Provider/FavoriteProvider.dart';
 import 'BookDetailPage.dart';
 
 class MyListPage extends StatelessWidget {
+  static const routeName = '/MyListPage';
   MyListPage({Key? key}) : super(key: key);
 
   late DatabaseReference reference =
@@ -27,7 +28,6 @@ class MyListPage extends StatelessWidget {
     final book = provider.favbook;
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: Text(
           'Favorites',
         ),
