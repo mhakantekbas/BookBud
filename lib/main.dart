@@ -3,12 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:term_project/pages/BaseWidget.dart';
-import 'package:term_project/pages/BookDetailPage.dart';
 import 'package:term_project/pages/BookListPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:term_project/pages/MyListPage.dart';
 import 'package:term_project/pages/onBoarding.dart';
 import 'package:term_project/pages/setting_page.dart';
+import 'package:term_project/pages/splashPage.dart';
 import 'package:term_project/services/notification_service.dart';
 import 'package:term_project/widgets/hasData.dart';
 import 'Provider/FavoriteProvider.dart';
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
             title: 'Book List',
             theme: provider.theme,
             routes: {
-              '/': (context) => const HasData(),
+              '/': (context) => SplashScreen(),
               BookPage.routeName: (context) => BookPage(),
               SettingsPage.routeName: (context) => SettingsPage(),
               SignInPage.routeName: (context) => SignInPage(),
