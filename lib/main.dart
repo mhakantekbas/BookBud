@@ -6,6 +6,7 @@ import 'package:term_project/pages/BaseWidget.dart';
 import 'package:term_project/pages/BookDetailPage.dart';
 import 'package:term_project/pages/BookListPage.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:term_project/pages/MyListPage.dart';
 import 'package:term_project/pages/onBoarding.dart';
 import 'package:term_project/pages/setting_page.dart';
 import 'package:term_project/services/notification_service.dart';
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
               SignInPage.routeName: (context) => SignInPage(),
               OnBoarding.routeName: (context) => const OnBoarding(),
               BottomBar.routeName: (context) => const BottomBar(),
+              MyListPage.routeName: (context) => MyListPage(),
             },
             onUnknownRoute: (settings) => MaterialPageRoute(
               builder: (context) => const HasData(),

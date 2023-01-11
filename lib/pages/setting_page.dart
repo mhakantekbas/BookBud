@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:term_project/pages/ProfilePage.dart';
 import '../Provider/ThemeProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +21,13 @@ class _SettingsPageState extends State<SettingsPage> {
     final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.settings),
+        leading: GestureDetector(
+            child: Icon(Icons.arrow_back),
+            onTap: () {
+              Navigator.of(context).pushNamed(ProfilePage.routeName);
+            }
+            //Burda anasayfaya gidiyorr. whyyyy  ?
+            ),
         title: const Text("Settings"),
         backgroundColor: const Color.fromRGBO(53, 83, 88, 1),
       ),
@@ -87,7 +94,9 @@ class _SettingsPageState extends State<SettingsPage> {
                           })),
                       onPressed: (context) {},
                       title: const Text("Dark Theme"),
-                      leading: const Icon(Icons.dark_mode),
+                      leading: Theme.of(context).brightness == Brightness.dark
+                          ? Icon(Icons.dark_mode)
+                          : Icon(Icons.sunny),
                     )
                   ],
                 )
