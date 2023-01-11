@@ -126,9 +126,21 @@ class _BookPageState extends State<BookPage> {
                   provider: provider,
                 ),
               ),
-              SizedBox(
+              Container(
                 width: double.infinity,
                 height: 60,
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(10, 53, 83, 88),
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
                 child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     itemCount: items.length,
@@ -169,7 +181,7 @@ class _BookPageState extends State<BookPage> {
                                               Brightness.dark
                                           ? current == index
                                               ? Colors.black
-                                              : Colors.grey
+                                              : Colors.grey[600]
                                           : current == index
                                               ? Colors.black
                                               : Colors.white70),
@@ -191,7 +203,7 @@ class _BookPageState extends State<BookPage> {
                     }),
               ),
               const SizedBox(
-                height: 10,
+                height: 30,
               ),
               BookGridViewWidget(
                   controller: scrollController2,
