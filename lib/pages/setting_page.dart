@@ -13,41 +13,38 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  static String userid = FirebaseAuth.instance.currentUser!.uid;
-  static DatabaseReference referance =
+  late DatabaseReference referance =
       FirebaseDatabase.instance.ref().child(userid).child("settings");
+  String userid = FirebaseAuth.instance.currentUser!.uid;
+
   static bool isSwitchedRecommender = false;
   static bool isSwitchedUpdate = false;
   static bool isSwitchedNotification = false;
   static bool isdarkTheme = false;
+
   var settings = <String, dynamic>{
     "recommender": isSwitchedRecommender,
     "update": isSwitchedUpdate,
     "notification": isSwitchedNotification,
     "darkTheme": isdarkTheme,
   };
-  //String taskid = referance.push().key!;
-  @override
-  Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-    referance.set(settings);
-    return Scaffold(
-      appBar: AppBar(
-        leading: GestureDetector(
-            child: Icon(Icons.arrow_back),
-            onTap: () {
-              Navigator.of(context).pushNamed(ProfilePage.routeName);
-            }
-            //Burda anasayfaya gidiyorr. whyyyy  ?
-            ),
-        title: const Text("Settings"),
-        backgroundColor: const Color.fromRGBO(53, 83, 88, 1),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
+
+  FutureBuilder readData() {
+    return FutureBuilder(
+      future: referance.once(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return const Text("Error");
+        } else if (snapshot.connectionState == ConnectionState.done) {
+          try {
+            final values = Map<String, dynamic>.from(
+                snapshot.data!.snapshot.value as Map<dynamic, dynamic>);
+            final themeProvider = Provider.of<ThemeProvider>(context);
+            isSwitchedRecommender = values["recommender"];
+            isSwitchedUpdate = values["update"];
+            isSwitchedNotification = values["notification"];
+            isdarkTheme = values["darkTheme"];
+            return Expanded(
               child: SettingsList(sections: [
                 SettingsSection(
                   title: const Text(
@@ -62,6 +59,9 @@ class _SettingsPageState extends State<SettingsPage> {
                           onChanged: ((value) {
                             setState(() {
                               isSwitchedRecommender = value;
+                              referance.update({
+                                "recommender": isSwitchedRecommender,
+                              });
                             });
                           })),
                       onPressed: (context) {},
@@ -75,6 +75,9 @@ class _SettingsPageState extends State<SettingsPage> {
                           onChanged: ((value) {
                             setState(() {
                               isSwitchedUpdate = value;
+                              referance.update({
+                                "update": isSwitchedUpdate,
+                              });
                             });
                           })),
                       onPressed: (context) {},
@@ -88,6 +91,9 @@ class _SettingsPageState extends State<SettingsPage> {
                           onChanged: ((value) {
                             setState(() {
                               isSwitchedNotification = value;
+                              referance.update({
+                                "notification": isSwitchedNotification,
+                              });
                             });
                           })),
                       onPressed: (context) {},
@@ -101,6 +107,9 @@ class _SettingsPageState extends State<SettingsPage> {
                           onChanged: ((value) {
                             setState(() {
                               isdarkTheme = value;
+                              referance.update({
+                                "darkTheme": isdarkTheme,
+                              });
                             });
                             themeProvider.toggleTheme();
                           })),
@@ -113,7 +122,42 @@ class _SettingsPageState extends State<SettingsPage> {
                   ],
                 )
               ]),
-            ),
+            );
+          } catch (e) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("No Settings Found"),
+                  ElevatedButton(
+                    onPressed: () {
+                      referance.set(settings);
+                    },
+                    child: const Text("Create Settings"),
+                  ),
+                ],
+              ),
+            );
+          }
+        }
+        return const Center(child: CircularProgressIndicator());
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: Icon(Icons.settings),
+        title: const Text("Settings"),
+        backgroundColor: const Color.fromRGBO(53, 83, 88, 1),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            readData(),
           ],
         ),
       ),
