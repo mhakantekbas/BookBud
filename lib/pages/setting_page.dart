@@ -124,19 +124,85 @@ class _SettingsPageState extends State<SettingsPage> {
               ]),
             );
           } catch (e) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("No Settings Found"),
-                  ElevatedButton(
-                    onPressed: () {
-                      referance.set(settings);
-                    },
-                    child: const Text("Create Settings"),
+            final themeProvider = Provider.of<ThemeProvider>(context);
+            return Expanded(
+              child: SettingsList(sections: [
+                SettingsSection(
+                  title: const Text(
+                    "Common",
+                    style: TextStyle(color: Colors.black),
                   ),
-                ],
-              ),
+                  tiles: [
+                    SettingsTile.navigation(
+                      trailing: Switch(
+                          activeColor: const Color.fromARGB(255, 255, 205, 55),
+                          value: isSwitchedRecommender,
+                          onChanged: ((value) {
+                            setState(() {
+                              isSwitchedRecommender = value;
+                              referance.update({
+                                "recommender": isSwitchedRecommender,
+                              });
+                            });
+                          })),
+                      onPressed: (context) {},
+                      title: const Text("Recommender System"),
+                      leading: const Icon(Icons.recommend_rounded),
+                    ),
+                    SettingsTile.navigation(
+                      trailing: Switch(
+                          activeColor: const Color.fromARGB(255, 255, 205, 55),
+                          value: isSwitchedUpdate,
+                          onChanged: ((value) {
+                            setState(() {
+                              isSwitchedUpdate = value;
+                              referance.update({
+                                "update": isSwitchedUpdate,
+                              });
+                            });
+                          })),
+                      onPressed: (context) {},
+                      title: const Text("Offer Updates"),
+                      leading: const Icon(Icons.cloud_download),
+                    ),
+                    SettingsTile.navigation(
+                      trailing: Switch(
+                          activeColor: const Color.fromARGB(255, 255, 205, 55),
+                          value: isSwitchedNotification,
+                          onChanged: ((value) {
+                            setState(() {
+                              isSwitchedNotification = value;
+                              referance.update({
+                                "notification": isSwitchedNotification,
+                              });
+                            });
+                          })),
+                      onPressed: (context) {},
+                      title: const Text("Notifications"),
+                      leading: const Icon(Icons.notifications),
+                    ),
+                    SettingsTile.navigation(
+                      trailing: Switch(
+                          activeColor: const Color.fromARGB(255, 255, 205, 55),
+                          value: !isdarkTheme,
+                          onChanged: ((value) {
+                            setState(() {
+                              isdarkTheme = value;
+                              referance.update({
+                                "darkTheme": isdarkTheme,
+                              });
+                              themeProvider.toggleTheme();
+                            });
+                          })),
+                      onPressed: (context) {},
+                      title: const Text("Dark Theme"),
+                      leading: Theme.of(context).brightness == Brightness.dark
+                          ? Icon(Icons.dark_mode)
+                          : Icon(Icons.sunny),
+                    )
+                  ],
+                )
+              ]),
             );
           }
         }
