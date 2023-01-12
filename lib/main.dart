@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:term_project/Provider/RecommendationProvider.dart';
 import 'package:term_project/pages/BaseWidget.dart';
 import 'package:term_project/pages/BookListPage.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -33,7 +34,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (BuildContext context) => TodoProvider(),
         ),
-        ChangeNotifierProvider(create: (context) => FavoriteProvider()),
+        ChangeNotifierProvider(
+          create: (context) => FavoriteProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => RecommendationProvider(),
+        )
       ],
       child: ChangeNotifierProvider(
         create: (context) => ThemeProvider(),
