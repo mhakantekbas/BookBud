@@ -264,10 +264,10 @@ class _LoginPageState extends State<LoginPage> {
                         child: TextButton(
                           onPressed: () {
                             signIn();
-                            NotificationService().showNotification(
-                                0,
-                                "Hey have you read this book",
-                                "Hey have you read");
+                            // NotificationService().showNotification(
+                            //     0,
+                            //     "Hey have you read this book",
+                            //     "Hey have you read");
                           },
                           child: Text('Log in',
                               style: GoogleFonts.ubuntu(
@@ -291,10 +291,10 @@ class _LoginPageState extends State<LoginPage> {
                         child: TextButton(
                           onPressed: () async {
                             await FirebaseServices().signInWithGoogle();
-                            NotificationService().showNotification(
-                                0,
-                                "Hey have you read this book",
-                                "Hey have you read");
+                            // NotificationService().showNotification(
+                            //     0,
+                            //     "Hey have you read this book",
+                            //     "Hey have you read");
                           },
                           child: Row(
                             children: [
