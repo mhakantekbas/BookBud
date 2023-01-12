@@ -74,7 +74,6 @@ class MyListPage extends StatelessWidget {
                             trailing: GestureDetector(
                               child: Icon(Icons.cancel),
                               onTap: () {
-                                print(key);
                                 reference
                                     .child(key)
                                     .remove()

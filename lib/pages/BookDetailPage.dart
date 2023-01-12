@@ -155,6 +155,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
           ),
         ),
         Container(
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             color: Theme.of(context).brightness == Brightness.dark
@@ -283,14 +284,6 @@ class _BookDetailPageState extends State<BookDetailPage> {
                       ),
                       padding: const EdgeInsets.all(8),
                     ),
-                    Container(
-                      child: Text(
-                        "Reviews",
-                        style: GoogleFonts.ubuntu(
-                            fontSize: 15, fontWeight: FontWeight.bold),
-                      ),
-                      padding: const EdgeInsets.all(8),
-                    ),
                   ],
                 ),
               ),
@@ -310,6 +303,82 @@ class _BookDetailPageState extends State<BookDetailPage> {
                   ],
                 ),
                 child: Text(widget.book.description.toString()),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
+                child: Row(
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                          border:
+                              Border(bottom: BorderSide(color: Colors.grey))),
+                      child: Text(
+                        "Similar Books",
+                        style: GoogleFonts.ubuntu(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
+                      padding: const EdgeInsets.all(8),
+                    ),
+                  ],
+                ),
+              ),
+              FutureBuilder(
+                future: BookApi.getDataByQuery(q: widget.book.title.toString()),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Container(
+                      height: 200,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => BookDetailPage(
+                                            book: snapshot.data![index],
+                                          )));
+                            },
+                            child: Container(
+                              width: 150,
+                              child: Card(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: 150,
+                                      width: 150,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(15),
+                                        child: Image.network(
+                                          snapshot.data![index].thumbnailUrl
+                                              .toString(),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      snapshot.data![index].title.toString(),
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.ubuntu(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
               ),
             ],
           ),

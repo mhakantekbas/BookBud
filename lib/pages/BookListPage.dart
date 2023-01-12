@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:term_project/model/book_model.dart';
 import 'package:term_project/pages/BookDetailPage.dart';
+import 'package:term_project/pages/onBoarding.dart';
 
 import 'package:term_project/services/book_api.dart';
 import 'package:term_project/widgets/firebase_services.dart';
@@ -27,7 +28,6 @@ class _BookPageState extends State<BookPage> {
   late Future<List<BookModel>> bookListFuture;
   late ScrollController scrollController;
   late ScrollController scrollController2;
-
   @override
   void initState() {
     // TODO: implement initState
@@ -49,6 +49,7 @@ class _BookPageState extends State<BookPage> {
     'Mystery',
     'Thriller',
   ];
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<TodoProvider>(context);
@@ -99,20 +100,17 @@ class _BookPageState extends State<BookPage> {
             // ignore: sort_child_properties_last
             child: Column(children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Recommended Books",
-                    style: GoogleFonts.ubuntu(
-                        fontSize: 15, fontWeight: FontWeight.bold),
+                  Container(
+                    decoration: const BoxDecoration(
+                        border: Border(bottom: BorderSide(color: Colors.grey))),
+                    child: Text(
+                      "Recommended You",
+                      style: GoogleFonts.ubuntu(
+                          fontSize: 15, fontWeight: FontWeight.bold),
+                    ),
+                    padding: const EdgeInsets.all(8),
                   ),
-                  Text(
-                    "Show All",
-                    style: GoogleFonts.ubuntu(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue),
-                  )
                 ],
               ),
               const SizedBox(
@@ -122,7 +120,7 @@ class _BookPageState extends State<BookPage> {
                 height: MediaQuery.of(context).size.height / 3,
                 child: BookGridViewWidget(
                   controller: scrollController,
-                  bookListFuture: bookListFuture,
+                  bookListFuture: BookApi.getDataBygenre(q: "horror"),
                   provider: provider,
                 ),
               ),

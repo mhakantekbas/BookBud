@@ -17,10 +17,6 @@ class _OnBoardingState extends State<OnBoarding> {
   bool favorite = false;
   final List<String> _filters = <String>[];
   List<String> get filters => _filters;
-  
-
-
-
 
   @override
   Widget build(BuildContext context) {
