@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:term_project/model/book_model.dart';
 import 'package:term_project/pages/BookDetailPage.dart';
 import 'package:term_project/pages/onBoarding.dart';
@@ -237,9 +237,5 @@ class _BookPageState extends State<BookPage> {
     var random = new Random();
     int element = random.nextInt(10);
     return element;
-  }
-
-  void getRecommendedData() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
   }
 }

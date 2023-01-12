@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:term_project/Provider/RecommendationProvider.dart';
 import 'package:term_project/pages/BaseWidget.dart';
 import 'package:term_project/pages/BookListPage.dart';
