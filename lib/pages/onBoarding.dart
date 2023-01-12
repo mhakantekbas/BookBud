@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:term_project/Provider/RecommendationProvider.dart';
 import 'package:term_project/pages/BaseWidget.dart';
 import 'package:term_project/pages/BookListPage.dart';
 
@@ -20,6 +23,8 @@ class _OnBoardingState extends State<OnBoarding> {
 
   @override
   Widget build(BuildContext context) {
+    final recommendationProvider = Provider.of<RecommendationProvider>(context);
+
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 53, 83, 88),
         body: Container(
@@ -55,9 +60,12 @@ class _OnBoardingState extends State<OnBoarding> {
                             if (value) {
                               if (!_filters.contains(genre.name)) {
                                 _filters.add(genre.name);
+
+                                recommendationProvider.addList(genre.name);
                               }
                             } else {
                               _filters.removeWhere((String name) {
+                                recommendationProvider.removeList(genre.name);
                                 return name == genre.name;
                               });
                             }
