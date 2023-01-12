@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:term_project/model/book_model.dart';
 import 'package:term_project/pages/BookDetailPage.dart';
 import 'package:term_project/pages/onBoarding.dart';
@@ -11,6 +14,7 @@ import 'package:term_project/widgets/firebase_services.dart';
 
 import 'package:provider/provider.dart';
 
+import '../Provider/RecommendationProvider.dart';
 import '../Provider/TodoProvider.dart';
 import '../widgets/BookGridViewWidget.dart';
 import '../widgets/search.dart';
@@ -39,20 +43,25 @@ class _BookPageState extends State<BookPage> {
 
   int current = 0;
   List<String> items = [
-    'Fantasy',
-    'Philosophy',
-    'Psychology',
+    'Inspirational',
     'Horror',
-    'Dystopian',
-    'Biography',
-    'Science Fiction',
     'Mystery',
-    'Thriller',
+    'Crime',
+    'Paranormal',
+    'Fantasy',
+    'Thrillers',
+    'Historical',
+    'Romance',
+    'Western',
+    'Science',
+    'Science Fiction',
+    'Dystopian',
   ];
 
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<TodoProvider>(context);
+    final recommendationProvider = Provider.of<RecommendationProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -120,7 +129,8 @@ class _BookPageState extends State<BookPage> {
                 height: MediaQuery.of(context).size.height / 3,
                 child: BookGridViewWidget(
                   controller: scrollController,
-                  bookListFuture: BookApi.getDataBygenre(q: "horror"),
+                  bookListFuture: recommendedBooks(
+                      list: recommendationProvider.recommendations),
                   provider: provider,
                 ),
               ),
@@ -128,16 +138,8 @@ class _BookPageState extends State<BookPage> {
                 width: double.infinity,
                 height: 60,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(10, 53, 83, 88),
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: const Offset(0, 3), // changes position of shadow
-                    ),
-                  ],
                 ),
                 child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
@@ -159,8 +161,8 @@ class _BookPageState extends State<BookPage> {
                               height: 45,
                               decoration: BoxDecoration(
                                 color: current == index
-                                    ? Colors.white70
-                                    : Colors.white54,
+                                    ? Colors.white
+                                    : Colors.white70,
                                 borderRadius: current == index
                                     ? BorderRadius.circular(15)
                                     : BorderRadius.circular(10),
@@ -213,5 +215,31 @@ class _BookPageState extends State<BookPage> {
         ],
       )),
     );
+  }
+
+  void dispose() {
+    scrollController.dispose();
+    scrollController2.dispose();
+    super.dispose();
+  }
+
+  Future<List<BookModel>> recommendedBooks({required List<String> list}) async {
+    List<BookModel> books = [];
+    for (int i = 0; i < list.length; i++) {
+      int randomNumber = random(); // randNum = 3
+      List<BookModel> bookModel = await BookApi.getDataByQuery(q: list[i]);
+      books.add(bookModel[randomNumber]);
+    }
+    return books;
+  }
+
+  int random() {
+    var random = new Random();
+    int element = random.nextInt(10);
+    return element;
+  }
+
+  void getRecommendedData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
   }
 }
