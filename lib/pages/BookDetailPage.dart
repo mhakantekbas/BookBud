@@ -93,6 +93,8 @@ class _BookDetailPageState extends State<BookDetailPage> {
                     ),
                     Text(
                       widget.book.author.toString(),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                       style:
                           GoogleFonts.ubuntu(color: Colors.black, fontSize: 20),
                     ),
