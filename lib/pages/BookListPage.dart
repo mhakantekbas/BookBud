@@ -73,9 +73,9 @@ class _BookPageState extends State<BookPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: const Icon(
-          Icons.list,
-          color: Color.fromARGB(255, 53, 83, 88),
+        leading: Image.asset(
+          'assets/images/logo.png',
+          color: const Color.fromARGB(255, 53, 83, 88),
         ),
         centerTitle: true,
         title: Text(

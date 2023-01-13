@@ -184,7 +184,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     SettingsTile.navigation(
                       trailing: Switch(
                           activeColor: const Color.fromARGB(255, 255, 205, 55),
-                          value: !isdarkTheme,
+                          value: isdarkTheme,
                           onChanged: ((value) {
                             setState(() {
                               isdarkTheme = value;
