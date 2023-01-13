@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:term_project/widgets/firebase_services.dart';
 import 'package:email_validator/email_validator.dart';
 
-import '../services/notification_service.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = '/logIn-page';
@@ -266,10 +265,6 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () {
                             //  showLoaderDialog(context);
                             signIn();
-                            NotificationService().showNotification(
-                                0,
-                                "Hey have you read this book",
-                                "Hey have you read");
                           },
                           child: Text('Log in',
                               style: GoogleFonts.ubuntu(
@@ -293,10 +288,6 @@ class _LoginPageState extends State<LoginPage> {
                         child: TextButton(
                           onPressed: () async {
                             await FirebaseServices().signInWithGoogle();
-                            NotificationService().showNotification(
-                                0,
-                                "Hey have you read this book",
-                                "Hey have you read");
                           },
                           child: Row(
                             children: [

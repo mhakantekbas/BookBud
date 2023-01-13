@@ -1,6 +1,8 @@
 // ignore_for_file: depend_on_referenced_packages
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:grock/grock.dart';
 import 'package:provider/provider.dart';
 import 'package:term_project/Provider/RecommendationProvider.dart';
 import 'package:term_project/pages/BaseWidget.dart';
@@ -10,6 +12,8 @@ import 'package:term_project/pages/MyListPage.dart';
 import 'package:term_project/pages/onBoarding.dart';
 import 'package:term_project/pages/setting_page.dart';
 import 'package:term_project/pages/splashPage.dart';
+import 'package:term_project/services/getFcm.dart';
+import 'package:term_project/services/newFirebaseMessagingService.dart';
 import 'package:term_project/services/notification_service.dart';
 import 'package:term_project/widgets/hasData.dart';
 import 'Provider/FavoriteProvider.dart';
@@ -19,8 +23,10 @@ import 'pages/SignIn.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  NotificationService().initializeNotification();
+
   await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(FireBaseNotificationService().backgroundMessage);
+  getFcmToken();
   runApp(const MyApp());
 }
 
@@ -49,6 +55,8 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'Book List',
             theme: provider.theme,
+            navigatorKey: Grock.navigationKey,
+            scaffoldMessengerKey: Grock.scaffoldMessengerKey,
             routes: {
               '/': (context) => SplashScreen(),
               BookPage.routeName: (context) => BookPage(),

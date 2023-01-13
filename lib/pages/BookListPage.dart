@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:term_project/model/book_model.dart';
@@ -17,6 +18,8 @@ import 'package:term_project/widgets/hasData.dart';
 
 import '../Provider/RecommendationProvider.dart';
 import '../Provider/TodoProvider.dart';
+import '../services/newFirebaseMessagingService.dart';
+import '../services/notification_service.dart';
 import '../widgets/BookGridViewWidget.dart';
 import '../widgets/BookListViewWidget.dart';
 import '../widgets/search.dart';
@@ -30,7 +33,9 @@ class BookPage extends StatefulWidget {
 }
 
 class _BookPageState extends State<BookPage> {
+  int notificationCounter = 0;
   FirebaseServices _firebaseServices = FirebaseServices();
+  // final _messagingService = FireBaseNotificationService();
   late Future<List<BookModel>> bookListFuture;
   late Future<List<BookModel>> bookListFuture2;
 
@@ -45,8 +50,24 @@ class _BookPageState extends State<BookPage> {
     super.initState();
     scrollController = ScrollController();
     scrollController2 = ScrollController();
+    // _messagingService.connectNotification();
+    NotificationService().initializeNotification();
+    if(notificationCounter %3 == 0){
+      NotificationService().showNotification(
+          0,
+          'İşte senin için yeni bir kitap!',
+          "George Orwell'dan 1984 kitabın okudun mu?",
+          "https://m.media-amazon.com/images/I/41ZSD4N4MdL._SY344_BO1,204,203,200_QL70_ML2_.jpg"
+
+      );
+      notificationCounter++;
+    }
+
+
     bookListFuture = BookApi.getBookData();
     bookListFuture2 = BookApi.recommendedBooks(list: items);
+
+
   }
 
   int current = 0;
@@ -68,6 +89,21 @@ class _BookPageState extends State<BookPage> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseMessaging.onMessage.listen((event) {
+      NotificationService().showNotification(
+          0,
+          event.notification!.title!,
+          event.notification!.body!,
+          event.notification!.android!.imageUrl!
+        );
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen((event) { NotificationService().showNotification(
+        0,
+        event.notification!.title!,
+        event.notification!.body!,
+        event.notification!.android!.imageUrl!
+    );});
+
     final provider = Provider.of<TodoProvider>(context);
     final recommendationProvider = Provider.of<RecommendationProvider>(context);
     return Scaffold(
