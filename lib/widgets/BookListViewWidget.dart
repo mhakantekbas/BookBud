@@ -4,8 +4,8 @@ import '../Provider/TodoProvider.dart';
 import '../model/book_model.dart';
 import '../pages/BookDetailPage.dart';
 
-class BookGridViewWidget extends StatelessWidget {
-  const BookGridViewWidget(
+class BookListViewWidget extends StatelessWidget {
+  const BookListViewWidget(
       {Key? key,
       required this.provider,
       required this.bookListFuture,
@@ -21,14 +21,11 @@ class BookGridViewWidget extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<BookModel> books = snapshot.data!;
-          return GridView.builder(
+          return ListView.builder(
               controller: controller,
               shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
-                  childAspectRatio: 1 / 1.2,
-                  mainAxisSpacing: 15),
-              itemCount: books.length,
+              itemCount: 4,
+              scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext ctx, index) {
                 return Column(
                   children: [

@@ -46,6 +46,7 @@ class _LoginPageState extends State<LoginPage> {
             );
           });
     }
+    Navigator.of(context).pop();
   }
 
   @override
@@ -263,6 +264,7 @@ class _LoginPageState extends State<LoginPage> {
                             color: const Color.fromARGB(255, 255, 205, 55)),
                         child: TextButton(
                           onPressed: () {
+                            //  showLoaderDialog(context);
                             signIn();
                             NotificationService().showNotification(
                                 0,

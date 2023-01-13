@@ -5,11 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:term_project/Provider/TodoProvider.dart';
 import 'package:term_project/services/book_api.dart';
 import 'package:term_project/widgets/BookGridViewWidget.dart';
-import 'package:term_project/widgets/GridViewGenres.dart';
-
-import '../model/book_model.dart';
 
 class SearchBook extends SearchDelegate {
+  ScrollController controller = ScrollController();
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -45,13 +43,16 @@ class SearchBook extends SearchDelegate {
         child: BookGridViewWidget(
           provider: todoProvider,
           bookListFuture: BookApi.getDataByQuery(q: query),
+          controller: controller,
         ));
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     return Center(
-      child: SingleChildScrollView(child: Genres()),
+      child: Image.network(
+          'https://cdn-icons-png.flaticon.com/512/3402/3402366.png',
+          cacheHeight: 150),
     );
   }
 }

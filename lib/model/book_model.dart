@@ -67,9 +67,18 @@ class BookModel {
   }
   factory BookModel.fromRTDB(Map<String, dynamic> data) {
     return BookModel(
-        title: data["title"] ?? "No Data...",
-        author: data["author"] ?? "No Data...",
-        thumbnailUrl: data["url"] ??
-            "https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png'");
+      title: data["title"] ?? "No Data...",
+      author: data["author"] ?? "No Data...",
+      thumbnailUrl: data["url"] ??
+          "https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png'",
+      description: data["description"] ?? "No Data...",
+      categories: data["categories"] ?? "No Data...",
+      publishdate: data["publishdate"] ?? "No Data...",
+      publisher: data["publisher"] ?? "No Data...",
+      isbn: data["isbn"] ?? "No Data...",
+      isbntype: data["isbntype"] ?? "No Data...",
+      page: data["page"] ?? "No Data...",
+      language: data["language"] ?? "No Data...",
+    );
   }
 }

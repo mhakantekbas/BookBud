@@ -39,14 +39,16 @@ class _BookDetailPageState extends State<BookDetailPage> {
         FirebaseDatabase.instance.ref().child(userid).child('likedbooks/');
 
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+          ? Color.fromARGB(255, 30, 30, 30)
+          : Colors.grey,
       body: SingleChildScrollView(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         GestureDetector(
           onTap: () => Navigator.pop(context),
           child: Container(
-              padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
+              padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
               child: Icon(Icons.arrow_back_ios_new_outlined)),
         ),
         Container(
@@ -73,6 +75,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                   child: Image.network(
                     widget.book.thumbnailUrl.toString(),
                     fit: BoxFit.fill,
+                    width: 120,
                   ),
                 ),
               ),
@@ -84,11 +87,15 @@ class _BookDetailPageState extends State<BookDetailPage> {
                   children: [
                     Text(
                       widget.book.title.toString(),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
                       style:
                           GoogleFonts.ubuntu(fontSize: 25, color: Colors.white),
                     ),
                     Text(
                       widget.book.author.toString(),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                       style:
                           GoogleFonts.ubuntu(color: Colors.black, fontSize: 20),
                     ),
@@ -96,8 +103,8 @@ class _BookDetailPageState extends State<BookDetailPage> {
                       children: [
                         ElevatedButton.icon(
                           style: ElevatedButton.styleFrom(
-                            elevation: 10,
-                          ),
+                              elevation: 20,
+                              backgroundColor: Color.fromARGB(255, 53, 83, 88)),
                           label: Text("Favorite"),
                           icon: provider.isExist(widget.book)
                               ? const Icon(
@@ -110,6 +117,14 @@ class _BookDetailPageState extends State<BookDetailPage> {
                               "title": widget.book.title,
                               "author": widget.book.author,
                               "url": widget.book.thumbnailUrl,
+                              "description": widget.book.description,
+                              "categories": widget.book.categories,
+                              "publishdate": widget.book.publishdate,
+                              "page": widget.book.page,
+                              "publisher": widget.book.publisher,
+                              "language": widget.book.language,
+                              "isbntype": widget.book.isbntype,
+                              "isbn": widget.book.isbn,
                             };
                             if (!provider.isExist(widget.book)) {
                               widget.book.taskid = reference.push().key!;
@@ -143,8 +158,13 @@ class _BookDetailPageState extends State<BookDetailPage> {
           ),
         ),
         Container(
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30), color: Colors.white),
+            borderRadius: BorderRadius.circular(30),
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Color.fromARGB(255, 208, 204, 208)
+                : Colors.white,
+          ),
           child: Column(
             children: [
               Container(
@@ -161,7 +181,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                     ? EdgeInsets.only(bottom: 0)
                                     : EdgeInsets.only(bottom: 20),
                             child: Text(
-                              overflow: TextOverflow.visible,
+                              overflow: TextOverflow.ellipsis,
                               "Categories: ",
                               style: GoogleFonts.ubuntu(
                                   fontSize: 20, color: Colors.blue),
@@ -197,7 +217,9 @@ class _BookDetailPageState extends State<BookDetailPage> {
                           ),
                           Text(
                             widget.book.page.toString(),
-                            style: GoogleFonts.ubuntu(fontSize: 20),
+                            style: GoogleFonts.ubuntu(
+                              fontSize: 20,
+                            ),
                           ),
                         ],
                       ),
@@ -265,14 +287,6 @@ class _BookDetailPageState extends State<BookDetailPage> {
                       ),
                       padding: const EdgeInsets.all(8),
                     ),
-                    Container(
-                      child: Text(
-                        "Reviews",
-                        style: GoogleFonts.ubuntu(
-                            fontSize: 15, fontWeight: FontWeight.bold),
-                      ),
-                      padding: const EdgeInsets.all(8),
-                    ),
                   ],
                 ),
               ),
@@ -292,6 +306,83 @@ class _BookDetailPageState extends State<BookDetailPage> {
                   ],
                 ),
                 child: Text(widget.book.description.toString()),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
+                child: Row(
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                          border:
+                              Border(bottom: BorderSide(color: Colors.grey))),
+                      child: Text(
+                        "Similar Books",
+                        style: GoogleFonts.ubuntu(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
+                      padding: const EdgeInsets.all(8),
+                    ),
+                  ],
+                ),
+              ),
+              FutureBuilder(
+                future: BookApi.getDataByQuery(q: widget.book.title.toString()),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Container(
+                      height: 200,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => BookDetailPage(
+                                            book: snapshot.data![index],
+                                          )));
+                            },
+                            child: Container(
+                              width: 150,
+                              child: Card(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: 150,
+                                      width: 150,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(15),
+                                        child: Image.network(
+                                          snapshot.data![index].thumbnailUrl
+                                              .toString(),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      snapshot.data![index].title.toString(),
+                                      overflow: TextOverflow.ellipsis,
+                                      softWrap: true,
+                                      style: GoogleFonts.ubuntu(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
               ),
             ],
           ),
