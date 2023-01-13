@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:http/http.dart' as http;
 import 'package:term_project/model/book_model.dart';
@@ -55,6 +56,19 @@ class BookApi {
       books = results.map((e) => BookModel.fromMap(e)).toList();
     } else {
       return [];
+    }
+    return books;
+  }
+
+  static Future<List<BookModel>> recommendedBooks(
+      {required List<String> list}) async {
+    var random = new Random();
+    int element = random.nextInt(10);
+    List<BookModel> books = [];
+    for (int i = 0; i < 4; i++) {
+      int randomNumber = element; // randNum = 3
+      List<BookModel> bookModel = await BookApi.getDataByQuery(q: list[i]);
+      books.add(bookModel[randomNumber]);
     }
     return books;
   }

@@ -48,7 +48,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
         GestureDetector(
           onTap: () => Navigator.pop(context),
           child: Container(
-              padding: EdgeInsets.fromLTRB(20, 20, 0, 0),
+              padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
               child: Icon(Icons.arrow_back_ios_new_outlined)),
         ),
         Container(
@@ -75,6 +75,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                   child: Image.network(
                     widget.book.thumbnailUrl.toString(),
                     fit: BoxFit.fill,
+                    width: 120,
                   ),
                 ),
               ),
@@ -361,6 +362,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                     Text(
                                       snapshot.data![index].title.toString(),
                                       overflow: TextOverflow.ellipsis,
+                                      softWrap: true,
                                       style: GoogleFonts.ubuntu(
                                           fontSize: 15,
                                           fontWeight: FontWeight.bold),
@@ -374,7 +376,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                       ),
                     );
                   } else {
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
