@@ -9,6 +9,7 @@ Features:
 -Dark theme option
 
 Technologies that we used:
+
 -Authentication (Firebase)
 -Real-Time Database
 - Google books API
