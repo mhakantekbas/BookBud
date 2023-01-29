@@ -18,7 +18,7 @@ import 'package:term_project/widgets/hasData.dart';
 
 import '../Provider/RecommendationProvider.dart';
 import '../Provider/TodoProvider.dart';
-import '../services/newFirebaseMessagingService.dart';
+
 import '../services/notification_service.dart';
 import '../widgets/BookGridViewWidget.dart';
 import '../widgets/BookListViewWidget.dart';
@@ -52,22 +52,17 @@ class _BookPageState extends State<BookPage> {
     scrollController2 = ScrollController();
     // _messagingService.connectNotification();
     NotificationService().initializeNotification();
-    if(notificationCounter %3 == 0){
+    if (notificationCounter % 3 == 0) {
       NotificationService().showNotification(
           0,
           'İşte senin için yeni bir kitap!',
           "George Orwell'dan 1984 kitabın okudun mu?",
-          "https://m.media-amazon.com/images/I/41ZSD4N4MdL._SY344_BO1,204,203,200_QL70_ML2_.jpg"
-
-      );
+          "https://m.media-amazon.com/images/I/41ZSD4N4MdL._SY344_BO1,204,203,200_QL70_ML2_.jpg");
       notificationCounter++;
     }
 
-
     bookListFuture = BookApi.getBookData();
     bookListFuture2 = BookApi.recommendedBooks(list: items);
-
-
   }
 
   int current = 0;
@@ -90,19 +85,13 @@ class _BookPageState extends State<BookPage> {
   @override
   Widget build(BuildContext context) {
     FirebaseMessaging.onMessage.listen((event) {
-      NotificationService().showNotification(
-          0,
-          event.notification!.title!,
-          event.notification!.body!,
-          event.notification!.android!.imageUrl!
-        );
+      NotificationService().showNotification(0, event.notification!.title!,
+          event.notification!.body!, event.notification!.android!.imageUrl!);
     });
-    FirebaseMessaging.onMessageOpenedApp.listen((event) { NotificationService().showNotification(
-        0,
-        event.notification!.title!,
-        event.notification!.body!,
-        event.notification!.android!.imageUrl!
-    );});
+    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+      NotificationService().showNotification(0, event.notification!.title!,
+          event.notification!.body!, event.notification!.android!.imageUrl!);
+    });
 
     final provider = Provider.of<TodoProvider>(context);
     final recommendationProvider = Provider.of<RecommendationProvider>(context);

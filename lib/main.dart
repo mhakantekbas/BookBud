@@ -12,8 +12,6 @@ import 'package:term_project/pages/MyListPage.dart';
 import 'package:term_project/pages/onBoarding.dart';
 import 'package:term_project/pages/setting_page.dart';
 import 'package:term_project/pages/splashPage.dart';
-import 'package:term_project/services/getFcm.dart';
-import 'package:term_project/services/newFirebaseMessagingService.dart';
 import 'package:term_project/services/notification_service.dart';
 import 'package:term_project/widgets/hasData.dart';
 import 'Provider/FavoriteProvider.dart';
@@ -25,8 +23,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
-  FirebaseMessaging.onBackgroundMessage(FireBaseNotificationService().backgroundMessage);
-  getFcmToken();
+  // FirebaseMessaging.onBackgroundMessage(FireBaseNotificationService().backgroundMessage);
+  // getFcmToken();
   runApp(const MyApp());
 }
 
